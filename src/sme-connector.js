@@ -1,7 +1,7 @@
 module.exports = function(RED) {
 	"use strict";
 	
-	const util = require('./sme-util.js');
+	const core = require('./sme-core.js');
 	
     function SmeConnectorNode(config) {		
         RED.nodes.createNode(this,config);
@@ -11,7 +11,7 @@ module.exports = function(RED) {
 		this.smeToken = config.token;
 		
 		function sendWsMessage(msg){
-			this.log('sendWsMessage: ', msg);
+			node.log('sendWsMessage: ', msg);
 		}
 		
 		this.smeSend = sendWsMessage;

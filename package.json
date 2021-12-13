@@ -4,13 +4,21 @@
 	"description": "semilimes BOT",
 	"author": "Phuc Nguyen",
 	"license": "Apache 2.0",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/semimob/node-red-connector.git"
+	},
+	"bugs": {
+		"url": "https://github.com/semimob/node-red-connector/issues"
+	},
+	"homepage": "https://github.com/semimob/node-red-connector#readme",
 	"dependencies": {},
 	"test": "echo \"Error: no test specified\" && exit 1",
 	"keywords": [
 		"node-red",
 		"semilimes"
 	],
-	"main": "./src/sme-util.js",
+	"main": "./src/sme-core.js",
 	"node-red": {
 		"nodes": {
 			"sme-server": "src/sme-server.js",
