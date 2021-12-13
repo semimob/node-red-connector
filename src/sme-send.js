@@ -1,6 +1,7 @@
-module.exports = function(RED) {
-	"use strict";
-	
+"use strict";
+
+module.exports = function(RED) {	
+
     function SmeSendNode(config) {		
         RED.nodes.createNode(this,config);
 		var node = this;

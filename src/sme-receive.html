@@ -1,0 +1,38 @@
+<script type="text/javascript">
+    RED.nodes.registerType('sme-receive',{
+        category: 'semilimes',
+        defaults: {
+            name: {value:""},
+			connector: {
+				type: 'sme-connector',
+				required: true
+			}
+        },
+        inputs:0,
+        outputs:1,
+		align: 'left',
+		icon: "font-awesome/fa-send",
+        label: function() {
+			return this.name||'receive';
+        },
+		labelStyle: function() {
+			return this.name?"node_label_italic":"";
+		},
+		paletteLabel: 'receive'
+    });
+</script>
+
+<script type="text/html" data-template-name="sme-receive">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+	<div class="form-row">
+		<label for="node-input-connector"><i class="fa fa-tag"></i> Connector</label>
+		<input type="text" id="node-input-connector" placeholder="semilimes connector">
+	</div>
+</script>
+
+<script type="text/html" data-help-name="sme-receive">
+    <p>Receive message.</p>
+</script>
