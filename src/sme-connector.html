@@ -1,0 +1,101 @@
+<script type="text/javascript">
+    RED.nodes.registerType('sme-connector',{
+        category: 'config',
+        defaults: {
+            name: {value:""},
+			server: {
+				type: 'sme-server',
+				required: true
+			},
+			token: {value: ""},
+        },
+		icon: "font-awesome/qrcode",
+        label: function() {
+			if (this.name)
+				return this.name;
+			if (this.server){
+				var configNode = RED.nodes.node(this.server);
+				if (configNode && configNode.host)
+					return '[' + configNode.host + ']';
+			}
+            return "smilimes connector";
+        },
+		labelStyle: function() {
+			return this.name?"node_label_italic":"";
+		},
+		oneditprepare: function() {
+			displayToken(this.token);
+		}
+    });
+	
+	function updateQrCode(token){
+		token = token || $('#node-config-input-token').val();
+		
+		if (token){
+			var server = $('#node-config-input-server').val();
+			var configNode = RED.nodes.node(server);
+			if (configNode){
+				var qrContent = 'https://' + configNode.host + ':' + (configNode.port && 443) + '/CloudServer/qr/' + token + '/9F61CEE4-07F5-43B6-AED7-4BAA1325F2C1';
+				var qrCodeImageUrl = 'https://' + configNode.host + ':' + (configNode.port || 443) + '/CloudServer/api/FF0DB915-A2C3-455A-ABBD-973CD6287FBB?text=' + encodeURI(qrContent);
+				console.log(qrCodeImageUrl);
+				$('#tokenQRCodeImg').attr('src', qrCodeImageUrl);
+				$('#tokenQRCodeContainer').show();
+			}
+		}
+		else{
+			$('#tokenQRCodeImg').attr('src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==');
+			$('#tokenQRCodeContainer').hide();
+		}
+	}
+	
+	function displayToken(token){
+		$('#node-config-input-token').val(token);
+		updateQrCode(token)
+	}
+	
+	function generateToken() {		
+		// Get token from UI
+		var token = $('#node-config-input-token').val();
+		if (token && !confirm('Replace the current token!'))
+			return;
+
+		// Remove last QR-Code
+		displayToken(null);
+		
+		// Call server to generate token.
+		var server = $('#node-config-input-server').val();
+		var configNode = RED.nodes.node(server);
+		if (configNode){
+			var generateTokenUrl = 'https://' + configNode.host + ':' + (configNode.port || 443) + '/CloudServer/api/E3ABADBC-1919-4123-8314-48C257724064?format=json';
+			$.getJSON(generateTokenUrl, function (value){
+				displayToken(value.Token);
+			});
+		}
+	}
+</script>
+
+<script type="text/html" data-template-name="sme-connector">
+    <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-config-input-name" placeholder="Name">
+    </div>
+	<div class="form-row">
+		<label for="node-config-input-server"><i class="fa fa-tag"></i> Server</label>
+		<input type="text" id="node-config-input-server" placeholder="semilimes server">
+	</div>
+	<div class="form-row">
+		<label for="node-config-input-token"><i class="fa fa-tag"></i> Token</label>
+		<input type="text" id="node-config-input-token" onchange="updateQrCode()">
+	</div>
+	
+	<button id="generateTokenButton" type="button" class="red-ui-button" onclick="generateToken()">Generate Token</button>
+	
+	<div id="tokenQRCodeContainer">
+		<p>Scan this QR Code with semilimes Messenger to approve the token.</p>
+		<img id="tokenQRCodeImg" src=""></img>
+	</div>
+</script>
+
+<script type="text/html" data-help-name="sme-connector">
+    <p>Connect to semilimes server for communication.</p>
+</script>
