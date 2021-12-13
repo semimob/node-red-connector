@@ -23,7 +23,8 @@
 		"nodes": {
 			"sme-server": "src/sme-server.js",
 			"sme-connector": "src/sme-connector.js",
-			"sme-send": "src/sme-send.js"
+			"sme-send": "src/sme-send.js",
+			"sme-receive": "src/sme-receive.js"
 		}
 	}
 }

@@ -1,7 +1,7 @@
+const core = require('./sme-core.js');
+
 module.exports = function(RED) {
 	"use strict";
-	
-	const core = require('./sme-core.js');
 	
     function SmeConnectorNode(config) {		
         RED.nodes.createNode(this,config);

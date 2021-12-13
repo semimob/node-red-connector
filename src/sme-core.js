@@ -1,99 +1,98 @@
 const https = require('https');
-const ws = require('ws');
+// const ws = require('ws');
 
-//--------------------SmeWebSocket-----------------------------------
-function SmeWebSocket(path, notifier){
-	var webSocket = null;
-	var requestedToClose = false;
-	var reconnectTimer = null;
+// //--------------------SmeWebSocket-----------------------------------
+// function SmeWebSocket(path, notifier){
+	// var webSocket = null;
+	// var requestedToClose = false;
+	// var reconnectTimer = null;
 	
-	function connect(){
-		disconnect();
-		requestedToClose = false;
+	// function connect(){
+		// disconnect();
+		// requestedToClose = false;
 		
-		var isNoProxyPath = false;
-		var envProxy = process.env.HTTP_PROXY || process.env.http_proxy;
-		var envNoproxies = (process.env.NO_PROXY || process.env.no_proxy || "").split(",");
-		if (envNoproxies){
-			for (var i in envNoproxies){
-				if (path.indexOf(envNoproxies[i].trim()) !== -1){
-					isNoProxyPath = true;
-					break;
-				}
-			}
-		}
+		// var isNoProxyPath = false;
+		// var envProxy = process.env.HTTP_PROXY || process.env.http_proxy;
+		// var envNoproxies = (process.env.NO_PROXY || process.env.no_proxy || "").split(",");
+		// if (envNoproxies){
+			// for (var i in envNoproxies){
+				// if (path.indexOf(envNoproxies[i].trim()) !== -1){
+					// isNoProxyPath = true;
+					// break;
+				// }
+			// }
+		// }
 		
-		var proxyAgent = null;
-		if (envProxy && isNoProxyPath == false) {
-			proxyAgent = new HttpsProxyAgent(prox);
-		}
+		// var proxyAgent = null;
+		// if (envProxy && isNoProxyPath == false) {
+			// proxyAgent = new HttpsProxyAgent(prox);
+		// }
 
-		var options = {};
-		if (proxyAgent) {
-			options.agent = proxyAgent;
-		}
+		// var options = {};
+		// if (proxyAgent) {
+			// options.agent = proxyAgent;
+		// }
 		
-		webSocket = new ws.WebSocket(path,options);
-		webSocket.setMaxListeners(0);
-		handleConnection(webSocket);
-	}
+		// webSocket = new ws.WebSocket(path,options);
+		// webSocket.setMaxListeners(0);
+		// handleConnection(webSocket);
+	// }
 	
-	function disconnect(){
-		requestedToClose = true;
-		if (webSocket){
-			webSocket.close();
-			webSocket = null;
-		}
-	}
+	// function disconnect(){
+		// requestedToClose = true;
+		// if (webSocket){
+			// webSocket.close();
+			// webSocket = null;
+		// }
+	// }
 	
-	function reconnect(){
-		if (requestedToClose != true) {
-			clearTimeout(reconnectTimer);
-			reconnectTimer = setTimeout(function() { connect(); }, 5000); // try to reconnect every 5 secs... bit fast ?
-		}
-	}
+	// function reconnect(){
+		// if (requestedToClose != true) {
+			// clearTimeout(reconnectTimer);
+			// reconnectTimer = setTimeout(function() { connect(); }, 5000); // try to reconnect every 5 secs... bit fast ?
+		// }
+	// }
 	
-	function handleConnection(socket) {
-		socket.on('open',function() {
-			if (notifier) {
-				notifier.emit('opened',{count:'',id:id});
-			}
-		});
+	// function handleConnection(socket) {
+		// socket.on('open',function() {
+			// if (notifier) {
+				// notifier.emit('opened',{count:'',id:id});
+			// }
+		// });
 		
-		socket.on('close',function() {
-			if(notifier) {
-				notifier.emit('closed',{count:'',id:id});
-			}
+		// socket.on('close',function() {
+			// if(notifier) {
+				// notifier.emit('closed',{count:'',id:id});
+			// }
 			
-			reconnect();
-		});
+			// reconnect();
+		// });
 		
-		socket.on('message',function(msg, flags) {
-			if(notifier){
-				notifier.emit('message', msg);
-			}
-		});
+		// socket.on('message',function(msg, flags) {
+			// if(notifier){
+				// notifier.emit('message', msg);
+			// }
+		// });
 		
-		socket.on('error', function(err) {
-			if(notifier){
-				notifier.emit('error', err);
-			}
+		// socket.on('error', function(err) {
+			// if(notifier){
+				// notifier.emit('error', err);
+			// }
 			
-			reconnect();
-		});
-	}
+			// reconnect();
+		// });
+	// }
 	
-	function send(msg){
-		if (webSocket){
-			webSocket.send(msg);
-		}
-	}
+	// function send(msg){
+		// if (webSocket){
+			// webSocket.send(msg);
+		// }
+	// }
 	
-	this.send = send;
-	connect();
-};
+	// this.send = send;
+	// connect();
+// };
 
-//--------------------SmeClient-----------------------------------
 function SmeClient(host, port){
 	if (typeof host === 'object'){
 		this.host = host.host || 'cloud.semilimes.net';
