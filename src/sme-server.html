@@ -1,17 +1,17 @@
 <script type="text/javascript">
-    RED.nodes.registerType('sme-server',{
+    RED.nodes.registerType('sme-server', {
         category: 'config',
         defaults: {
-			name: {value:""},
-            host: {value:"cloud.semilimes.net"},
-			port: {value:""},
+            name: { value: "" },
+            host: { value: "cloud.semilimes.net" },
+            port: { value: "" },
         },
-        label: function() {
-            return this.name||this.host||"semilimes server";
+        label: function () {
+            return this.name || this.host || "semilimes server";
         },
-		labelStyle: function() {
-			return this.name?"node_label_italic":"";
-		}
+        labelStyle: function () {
+            return this.name ? "node_label_italic" : "";
+        }
     });
 </script>
 

@@ -12,15 +12,17 @@
 		"url": "https://github.com/semimob/node-red-connector/issues"
 	},
 	"homepage": "https://github.com/semimob/node-red-connector#readme",
-	"dependencies": {},
+	"dependencies": {
+		"ws": "https://github.com/websockets/ws.git"
+	},
 	"test": "echo \"Error: no test specified\" && exit 1",
 	"keywords": [
 		"node-red",
 		"semilimes"
 	],
-	"main": "./src/sme-core.js",
 	"node-red": {
 		"nodes": {
+			"sme-core": "src/sme-core.js",
 			"sme-server": "src/sme-server.js",
 			"sme-connector": "src/sme-connector.js",
 			"sme-send": "src/sme-send.js",

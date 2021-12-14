@@ -1,24 +1,24 @@
 <script type="text/javascript">
-    RED.nodes.registerType('sme-receive',{
+    RED.nodes.registerType('sme-receive', {
         category: 'semilimes',
         defaults: {
-            name: {value:""},
-			connector: {
-				type: 'sme-connector',
-				required: true
-			}
+            name: { value: "" },
+            connector: {
+                type: 'sme-connector',
+                required: true
+            }
         },
-        inputs:0,
-        outputs:1,
-		align: 'left',
-		icon: "font-awesome/fa-send",
-        label: function() {
-			return this.name||'receive';
+        inputs: 0,
+        outputs: 1,
+        align: 'left',
+        icon: "font-awesome/fa-send",
+        label: function () {
+            return this.name || 'receive';
         },
-		labelStyle: function() {
-			return this.name?"node_label_italic":"";
-		},
-		paletteLabel: 'receive'
+        labelStyle: function () {
+            return this.name ? "node_label_italic" : "";
+        },
+        paletteLabel: 'receive'
     });
 </script>
 
