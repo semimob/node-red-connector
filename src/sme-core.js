@@ -35,11 +35,16 @@ module.exports = function (RED) {
                 proxyAgent = new HttpsProxyAgent(prox);
             }
 
-            var options = {};
+            var options = {
+                perMessageDeflate: false,
+                rejectUnauthorized: false
+            };
+
             if (proxyAgent) {
                 options.agent = proxyAgent;
             }
 
+            console.log(`Connect to "${serverWsURL}"... `);
             webSocket = new ws.WebSocket(serverWsURL, options);
             webSocket.setMaxListeners(0);
             handleConnection(webSocket);
@@ -62,11 +67,11 @@ module.exports = function (RED) {
 
         function handleConnection(socket) {
             socket.on('open', function () {
-                console.log('ws open!');
+                console.log('ws opened!');
             });
 
             socket.on('close', function () {
-                console.log('ws close!');
+                console.log('ws closed!');
 
                 reconnect();
             });
@@ -78,7 +83,7 @@ module.exports = function (RED) {
             });
 
             socket.on('error', function (err) {
-                console.log('ws error!');
+                console.log('ws error!' + err);
 
                 reconnect();
             });
@@ -93,7 +98,8 @@ module.exports = function (RED) {
         this.send = send;
         this.close = disconnect;
 
-        connect();
+        if (serverWsURL)
+            connect();
     };
 
     function SmeApiClient(serverApiURL) {

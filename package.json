@@ -13,7 +13,7 @@
 	},
 	"homepage": "https://github.com/semimob/node-red-connector#readme",
 	"dependencies": {
-		"ws": "https://github.com/websockets/ws.git"
+		"ws": "github:websockets/ws"
 	},
 	"test": "echo \"Error: no test specified\" && exit 1",
 	"keywords": [

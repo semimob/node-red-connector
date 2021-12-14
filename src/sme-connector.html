@@ -2,12 +2,9 @@
     RED.nodes.registerType('sme-connector', {
         category: 'config',
         defaults: {
-            name: { value: "" },
-            server: {
-                type: 'sme-server',
-                required: true
-            },
-            token: { value: "" },
+            name: { value: '' },
+            server: { type: 'sme-server' },
+            token: { value: '' },
         },
         label: function () {
             if (this.name)
@@ -32,7 +29,7 @@
 
         if (token) {
             var server = $('#node-config-input-server').val();
-            var configNode = RED.nodes.node(server);
+            var configNode = (server && RED.nodes.node(server)) || { host: 'cloud.semilimes.net' };
             if (configNode) {
                 var qrContent = 'https://' + configNode.host + ':' + (configNode.port && 443) + '/CloudServer/qr/' + token + '/9F61CEE4-07F5-43B6-AED7-4BAA1325F2C1';
                 var qrCodeImageUrl = 'https://' + configNode.host + ':' + (configNode.port || 443) + '/CloudServer/api/FF0DB915-A2C3-455A-ABBD-973CD6287FBB?text=' + encodeURI(qrContent);
@@ -63,7 +60,7 @@
 
         // Call server to generate token.
         var server = $('#node-config-input-server').val();
-        var configNode = RED.nodes.node(server);
+        var configNode = (server && RED.nodes.node(server)) || { host: 'cloud.semilimes.net' };
         if (configNode) {
             var generateTokenUrl = 'https://' + configNode.host + ':' + (configNode.port || 443) + '/CloudServer/api/E3ABADBC-1919-4123-8314-48C257724064?format=json';
             $.getJSON(generateTokenUrl, function (value) {
