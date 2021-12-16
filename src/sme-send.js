@@ -9,11 +9,25 @@ module.exports = function (RED) {
         var smeConnector = config.connector && RED.nodes.getNode(config.connector);
 
         node.on('input', function (msg, send, done) {
-            if (smeConnector != null)
-                smeConnector.sendMessage(msg);
+            if (smeConnector != null) {
+                send = send || function () { node.send.apply(node, arguments) };
 
-            if (done)
-                done();
+                var promise = smeConnector.sendMessage(msg.payload);
+                promise.then(
+                    value => {
+                        send(msg, false);
+                        done && done(value);
+                    },
+                    reason => {
+                        msg.error = reason;
+                        send(msg, false);
+                        done && done(reason);
+                    }
+                );
+            }
+            else {
+                done && done();
+            }
         });
     };
 

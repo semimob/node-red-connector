@@ -26,6 +26,7 @@
 			"sme-server": "src/sme-server.js",
 			"sme-connector": "src/sme-connector.js",
 			"sme-send": "src/sme-send.js",
+			"sme-post": "src/sme-post.js",
 			"sme-receive": "src/sme-receive.js"
 		}
 	}
