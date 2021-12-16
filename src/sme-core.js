@@ -72,29 +72,29 @@ module.exports = function (RED) {
 
             socket.on('close', function () {
                 console.log('ws closed!');
-
                 reconnect();
             });
 
             socket.on('message', function (msg, flags) {
                 console.log('ws message!');
-
                 thisSmeWebSocket.emit('message', msg);
             });
 
             socket.on('error', function (err) {
                 console.log('ws error!' + err);
-
                 reconnect();
             });
         }
 
         function send(msg) {
-            if (webSocket) {
+            if (webSocket && msg) {
+                if (typeof (msg) === 'object')
+                    msg = JSON.stringify(msg);
                 webSocket.send(msg);
             }
         }
 
+        //  Export
         this.send = send;
         this.close = disconnect;
 
@@ -143,7 +143,7 @@ module.exports = function (RED) {
     };
 
     return {
-        createApiClient: SmeApiClient,
-        createWebSocket: SmeWebSocket
+        SmeApiClient: SmeApiClient,
+        SmeWebSocket: SmeWebSocket
     };
 }

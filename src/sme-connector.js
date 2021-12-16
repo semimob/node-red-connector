@@ -14,23 +14,20 @@ module.exports = function (RED) {
         var token = config.token;
         var core = new Core();
 
-        var apiClient = core.createApiClient(serverApiURL);
-        var webSocket = core.createWebSocket(serverWsURL);
+        var apiClient = new core.SmeApiClient(serverApiURL);
+        var webSocket = new core.SmeWebSocket(serverWsURL);
 
         var node = this;
 		
 		function sendWebSocketMessage(msg){
-			node.log('sendWsMessage: ' + msg);
             webSocket.send(msg);
         }
 
         function callApi(methodID, data) {
-            node.log('callAPI: ' + methodID);
             return apiClient.callApi(methodID, data);
         }
 
         function addMessageListener(listener) {
-            node.log('registerMessageListener');
             webSocket.on('message', listener);
         }
 
