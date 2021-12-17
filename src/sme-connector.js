@@ -19,7 +19,6 @@ module.exports = function (RED) {
         }
 
         return {
-            Type: 'chat',
             Body: msg,
         };
     }
@@ -45,9 +44,10 @@ module.exports = function (RED) {
             webSocket.send(msg);
         }
 
-        function sendApiMessage(msg) {
+        function sendApiMessage(msg, async) {
             msg = validateMessage(msg);
-            return apiClient.callApi('4E9DDB53-00A3-4006-AFBC-2C4102EC69C1', { Token: msg.AuthToken || token, Message: msg });
+            var methodID = async ? '3A01CE9E-F850-4049-AD45-DA372E44B89B' : '4E9DDB53-00A3-4006-AFBC-2C4102EC69C1';
+            return apiClient.callApi(methodID, { Token: msg.AuthToken || token, Message: msg });
         }
 
         function callApi(methodID, data) {

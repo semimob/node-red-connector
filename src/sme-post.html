@@ -1,6 +1,7 @@
 <script type="text/javascript">
     RED.nodes.registerType('sme-post', {
         category: 'semilimes',
+        color: "#D7D7A0",
         defaults: {
             name: { value: "" },
             connector: {
@@ -9,7 +10,7 @@
             }
         },
         inputs: 1,
-        outputs: 1,
+        outputs: 0,
         align: 'right',
         icon: "font-awesome/fa-send-o",
         label: function () {
@@ -34,5 +35,5 @@
 </script>
 
 <script type="text/html" data-help-name="sme-post">
-    <p>Send message.</p>
+    <p>Send message asynchronously to semilimes.</p>
 </script>

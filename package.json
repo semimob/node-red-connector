@@ -27,7 +27,10 @@
 			"sme-connector": "src/sme-connector.js",
 			"sme-send": "src/sme-send.js",
 			"sme-post": "src/sme-post.js",
-			"sme-receive": "src/sme-receive.js"
+			"sme-receive": "src/sme-receive.js",
+			"sme-file": "src/sme-file.js",
+			"sme-text": "src/sme-text.js",
+			"sme-html": "src/sme-html.js"
 		}
 	}
 }

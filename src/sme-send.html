@@ -1,19 +1,18 @@
 <script type="text/javascript">
     RED.nodes.registerType('sme-send', {
         category: 'semilimes',
+        color: "#D7D7A0",
         defaults: {
             name: { value: "" },
-            connector: {
-                type: 'sme-connector',
-                required: true
-            }
+            connector: { type: 'sme-connector', required: true },
+            async: { value: 1, required: true },
         },
         inputs: 1,
         outputs: 1,
-        align: 'right',
-        icon: "font-awesome/fa-send",
+        align: 'left',
+        icon: "font-awesome/fa-send-o",
         label: function () {
-            return this.name || 'send';
+            return this.name || ('send' + (this.async==1 ? ' async' : ''));
         },
         labelStyle: function () {
             return this.name ? "node_label_italic" : "";
@@ -27,12 +26,19 @@
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
-	<div class="form-row">
-		<label for="node-input-connector"><i class="fa fa-tag"></i> Connector</label>
-		<input type="text" id="node-input-connector" placeholder="semilimes connector">
-	</div>
+    <div class="form-row">
+        <label for="node-input-connector"><i class="fa fa-tag"></i> Connector</label>
+        <input type="text" id="node-input-connector" placeholder="semilimes connector">
+    </div>
+    <div class="form-row">
+        <label for="node-input-async"><i class="fa fa-spinner"></i> <span> Send</span></label>
+        <select id="node-input-async">
+            <option value="0">Synchronously</option>
+            <option value="1" selected>Asynchronously</option>
+        </select>
+    </div>
 </script>
 
 <script type="text/html" data-help-name="sme-send">
-    <p>Send message.</p>
+    <p>Send message synchronously to semilimes.</p>
 </script>

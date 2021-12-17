@@ -4,15 +4,16 @@ module.exports = function (RED) {
 
     function SmeSendNode(config) {
         RED.nodes.createNode(this, config);
+        this.async = config.async;
         var node = this;
 
         var smeConnector = config.connector && RED.nodes.getNode(config.connector);
 
         node.on('input', function (msg, send, done) {
-            if (smeConnector != null) {
-                send = send || function () { node.send.apply(node, arguments) };
+            send = send || function () { node.send.apply(node, arguments) };
 
-                var promise = smeConnector.sendMessage(msg.payload);
+            if (smeConnector != null) {
+                var promise = smeConnector.sendMessage(msg.payload, node.async);
                 promise.then(
                     value => {
                         send(msg, false);
@@ -26,6 +27,7 @@ module.exports = function (RED) {
                 );
             }
             else {
+                send(msg, false);
                 done && done();
             }
         });

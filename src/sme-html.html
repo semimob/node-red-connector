@@ -1,0 +1,41 @@
+<script type="text/javascript">
+    RED.nodes.registerType('sme-html', {
+        category: 'semilimes',
+        color: '#E2D96E',
+        defaults: {
+            name: { value: "" },
+            html: { value: "" },
+            text: { value: "" }
+        },
+        inputs: 1,
+        outputs: 1,
+        align: 'left',
+        icon: "font-awesome/fa-file-text-o",
+        label: function () {
+            return this.name || 'create HTML message';
+        },
+        labelStyle: function () {
+            return this.name ? "node_label_italic" : "";
+        },
+        paletteLabel: 'create HTML message'
+    });
+</script>
+
+<script type="text/html" data-template-name="sme-html">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-html"><i class="fa fa-tag"></i> HTML</label>
+        <input type="text" id="node-input-html" placeholder="msg.payload">
+    </div>
+    <div class="form-row">
+        <label for="node-input-text"><i class="fa fa-tag"></i> Alt</label>
+        <input type="text" id="node-input-text">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="sme-html">
+    <p>Create HTML message.</p>
+</script>
