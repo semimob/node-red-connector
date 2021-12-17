@@ -37,6 +37,11 @@ module.exports = function (RED) {
         var webSocket = new core.SmeWebSocket(serverWsURL);
 
         var node = this;
+
+        node.on('close', function (removed, done) {
+            webSocket.close();
+            done();
+        });
 		
         function sendWebSocketMessage(msg) {
             msg = validateMessage(msg);
