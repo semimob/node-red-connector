@@ -25,13 +25,13 @@ module.exports = function (RED) {
 
     function SmeConnectorNode(config) {		
         RED.nodes.createNode(this, config);
+        var applicationID = config.applicationID;
 
         var serverConfigNode = (config.server && RED.nodes.getNode(config.server));
         var serverHost = serverConfigNode.host || "cloud.semilimes.net";
         var serverApiURL = `https://${serverHost}/CloudServer/api/`;
-        var serverWsURL = `wss://${serverHost}/CloudServer/wsclient`;
+        var serverWsURL = `wss://${serverHost}/CloudServer/wsclient?t=` + applicationID;
 
-        var token = config.token;
         var core = new Core();
 
         var apiClient = new core.SmeApiClient(serverApiURL);
@@ -46,18 +46,18 @@ module.exports = function (RED) {
 		
         function sendWebSocketMessage(msg) {
             msg = validateMessage(msg);
-            msg.AuthToken = msg.AuthToken || token;
+            msg.AuthToken = msg.AuthToken || applicationID;
             webSocket.send(msg);
         }
 
         function sendApiMessage(msg, async) {
             msg = validateMessage(msg);
             var methodID = async ? '3A01CE9E-F850-4049-AD45-DA372E44B89B' : '4E9DDB53-00A3-4006-AFBC-2C4102EC69C1';
-            return apiClient.callApi(methodID, { Token: msg.AuthToken || token, Message: msg });
+            return apiClient.callApi(methodID, { Token: msg.AuthToken || applicationID, Message: msg });
         }
 
         function callApi(methodID, data) {
-            data.AuthToken = token;
+            data.AuthToken = applicationID;
             return apiClient.callApi(methodID, data);
         }
 
