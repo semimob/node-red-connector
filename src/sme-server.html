@@ -3,8 +3,7 @@
         category: 'config',
         defaults: {
             name: { value: "" },
-            host: { value: "cloud.semilimes.net" },
-            port: { value: "" },
+            host: { value: "cloud.semilimes.net" }
         },
         label: function () {
             return this.name || this.host || "semilimes server";
@@ -23,10 +22,6 @@
 	<div class="form-row">
 		<label for="node-config-input-host"><i class="fa fa-tag"></i> Host</label>
 		<input type="text" id="node-config-input-host" placeholder="server name">
-	</div>
-	<div class="form-row">
-		<label for="node-config-input-port"><i class="fa fa-tag"></i> Port</label>
-		<input type="text" id="node-config-input-port" placeholder="server port">
 	</div>
 </script>
 

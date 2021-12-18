@@ -4,6 +4,8 @@
         defaults: {
             name: { value: '' },
             server: { type: 'sme-server' },
+            appName: { value: "" },
+            appId: { value: "" },
             token: { value: '' },
         },
         label: function () {
@@ -31,8 +33,8 @@
             var server = $('#node-config-input-server').val();
             var configNode = (server && RED.nodes.node(server)) || { host: 'cloud.semilimes.net' };
             if (configNode) {
-                var qrContent = 'https://' + configNode.host + ':' + (configNode.port && 443) + '/CloudServer/qr/' + token + '/9F61CEE4-07F5-43B6-AED7-4BAA1325F2C1';
-                var qrCodeImageUrl = 'https://' + configNode.host + ':' + (configNode.port || 443) + '/CloudServer/api/FF0DB915-A2C3-455A-ABBD-973CD6287FBB?text=' + encodeURI(qrContent);
+                var qrContent = 'https://' + configNode.host + '/CloudServer/qr/' + token + '/9F61CEE4-07F5-43B6-AED7-4BAA1325F2C1';
+                var qrCodeImageUrl = 'https://' + configNode.host + '/CloudServer/api/FF0DB915-A2C3-455A-ABBD-973CD6287FBB?text=' + encodeURI(qrContent);
                 console.log(qrCodeImageUrl);
                 $('#tokenQRCodeImg').attr('src', qrCodeImageUrl);
                 $('#tokenQRCodeContainer').show();
@@ -60,9 +62,14 @@
 
         // Call server to generate token.
         var server = $('#node-config-input-server').val();
-        var configNode = (server && RED.nodes.node(server)) || { host: 'cloud.semilimes.net' };
+        var configNode = (server && RED.nodes.node(server));
+        var serverHost = (configNode && configNode.host) || "cloud.semilimes.net";
+
         if (configNode) {
-            var generateTokenUrl = 'https://' + configNode.host + ':' + (configNode.port || 443) + '/CloudServer/api/E3ABADBC-1919-4123-8314-48C257724064?format=json';
+            var name = $('#node-config-input-appName').val() || $('#node-config-input-name').val();
+            var appId = $('#node-config-input-appId').val();
+
+            var generateTokenUrl = 'https://' + serverHost + '/CloudServer/api/E3ABADBC-1919-4123-8314-48C257724064?format=json&name=' + encodeURI(name || '') + '&applicationId=' + encodeURI(appId || '');
             $.getJSON(generateTokenUrl, function (value) {
                 displayToken(value.Token);
             });
@@ -75,21 +82,29 @@
         <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-config-input-name" placeholder="Name">
     </div>
-	<div class="form-row">
-		<label for="node-config-input-server"><i class="fa fa-tag"></i> Server</label>
-		<input type="text" id="node-config-input-server" placeholder="semilimes server">
-	</div>
-	<div class="form-row">
-		<label for="node-config-input-token"><i class="fa fa-tag"></i> Token</label>
-		<input type="text" id="node-config-input-token" onchange="updateQrCode()">
-	</div>
-	
-	<button id="generateTokenButton" type="button" class="red-ui-button" onclick="generateToken()">Generate Token</button>
-	
-	<div id="tokenQRCodeContainer">
-		<p>Scan this QR Code with semilimes Messenger to approve the token.</p>
-		<img id="tokenQRCodeImg" src=""></img>
-	</div>
+    <div class="form-row">
+        <label for="node-config-input-server"><i class="fa fa-tag"></i> Server</label>
+        <input type="text" id="node-config-input-server" placeholder="semilimes server">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-appName"><i class="fa fa-tag"></i> App name</label>
+        <input type="text" id="node-config-input-appName">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-appId"><i class="fa fa-tag"></i> App ID</label>
+        <input type="text" id="node-config-input-appId">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-token"><i class="fa fa-tag"></i> App Token</label>
+        <input type="text" id="node-config-input-token">
+    </div>
+
+    <button id="generateTokenButton" type="button" class="red-ui-button" onclick="generateToken()">Register to semilimes</button>
+
+    <div id="tokenQRCodeContainer">
+        <p>Scan this QR Code with semilimes Messenger to register.</p>
+        <img id="tokenQRCodeImg" src=""></img>
+    </div>
 </script>
 
 <script type="text/html" data-help-name="sme-connector">

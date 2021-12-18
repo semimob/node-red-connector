@@ -26,9 +26,10 @@ module.exports = function (RED) {
     function SmeConnectorNode(config) {		
         RED.nodes.createNode(this, config);
 
-        var serverConfigNode = (config.server && RED.nodes.getNode(config.server)) || { host: 'cloud.semilimes.net' };
-        var serverApiURL = `https://${(serverConfigNode && serverConfigNode.host) || "cloud.semilimes.net"}${serverConfigNode.port ? (":" + serverConfigNode.port) : ""}/CloudServer/api/`;
-        var serverWsURL = `wss://${(serverConfigNode && serverConfigNode.host) || "cloud.semilimes.net"}${serverConfigNode.port ? (":" + serverConfigNode.port) : ""}/CloudServer/wsclient`;
+        var serverConfigNode = (config.server && RED.nodes.getNode(config.server));
+        var serverHost = serverConfigNode.host || "cloud.semilimes.net";
+        var serverApiURL = `https://${serverHost}/CloudServer/api/`;
+        var serverWsURL = `wss://${serverHost}/CloudServer/wsclient`;
 
         var token = config.token;
         var core = new Core();
