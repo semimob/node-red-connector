@@ -6,7 +6,7 @@
             server: { type: 'sme-server' },
             appName: { value: "" },
             reservedCode: { value: "" },
-            applicationID: { value: '' },
+            applicationID: { value: "" }
         },
         label: function () {
             if (this.name)
@@ -22,19 +22,20 @@
             return this.name ? "node_label_italic" : "";
         },
         oneditprepare: function () {
-            displayApplicationID(this.applicationID);
+            displayApplicationInfo({
+                ApplicationID: this.applicationID,
+                RegistrationID: null,
+            });
         }
     });
 	
-    function updateRegistrationQrCode(applicationID) {
-        applicationID = applicationID || $('#node-config-input-applicationID').val();
-
-        if (applicationID) {
+    function updateRegistrationQrCode(registrationID) {
+        if (registrationID) {
             var server = $('#node-config-input-server').val();
             var configNode = (server && RED.nodes.node(server)) || { host: 'cloud.semilimes.net' };
             if (configNode) {
                 var qrLoginRequestObjectTypeID = '9F61CEE4-07F5-43B6-AED7-4BAA1325F2C1';    //  This should be changed to a new type.
-                var qrContent = 'https://' + configNode.host + '/CloudServer/qr/' + applicationID + '/' + qrLoginRequestObjectTypeID;
+                var qrContent = 'https://' + configNode.host + '/CloudServer/qr/' + registrationID + '/' + qrLoginRequestObjectTypeID;
                 var qrCodeImageUrl = 'https://' + configNode.host + '/CloudServer/api/FF0DB915-A2C3-455A-ABBD-973CD6287FBB?text=' + encodeURI(qrContent);
                 console.log(qrCodeImageUrl);
                 $('#tokenQRCodeImg').attr('src', qrCodeImageUrl);
@@ -47,19 +48,19 @@
         }
     }
 	
-    function displayApplicationID(applicationID) {
-        $('#node-config-input-applicationID').val(applicationID);
-        updateRegistrationQrCode(applicationID)
+    function displayApplicationInfo(appInfo) {
+        $('#node-config-input-applicationID').val(appInfo && appInfo.ApplicationID);
+        updateRegistrationQrCode(appInfo && appInfo.RegistrationID);
     }
 	
     function registerApplication() {
         // Get applicationID from UI
         var applicationID = $('#node-config-input-applicationID').val();
-        if (applicationID && !confirm('Replace the current applicationID!'))
+        if (applicationID && !confirm('Re-register the current applicationID!'))
             return;
 
         // Remove last QR-Code
-        displayApplicationID(null);
+        displayApplicationInfo(null);
 
         // Call server to register app.
         var server = $('#node-config-input-server').val();
@@ -68,16 +69,16 @@
 
         if (configNode) {
             var name = $('#node-config-input-appName').val() || $('#node-config-input-name').val();
-            var reservedCode = $('#node-config-input-reservedCode').val();
+            var reservedCode = $('#node-config-input-reservedCode').val() || applicationID;
 
             var generateTokenUrl = 'https://' + serverHost + '/CloudServer/api/E3ABADBC-1919-4123-8314-48C257724064?format=json&name=' + encodeURI(name || '') + '&reservedCode=' + encodeURI(reservedCode || '');
             $.getJSON(generateTokenUrl, function (value) {
-                displayApplicationID(value.ApplicationID);
+                if (value.Success) {
+                    displayApplicationInfo(value);
+                }
             });
         }
     }
-
-    updateRegistrationQrCode();
 </script>
 
 <script type="text/html" data-template-name="sme-connector">
@@ -98,14 +99,14 @@
         <input type="text" id="node-config-input-reservedCode">
     </div>
     <div class="form-row">
-        <label for="node-config-input-registrationID"><i class="fa fa-tag"></i> Application ID</label>
+        <label for="node-config-input-applicationID"><i class="fa fa-tag"></i> Application ID</label>
         <input type="text" id="node-config-input-applicationID">
     </div>
-
+    
     <button id="registerButton" type="button" class="red-ui-button" onclick="registerApplication()">Register to semilimes</button>
 
     <div id="tokenQRCodeContainer">
-        <p><br/>Scan this QR Code with semilimes Messenger to register.</p>
+        <p><br />Scan this QR Code with semilimes Messenger to register</br><font color="red">in 60 seconds.</font></p>
         <img id="tokenQRCodeImg" src=""></img>
     </div>
 </script>
