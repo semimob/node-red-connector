@@ -53,11 +53,13 @@
         updateRegistrationQrCode(appInfo && appInfo.RegistrationID);
     }
 	
-    function registerApplication() {
+    function getConnectionInfo() {
         // Get applicationID from UI
         var applicationID = $('#node-config-input-applicationID').val();
         if (applicationID && !confirm('Re-register the current applicationID!'))
             return;
+
+        $('connectButton').attr('disabled', true);
 
         // Remove last QR-Code
         displayApplicationInfo(null);
@@ -76,6 +78,12 @@
                 if (value.Success) {
                     displayApplicationInfo(value);
                 }
+                else {
+                    if (value.ResponseStatus && value.ResponseStatus.Message)
+                        alert(value.ResponseStatus.Message);
+                }
+
+                $('connectButton').removeAttr('disabled');
             });
         }
     }
@@ -103,10 +111,10 @@
         <input type="text" id="node-config-input-applicationID">
     </div>
     
-    <button id="registerButton" type="button" class="red-ui-button" onclick="registerApplication()">Register to semilimes</button>
+    <button id="connectButton" type="button" class="red-ui-button" onclick="getConnectionInfo()">Connect to semilimes</button>
 
     <div id="tokenQRCodeContainer">
-        <p><br />Scan this QR Code with semilimes Messenger to register</br><font color="red">in 60 seconds.</font></p>
+        <p><br />Scan this QR Code with semilimes Messenger to connect</br><font color="red">in 60 seconds.</font></p>
         <img id="tokenQRCodeImg" src=""></img>
     </div>
 </script>

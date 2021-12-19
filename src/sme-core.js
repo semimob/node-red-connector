@@ -7,12 +7,11 @@ module.exports = function (RED) {
 
     //--------------------SmeWebSocket-----------------------------------
     function SmeWebSocket(serverWsURL) {
-        EventEmitter.call(this);
 
         var webSocket = null;
         var requestedToClose = false;
         var reconnectTimer = null;
-        var thisSmeWebSocket = this;
+        var messageDeliver = new EventEmitter();
 
         function connect() {
             disconnect();
@@ -77,7 +76,7 @@ module.exports = function (RED) {
 
             socket.on('message', function (msg, flags) {
                 console.log('ws message!');
-                thisSmeWebSocket.emit('message', msg);
+                messageDeliver.emit('message', msg);
             });
 
             socket.on('error', function (err) {
@@ -94,9 +93,14 @@ module.exports = function (RED) {
             }
         }
 
+        function addMessageListener(listener) {
+            messageDeliver.addListener('message', listener);
+        }
+
         //  Export
         this.send = send;
         this.close = disconnect;
+        this.addMessageListener = addMessageListener;
 
         if (serverWsURL)
             connect();

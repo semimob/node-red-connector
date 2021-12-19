@@ -9,8 +9,8 @@ module.exports = function (RED) {
         var smeConnector = config.connector && RED.nodes.getNode(config.connector);
 
         node.on('input', function (msg, send, done) {
-            if (smeConnector != null)
-                smeConnector.postMessage(msg);
+            if (smeConnector != null && msg.payload)
+                smeConnector.postMessage(msg.payload);
 
             done && done();
         });

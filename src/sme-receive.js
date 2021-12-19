@@ -11,7 +11,7 @@ module.exports = function (RED) {
         //	Listener for message...
         if (smeConnector) {
             smeConnector.addMessageListener(msg => {
-                node.send(msg, false);
+                node.send({ payload: msg }, false);
             });
         }
     };
