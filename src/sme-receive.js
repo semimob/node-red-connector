@@ -14,6 +14,9 @@ module.exports = function (RED) {
                 node.send({ payload: msg }, false);
             });
         }
+        else {
+            node.log('receiver not connect.');
+        }
     };
 
     RED.nodes.registerType("sme-receive", SmeReceiveNode);

@@ -75,7 +75,14 @@ module.exports = function (RED) {
             });
 
             socket.on('message', function (msg, flags) {
-                console.log('ws message!');
+                msg = msg.toString();
+                console.log('ws received: ', msg);
+                if (msg.startsWith('{')) {
+                    try {
+                        msg = JSON.parse(msg);
+                    }
+                    catch{ }
+                }
                 messageDeliver.emit('message', msg);
             });
 
@@ -94,6 +101,7 @@ module.exports = function (RED) {
         }
 
         function addMessageListener(listener) {
+            console.log('Register listener', listener);
             messageDeliver.addListener('message', listener);
         }
 

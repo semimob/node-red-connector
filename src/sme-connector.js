@@ -62,7 +62,7 @@ module.exports = function (RED) {
         }
 
         function addMessageListener(listener) {
-            webSocket.on('message', listener);
+            webSocket.addMessageListener(listener);
         }
 
         //  Export
