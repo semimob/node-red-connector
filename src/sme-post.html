@@ -4,10 +4,7 @@
         color: "#D7D7A0",
         defaults: {
             name: { value: "" },
-            connector: {
-                type: 'sme-connector',
-                required: true
-            }
+            connector: { type: 'sme-connector', required: true }
         },
         inputs: 1,
         outputs: 0,
@@ -35,5 +32,5 @@
 </script>
 
 <script type="text/html" data-help-name="sme-post">
-    <p>Send message asynchronously to semilimes.</p>
+    <p>Send message to semilimes asychronously and don't care if it arrives the destination or not.</p>
 </script>

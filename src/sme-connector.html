@@ -3,7 +3,7 @@
         category: 'config',
         defaults: {
             name: { value: '' },
-            server: { type: 'sme-server' },
+            server: { type: 'sme-server', required: false },
             appName: { value: "" },
             reservedCode: { value: "" },
             applicationID: { value: "" }
@@ -32,15 +32,14 @@
     function updateRegistrationQrCode(registrationID) {
         if (registrationID) {
             var server = $('#node-config-input-server').val();
-            var configNode = (server && RED.nodes.node(server)) || { host: 'cloud.semilimes.net' };
-            if (configNode) {
-                var qrLoginRequestObjectTypeID = '9F61CEE4-07F5-43B6-AED7-4BAA1325F2C1';    //  This should be changed to a new type.
-                var qrContent = 'https://' + configNode.host + '/CloudServer/qr/' + registrationID + '/' + qrLoginRequestObjectTypeID;
-                var qrCodeImageUrl = 'https://' + configNode.host + '/CloudServer/api/FF0DB915-A2C3-455A-ABBD-973CD6287FBB?text=' + encodeURI(qrContent);
-                console.log(qrCodeImageUrl);
-                $('#tokenQRCodeImg').attr('src', qrCodeImageUrl);
-                $('#tokenQRCodeContainer').show();
-            }
+            var serverHost = (server && RED.nodes.node(server).host) || 'cloud.semilimes.net';
+
+            var qrApplicaionRegistrationObjectTypeID = 'DDCA371F-1A13-42CF-9C5D-F41ABB36C66F';    //  This should be changed to a new type.
+            var qrContent = 'https://' + serverHost + '/CloudServer/qr/' + registrationID + '/' + qrApplicaionRegistrationObjectTypeID;
+            var qrCodeImageUrl = 'https://' + serverHost + '/CloudServer/api/FF0DB915-A2C3-455A-ABBD-973CD6287FBB?text=' + encodeURI(qrContent);
+            console.log(qrCodeImageUrl);
+            $('#tokenQRCodeImg').attr('src', qrCodeImageUrl);
+            $('#tokenQRCodeContainer').show();
         }
         else {
             $('#tokenQRCodeImg').attr('src', 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z/C/HgAGgwJ/lK3Q6wAAAABJRU5ErkJggg==');

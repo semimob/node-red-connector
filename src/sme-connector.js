@@ -27,8 +27,7 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
         var applicationID = config.applicationID;
 
-        var serverConfigNode = (config.server && RED.nodes.getNode(config.server));
-        var serverHost = serverConfigNode.host || "cloud.semilimes.net";
+        var serverHost = (config.server && RED.nodes.getNode(config.server).host) || "cloud.semilimes.net";
         var serverApiURL = `https://${serverHost}/CloudServer/api/`;
         var serverWsURL = `wss://${serverHost}/CloudServer/wsclient?t=` + applicationID;
 
