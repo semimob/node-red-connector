@@ -29,7 +29,8 @@
 			"sme-post": "src/sme-post.js",
 			"sme-receive": "src/sme-receive.js",
 			"sme-text": "src/sme-text.js",
-			"sme-html": "src/sme-html.js"
+			"sme-html": "src/sme-html.js",
+			"sme-textbox": "src/sme-textbox.js"
 		}
 	}
 }

@@ -1,0 +1,41 @@
+<script type="text/javascript">
+    RED.nodes.registerType('sme-textbox', {
+        category: 'semilimes',
+        color: '#E2D96E',
+        defaults: {
+            name: { value: "" },
+            label: { value: "" },
+            value: { value: "" }
+        },
+        inputs: 1,
+        outputs: 1,
+        align: 'left',
+        icon: "font-awesome/fa-font-o",
+        label: function () {
+            return this.name || 'textbox message';
+        },
+        labelStyle: function () {
+            return this.name ? "node_label_italic" : "";
+        },
+        paletteLabel: 'textbox message'
+    });
+</script>
+
+<script type="text/html" data-template-name="sme-textbox">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-label"><i class="fa fa-tag"></i> Label</label>
+        <input type="text" id="node-input-label" placeholder="This is textbox label.">
+    </div>
+    <div class="form-row">
+        <label for="node-input-value"><i class="fa fa-tag"></i> Value</label>
+        <input type="text" id="node-input-value">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="sme-textbox">
+    <p>Create textbox message to prompt user to enter text.</p>
+</script>

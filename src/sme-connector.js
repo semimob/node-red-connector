@@ -19,13 +19,14 @@ module.exports = function (RED) {
         }
 
         return {
-            Body: msg,
+            Body: '' + msg,
         };
     }
 
     function SmeConnectorNode(config) {		
         RED.nodes.createNode(this, config);
         var applicationID = config.applicationID;
+        var conversationID = applicationID;
 
         var serverHost = (config.server && RED.nodes.getNode(config.server).host) || "cloud.semilimes.net";
         var serverApiURL = `https://${serverHost}/CloudServer/api/`;
@@ -45,14 +46,16 @@ module.exports = function (RED) {
 		
         function sendWebSocketMessage(msg) {
             msg = validateMessage(msg);
-            msg.AuthToken = msg.AuthToken || applicationID;
+            msg.AuthToken = applicationID;
+            msg.ConversationID = conversationID;
             webSocket.send(msg);
         }
 
         function sendApiMessage(msg, async) {
             msg = validateMessage(msg);
+            msg.ConversationID = conversationID;
             var methodID = async ? '3A01CE9E-F850-4049-AD45-DA372E44B89B' : '4E9DDB53-00A3-4006-AFBC-2C4102EC69C1';
-            return apiClient.callApi(methodID, { Token: msg.AuthToken || applicationID, Message: msg });
+            return apiClient.callApi(methodID, { Token: applicationID, Message: msg });
         }
 
         function callApi(methodID, data) {
