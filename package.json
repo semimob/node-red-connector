@@ -1,7 +1,7 @@
 {
-	"name": "semilimes",
+	"name": "node-red-contrib-semilimes",
 	"version": "1.0.0",
-	"description": "semilimes BOT",
+	"description": "Node-RED semilimes",
 	"author": "Phuc Nguyen",
 	"license": "Apache 2.0",
 	"repository": {
