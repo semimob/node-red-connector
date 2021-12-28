@@ -1,7 +1,7 @@
 # node-RED semilimes
 [![Platform](https://img.shields.io/badge/platform-Node--RED-red)](https://nodered.org)   [![License](https://img.shields.io/badge/license-Apache--License-lightgrey)](http://www.apache.org/licenses/LICENSE-2.0) [![Downloads](https://img.shields.io/badge/download-github-purple)](https://github.com/pernicious-flier/Node-Red-semilimes-Connector) [![Install](https://img.shields.io/badge/Install-NPM-blue)](https://www.npmjs.com/package/node-red-semilimes-connector)
 
-This package contains nodes to extends your semilimes account with your programming ability. Such as Auto Anwser, booking flow or even use semmilmes Messenger as message-base interface to your exsting system.
+This package contains nodes to extends your semilimes account with your programming ability. Such as auto anwser, booking flow or even use semmilmes Messenger as message-base interface to your exsting system.
 
 # Installation
 [![NPM](https://nodei.co/npm/node-red-contrib-semilimes.png?downloads=true)](https://nodei.co/npm/node-red-contrib-semilimes/)
