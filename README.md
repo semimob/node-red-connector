@@ -13,7 +13,7 @@ Or run the following command in the root directory of your Node-RED installation
     npm install node-red-contrib-semilimes --save
 
 # Installation of the mobile apps
-- IOS semilimes Messenger : [![Platform](https://img.shields.io/badge/Apple%20IOS-semilimes%20Messenger-blue.svg)](https://apps.apple.com/ch/app/semilimes-messenger/id1418041750?l=en)  
+- IOS semilimes Messenger : [![Platform](https://img.shields.io/badge/Apple%20IOS-semilimes%20Messenger-blue.svg)](https://apps.apple.com/us/app/semilimes-mesh/id1536363738?l=en)  
 
 - Google Play semilimes Messenger : [![Platform](https://img.shields.io/badge/Google--Play-semilimes%20Messenger-darkgreen.svg)](https://play.google.com/store/apps/details?id=net.semilimes.messenger&hl=en&gl=US)  
 
