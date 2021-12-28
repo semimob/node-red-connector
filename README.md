@@ -21,9 +21,9 @@ Or run the following command in the root directory of your Node-RED installation
 The nodes are tested with `Node.js v16.13.1` and `Node-RED v2.1.4`. However, it would work with earlier versions of both Node.js & Node-RED.
 
 # Usage
-- Register your Node-RED flow to semilimes as an application which you would want to add it to your semilimes account later.
 - Use `post` and `send` nodes to send messages to semilimes.
 - Use `receive` node to listener for messages from semilimes.
+- Register your Node-RED flow to semilimes as an application via `connector` properties of the nodes. Then you can add your flow to your semilimes account to interact with it.
 
 # License
 Apache License
