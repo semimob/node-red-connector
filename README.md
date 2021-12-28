@@ -26,8 +26,6 @@ The nodes are tested with `Node.js v16.13.1` and `Node-RED v2.1.4`. However, it 
 - Use `receive` node to listener for messages from semilimes.
 
 # License
-Author: Phuc Nguyen
-
 Apache License
 Version 2.0, January 2004
 http://www.apache.org/licenses/
