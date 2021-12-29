@@ -2,12 +2,12 @@
 
 module.exports = function (RED) {
 
-    function SmeTextBoxNode(config) {
+    function SmeDatePickerNode(config) {
         RED.nodes.createNode(this, config);
 
         this.name = config.name;
         this.title = config.title;
-        this.value = config.value;
+        this.buttonText = config.buttonText;
         this.required = config.required;
         this.formStatus = config.formStatus;
 
@@ -26,9 +26,10 @@ module.exports = function (RED) {
             m.FormItems = m.FormItems || [];
 
             m.FormItems.push({
-                FormTypeID: 'b7ecf187-e387-4b7b-9809-6eb7c7c964e2',
+                FormTypeID: '242b5a3b-c1af-4663-bd97-e296e3db4d2f',
                 FormTypeConfig: {
-                    Title: node.title
+                    Title: node.title,
+                    ButtonText: node.buttonText
                 },
                 FormValue: node.value,
                 FormRequired: m.FormItems.length == 0 || (node.required == 1),
@@ -43,5 +44,5 @@ module.exports = function (RED) {
         });
     };
 
-    RED.nodes.registerType("sme-textbox", SmeTextBoxNode);
+    RED.nodes.registerType("sme-datepicker", SmeDatePickerNode);
 };

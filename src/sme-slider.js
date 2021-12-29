@@ -23,7 +23,7 @@ module.exports = function (RED) {
             m.Type = 'chat';
             m.TypeID = '457d1d4f-c982-4caf-bcc4-4b435860efa3';
             m.Body = node.title || node.name || m.Body;
-            m.FormReference = node.name || m.FormReference;
+            m.FormReference = m.FormReference || node.name;
             m.FormStatus = node.formStatus ? 1 : 0;
             m.FormItems = m.FormItems || [];
 
@@ -36,7 +36,7 @@ module.exports = function (RED) {
                     DivisionStep: this.step || 5
                 },
                 FormRequired: m.FormItems.length == 0 || (node.required == 1),
-                FormReference: 'value'
+                FormReference: node.name
             });
             
             msg.payload = m;

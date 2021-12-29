@@ -1,50 +1,40 @@
 <script type="text/javascript">
-    RED.nodes.registerType('sme-slider', {
+    RED.nodes.registerType('sme-timepicker', {
         category: 'semilimes',
         color: '#E2D96E',
         defaults: {
             name: { value: "" },
             title: { value: "Title" },
-            min: { value: "0" },
-            max: { value: "100" },
-            step: { value: "5" },
+            buttonText: { value: "Select time" },
             required: { value: "0" },
             formStatus: { value: "1" }
         },
         inputs: 1,
         outputs: 1,
         align: 'left',
-        icon: "font-awesome/fa-sliders",
+        icon: "font-awesome/fa-clock-o",
         label: function () {
-            return this.name || 'slider message';
+            return this.name || 'time picker message';
         },
         labelStyle: function () {
             return this.name ? "node_label_italic" : "";
         },
-        paletteLabel: 'slider message'
+        paletteLabel: 'time picker message'
     });
 </script>
 
-<script type="text/html" data-template-name="sme-slider">
+<script type="text/html" data-template-name="sme-timepicker">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row">
         <label for="node-input-title"><i class="fa fa-tag"></i> Title</label>
-        <input type="text" id="node-input-title" placeholder="This title is above the slider.">
+        <input type="text" id="node-input-title" placeholder="This title is above the time picker.">
     </div>
     <div class="form-row">
-        <label for="node-input-min"><i class="fa fa-tag"></i> Min</label>
-        <input type="text" id="node-input-min" placeholder="Min value.">
-    </div>
-    <div class="form-row">
-        <label for="node-input-max"><i class="fa fa-tag"></i> Max</label>
-        <input type="text" id="node-input-max" placeholder="Max value.">
-    </div>
-    <div class="form-row">
-        <label for="node-input-step"><i class="fa fa-tag"></i> Step</label>
-        <input type="text" id="node-input-step" placeholder="Change step.">
+        <label for="node-input-buttonText"><i class="fa fa-tag"></i> Button Title</label>
+        <input type="text" id="node-input-buttonText" placeholder="Title of the picker button.">
     </div>
     <div class="form-row">
         <label for="node-input-required"><i class="fa fa-cog"></i> <span> Required</span></label>
@@ -62,6 +52,6 @@
     </div>
 </script>
 
-<script type="text/html" data-help-name="sme-slider">
-    <p>Create slider message for user to choose a value between the Min and Max values.</p>
+<script type="text/html" data-help-name="sme-timepicker">
+    <p>Create date picker message for user to select a date.</p>
 </script>

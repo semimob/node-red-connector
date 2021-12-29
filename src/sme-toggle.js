@@ -19,7 +19,7 @@ module.exports = function (RED) {
             m.Type = 'chat';
             m.TypeID = '457d1d4f-c982-4caf-bcc4-4b435860efa3';
             m.Body = node.title || node.name || m.Body;
-            m.FormReference = node.name || m.FormReference;
+            m.FormReference = m.FormReference || node.name;
             m.FormStatus = node.formStatus ? 1 : 0;
             m.FormItems = m.FormItems || [];
 
@@ -28,8 +28,8 @@ module.exports = function (RED) {
                 FormTypeConfig: {
                     Title: node.title,
                 },
-                FormRequired: true,
-                FormReference: 'value'
+                FormRequired: false,
+                FormReference: node.name
             });
             
             msg.payload = m;
