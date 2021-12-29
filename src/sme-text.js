@@ -5,6 +5,7 @@ module.exports = function (RED) {
     function SmeTextNode(config) {
         RED.nodes.createNode(this, config);
         this.text = config.text;
+
         var node = this;
 
         node.on('input', function (msg, send, done) {

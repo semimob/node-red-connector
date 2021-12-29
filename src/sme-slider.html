@@ -1,39 +1,34 @@
 <script type="text/javascript">
-    RED.nodes.registerType('sme-textbox', {
+    RED.nodes.registerType('sme-slider', {
         category: 'semilimes',
         color: '#E2D96E',
         defaults: {
             name: { value: "" },
-            title: { value: "Title"},
-            value: { value: "" },
+            title: { value: "Title" },
             formStatus: { value: "1" }
         },
         inputs: 1,
         outputs: 1,
         align: 'left',
-        icon: "font-awesome/fa-square-o",
+        icon: "font-awesome/fa-sliders",
         label: function () {
-            return this.name || 'textbox message';
+            return this.name || 'slider message';
         },
         labelStyle: function () {
             return this.name ? "node_label_italic" : "";
         },
-        paletteLabel: 'textbox message'
+        paletteLabel: 'slider message'
     });
 </script>
 
-<script type="text/html" data-template-name="sme-textbox">
+<script type="text/html" data-template-name="sme-slider">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row">
         <label for="node-input-title"><i class="fa fa-tag"></i> Title</label>
-        <input type="text" id="node-input-title" placeholder="This is textbox title.">
-    </div>
-    <div class="form-row">
-        <label for="node-input-value"><i class="fa fa-tag"></i> Value</label>
-        <input type="text" id="node-input-value">
+        <input type="text" id="node-input-title" placeholder="This is toogle title.">
     </div>
     <div class="form-row">
         <label for="node-input-fromState"><i class="fa fa-cog"></i> <span> Form State</span></label>
@@ -44,6 +39,6 @@
     </div>
 </script>
 
-<script type="text/html" data-help-name="sme-textbox">
-    <p>Create textbox message to prompt user to enter text.</p>
+<script type="text/html" data-help-name="sme-slider">
+    <p>Create a slider button message for user to switch between value on(1) and off(0).</p>
 </script>

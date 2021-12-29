@@ -4,13 +4,14 @@
         color: '#E2D96E',
         defaults: {
             name: { value: "" },
-            label: { value: "" },
-            choice1: { value: "" },
-            choice2: { value: "" },
-            choice3: { value: "" },
+            title: { value: "Which ones do you prefer?" },
+            choice1: { value: "choice 1" },
+            choice2: { value: "choice 2" },
+            choice3: { value: "choice 3" },
             choice4: { value: "" },
             choice5: { value: "" },
-            choice6: { value: "" }
+            choice6: { value: "" },
+            formStatus: { value: "1" }
         },
         inputs: 1,
         outputs: 1,
@@ -32,8 +33,8 @@
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row">
-        <label for="node-input-label"><i class="fa fa-tag"></i> Label</label>
-        <input type="text" id="node-input-label" placeholder="This is multi choice label.">
+        <label for="node-input-title"><i class="fa fa-tag"></i> Title</label>
+        <input type="text" id="node-input-title" placeholder="This is multi choice title.">
     </div>
     <div class="form-row">
         <label for="node-input-choice1"><i class="fa fa-hand-o-right"></i><span> 1st choice</span></label>
@@ -58,6 +59,13 @@
     <div class="form-row">
         <label for="node-input-choice6"><i class="fa fa-hand-o-right"></i><span> 6th choice</span></label>
         <input type="text" id="node-input-choice6" placeholder="Insert the sixth choice">
+    </div>
+    <div class="form-row">
+        <label for="node-input-fromState"><i class="fa fa-cog"></i> <span> Form State</span></label>
+        <select id="node-input-formState">
+            <option value="0">Enabled</option>
+            <option value="1">Disabled</option>
+        </select>
     </div>
 </script>
 
