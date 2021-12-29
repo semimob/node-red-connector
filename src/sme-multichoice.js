@@ -12,6 +12,7 @@ module.exports = function (RED) {
             .map(x => {
                 return { Text: x, Value: x };
             });
+        this.required = config.required;
         this.formStatus = config.formStatus;
 
         var node = this;
@@ -20,25 +21,25 @@ module.exports = function (RED) {
             if (this.options.length > 0) {
                 send = send || function () { node.send.apply(node, arguments) };
 
-                var m = {
-                    Type: 'chat',
-                    TypeID: '457d1d4f-c982-4caf-bcc4-4b435860efa3',
-                    Body: node.title || node.name,
-                    FormItems: [
-                        {
-                            FormTypeID: '7be4d759-fdfd-422b-bc18-582f5bee902d',
-                            FormTypeConfig: {
-                                Title: node.title,
-                                Options: node.options
-                            },
-                            FormRequired: true,
-                            FormReference: 'value'
-                        }
-                    ],
-                    FormReference: node.name,
-                    FormStatus: node.formStatus ? 1 : 0
-                };
+                var m = typeof (msg.payload) == 'object' ? (msg.payload || {}) : {};
+                
+                m.Type = 'chat';
+                m.TypeID = '457d1d4f-c982-4caf-bcc4-4b435860efa3';
+                m.Body = node.title || node.name || m.Body;
+                m.FormReference = node.name || m.FormReference;
+                m.FormStatus = node.formStatus ? 1 : 0;
+                m.FormItems = m.FormItems || [];
 
+                m.FormItems.push({
+                    FormTypeID: '7be4d759-fdfd-422b-bc18-582f5bee902d',
+                    FormTypeConfig: {
+                        Title: node.title,
+                        Options: node.options
+                    },
+                    FormRequired: m.FormItems.length == 0 || (node.required == 1),
+                    FormReference: 'value'
+                });
+                
                 msg.payload = m;
 
                 send(msg, false);

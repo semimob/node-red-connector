@@ -9,16 +9,19 @@ module.exports = function (RED) {
         var node = this;
 
         node.on('input', function (msg, send, done) {
-            send = send || function () { node.send.apply(node, arguments) };
+            if (this.text != null && this.text.length > 0) {
+                send = send || function () { node.send.apply(node, arguments) };
 
-            var m = node.text || (msg && msg.payload) || '';
-            if (typeof (m) === 'object')
-                m = JSON.stringify(m);
+                var m = typeof (msg.payload) == 'object' ? (msg.payload || {}) : {};
 
-            send({
-                Type: 'chat',
-                Body: m
-            });
+                m.Type = 'chat';
+                m.TypeID = '590e4e6c-2c5d-47e8-8f38-311d5a299ee7';
+                m.Body = node.text;
+
+                msg.payload = m;
+
+                send(msg, false);
+            }
 
             done && done();
         });

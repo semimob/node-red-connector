@@ -29,10 +29,13 @@
       "sme-post": "src/sme-post.js",
       "sme-receive": "src/sme-receive.js",
       "sme-text": "src/sme-text.js",
-      "sme-html": "src/sme-html.js",
+      "sme-label": "src/sme-label.js",
       "sme-textbox": "src/sme-textbox.js",
       "sme-singlechoice": "src/sme-singlechoice.js",
-      "sme-multichoice": "src/sme-multichoice.js"
+      "sme-multichoice": "src/sme-multichoice.js",
+      "sme-switch": "src/sme-toggle.js",
+      "sme-slider": "src/sme-slider.js",
+      "sme-html": "src/sme-html.js"
     }
 	}
 }

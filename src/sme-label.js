@@ -2,14 +2,9 @@
 
 module.exports = function (RED) {
 
-    function SmeTextBoxNode(config) {
+    function SmeLabelNode(config) {
         RED.nodes.createNode(this, config);
-
-        this.name = config.name;
-        this.title = config.title;
-        this.value = config.value;
-        this.required = config.required;
-        this.formStatus = config.formStatus;
+        this.text = config.text;
 
         var node = this;
 
@@ -26,15 +21,12 @@ module.exports = function (RED) {
             m.FormItems = m.FormItems || [];
 
             m.FormItems.push({
-                FormTypeID: 'b7ecf187-e387-4b7b-9809-6eb7c7c964e2',
+                FormTypeID: '590e4e6c-2c5d-47e8-8f38-311d5a299ee7',
                 FormTypeConfig: {
-                    Title: node.title
-                },
-                FormValue: node.value,
-                FormRequired: m.FormItems.length == 0 || (node.required == 1),
-                FormReference: 'value'
+                    Text: node.text
+                }
             });
-            
+
             msg.payload = m;
 
             send(msg, false);
@@ -43,5 +35,5 @@ module.exports = function (RED) {
         });
     };
 
-    RED.nodes.registerType("sme-textbox", SmeTextBoxNode);
+    RED.nodes.registerType("sme-label", SmeLabelNode);
 };

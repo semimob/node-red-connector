@@ -1,26 +1,26 @@
 <script type="text/javascript">
-    RED.nodes.registerType('sme-text', {
+    RED.nodes.registerType('sme-label', {
         category: 'semilimes',
         color: '#E2D96E',
         defaults: {
             name: { value: "" },
-            text: { value: "This is a text message." }
+            text: { value: "This is a label message." }
         },
         inputs: 1,
         outputs: 1,
         align: 'left',
-        icon: "font-awesome/fa-file-text-o",
+        icon: "font-awesome/fa-font",
         label: function () {
-            return this.name || 'text message';
+            return this.name || 'label message';
         },
         labelStyle: function () {
             return this.name ? "node_label_italic" : "";
         },
-        paletteLabel: 'text message'
+        paletteLabel: 'label message'
     });
 </script>
 
-<script type="text/html" data-template-name="sme-text">
+<script type="text/html" data-template-name="sme-label">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
@@ -31,6 +31,6 @@
     </div>
 </script>
 
-<script type="text/html" data-help-name="sme-text">
-    <p>Plain text message.</p>
+<script type="text/html" data-help-name="sme-label">
+    <p>Plain label message.</p>
 </script>
