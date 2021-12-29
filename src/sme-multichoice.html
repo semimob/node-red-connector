@@ -1,0 +1,66 @@
+<script type="text/javascript">
+    RED.nodes.registerType('sme-multichoice', {
+        category: 'semilimes',
+        color: '#E2D96E',
+        defaults: {
+            name: { value: "" },
+            label: { value: "" },
+            choice1: { value: "" },
+            choice2: { value: "" },
+            choice3: { value: "" },
+            choice4: { value: "" },
+            choice5: { value: "" },
+            choice6: { value: "" }
+        },
+        inputs: 1,
+        outputs: 1,
+        align: 'left',
+        icon: "font-awesome/fa-check-square-o",
+        label: function () {
+            return this.name || 'multi choice message';
+        },
+        labelStyle: function () {
+            return this.name ? "node_label_italic" : "";
+        },
+        paletteLabel: 'multi choice message'
+    });
+</script>
+
+<script type="text/html" data-template-name="sme-multichoice">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-label"><i class="fa fa-tag"></i> Label</label>
+        <input type="text" id="node-input-label" placeholder="This is multi choice label.">
+    </div>
+    <div class="form-row">
+        <label for="node-input-choice1"><i class="fa fa-hand-o-right"></i><span> 1st choice</span></label>
+        <input type="text" id="node-input-choice1" placeholder="Insert the first choice">
+    </div>
+    <div class="form-row">
+        <label for="node-input-choice2"><i class="fa fa-hand-o-right"></i><span> 2nd choice</span></label>
+        <input type="text" id="node-input-choice2" placeholder="Insert the second choice">
+    </div>
+    <div class="form-row">
+        <label for="node-input-choice3"><i class="fa fa-hand-o-right"></i><span> 3rd choice</span></label>
+        <input type="text" id="node-input-choice3" placeholder="Insert the third choice">
+    </div>
+    <div class="form-row">
+        <label for="node-input-choice4"><i class="fa fa-hand-o-right"></i><span> 4th choice</span></label>
+        <input type="text" id="node-input-choice4" placeholder="Insert the fourth choice">
+    </div>
+    <div class="form-row">
+        <label for="node-input-choice5"><i class="fa fa-hand-o-right"></i><span> 5th choice</span></label>
+        <input type="text" id="node-input-choice5" placeholder="Insert the fifth choice">
+    </div>
+    <div class="form-row">
+        <label for="node-input-choice6"><i class="fa fa-hand-o-right"></i><span> 6th choice</span></label>
+        <input type="text" id="node-input-choice6" placeholder="Insert the sixth choice">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="sme-multichoice">
+    <p>Create a list of options to prompt user to select one or many options.</p>
+</script>

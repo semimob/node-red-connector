@@ -21,16 +21,18 @@
 		"semilimes"
 	],
 	"node-red": {
-		"nodes": {
-			"sme-core": "src/sme-core.js",
-			"sme-server": "src/sme-server.js",
-			"sme-connector": "src/sme-connector.js",
-			"sme-send": "src/sme-send.js",
-			"sme-post": "src/sme-post.js",
-			"sme-receive": "src/sme-receive.js",
-			"sme-text": "src/sme-text.js",
-			"sme-html": "src/sme-html.js",
-			"sme-textbox": "src/sme-textbox.js"
-		}
+    "nodes": {
+      "sme-core": "src/sme-core.js",
+      "sme-server": "src/sme-server.js",
+      "sme-connector": "src/sme-connector.js",
+      "sme-send": "src/sme-send.js",
+      "sme-post": "src/sme-post.js",
+      "sme-receive": "src/sme-receive.js",
+      "sme-text": "src/sme-text.js",
+      "sme-html": "src/sme-html.js",
+      "sme-textbox": "src/sme-textbox.js",
+      "sme-singlechoice": "src/sme-singlechoice.js",
+      "sme-multichoice": "src/sme-multichoice.js"
+    }
 	}
 }

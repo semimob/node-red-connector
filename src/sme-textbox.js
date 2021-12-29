@@ -18,7 +18,7 @@ module.exports = function (RED) {
 
             var m = {
                 Type: 'chat',
-                TypeID: '457D1D4F-C982-4CAF-BCC4-4B435860EFA3',
+                TypeID: '457d1d4f-c982-4caf-bcc4-4b435860efa3',
                 Body: textboxLabel,
                 FormItems: [
                     {
