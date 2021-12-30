@@ -1,36 +1,36 @@
 <script type="text/javascript">
-    RED.nodes.registerType('sme-datepicker', {
+    RED.nodes.registerType('sme-filepicker', {
         category: 'semilimes',
         color: '#E2D96E',
         defaults: {
             name: { value: "" },
             title: { value: "Title" },
-            buttonText: { value: "Select date" },
+            buttonText: { value: "Select files" },
             required: { value: "0" },
             formStatus: { value: "1" }
         },
         inputs: 1,
         outputs: 1,
         align: 'left',
-        icon: "font-awesome/fa-calendar",
+        icon: "font-awesome/fa-file-o",
         label: function () {
-            return this.name || 'date picker message';
+            return this.name || 'file picker message';
         },
         labelStyle: function () {
             return this.name ? "node_label_italic" : "";
         },
-        paletteLabel: 'date picker message'
+        paletteLabel: 'file picker message'
     });
 </script>
 
-<script type="text/html" data-template-name="sme-datepicker">
+<script type="text/html" data-template-name="sme-filepicker">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row">
         <label for="node-input-title"><i class="fa fa-tag"></i> Title</label>
-        <input type="text" id="node-input-title" placeholder="This title is above the date picker.">
+        <input type="text" id="node-input-title" placeholder="This title is above the file picker.">
     </div>
     <div class="form-row">
         <label for="node-input-buttonText"><i class="fa fa-tag"></i> Button Title</label>
@@ -52,6 +52,6 @@
     </div>
 </script>
 
-<script type="text/html" data-help-name="sme-datepicker">
-    <p>Create date picker message for user to select a date.</p>
+<script type="text/html" data-help-name="sme-filepicker">
+    <p>Create file picker message for user to select files.</p>
 </script>

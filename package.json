@@ -25,9 +25,9 @@
       "sme-core": "src/sme-core.js",
       "sme-server": "src/sme-server.js",
       "sme-connector": "src/sme-connector.js",
-      "sme-send": "src/sme-send.js",
       "sme-post": "src/sme-post.js",
       "sme-receive": "src/sme-receive.js",
+      "sme-send": "src/sme-send.js",
       "sme-text": "src/sme-text.js",
       "sme-label": "src/sme-label.js",
       "sme-textbox": "src/sme-textbox.js",
@@ -38,6 +38,8 @@
       "sme-datepicker": "src/sme-datepicker.js",
       "sme-timepicker": "src/sme-timepicker.js",
       "sme-locationpicker": "src/sme-locationpicker.js",
+      "sme-photopicker": "src/sme-photopicker.js",
+      "sme-filepicker": "src/sme-filepicker.js",
       "sme-html": "src/sme-html.js"
     }
 	}
