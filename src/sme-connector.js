@@ -67,11 +67,16 @@ module.exports = function (RED) {
             webSocket.addMessageListener(listener);
         }
 
+        function addStatusListener(listener) {
+            webSocket.addStatusListener(listener);
+        }
+
         //  Export
         this.postMessage = sendWebSocketMessage;
         this.sendMessage = sendApiMessage;
         this.callApi = callApi;
         this.addMessageListener = addMessageListener;
+        this.addStatusListener = addStatusListener;
     };
 	
 	RED.nodes.registerType("sme-connector", SmeConnectorNode);

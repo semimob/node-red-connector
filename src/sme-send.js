@@ -8,11 +8,13 @@ module.exports = function (RED) {
         var node = this;
 
         var smeConnector = config.connector && RED.nodes.getNode(config.connector);
+        if (!smeConnector)
+            return;
 
         node.on('input', function (msg, send, done) {
             send = send || function () { node.send.apply(node, arguments) };
 
-            if (smeConnector != null && msg.payload) {
+            if (msg.payload) {
                 var promise = smeConnector.sendMessage(msg.payload, node.async);
                 promise.then(
                     value => {

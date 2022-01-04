@@ -43,9 +43,10 @@ module.exports = function (RED) {
                 options.agent = proxyAgent;
             }
 
-            console.log(`Connect to "${serverWsURL}"... `);
+            console.log(`Connecting to "${serverWsURL}"... `);
             webSocket = new ws.WebSocket(serverWsURL, options);
             webSocket.setMaxListeners(0);
+            messageDeliver.emit('status', 'connecting...');
             handleConnection(webSocket);
         }
 
@@ -67,10 +68,12 @@ module.exports = function (RED) {
         function handleConnection(socket) {
             socket.on('open', function () {
                 console.log('ws opened!');
+                messageDeliver.emit('status', 'connected');
             });
 
             socket.on('close', function () {
                 console.log('ws closed!');
+                messageDeliver.emit('status', 'disconnected');
                 reconnect();
             });
 
@@ -101,14 +104,20 @@ module.exports = function (RED) {
         }
 
         function addMessageListener(listener) {
-            console.log('Register listener', listener);
+            console.log('Register message listener', listener);
             messageDeliver.addListener('message', listener);
+        }
+
+        function addStatusListener(listener) {
+            console.log('Register status listener', listener);
+            messageDeliver.addListener('status', listener);
         }
 
         //  Export
         this.send = send;
         this.close = disconnect;
         this.addMessageListener = addMessageListener;
+        this.addStatusListener = addStatusListener;
 
         if (serverWsURL)
             connect();

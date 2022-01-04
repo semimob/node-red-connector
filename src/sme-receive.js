@@ -7,16 +7,13 @@ module.exports = function (RED) {
         var node = this;
 
         var smeConnector = config.connector && RED.nodes.getNode(config.connector);
+        if (!smeConnector)
+            return;
 
         //	Listener for message...
-        if (smeConnector) {
-            smeConnector.addMessageListener(msg => {
-                node.send({ payload: msg }, false);
-            });
-        }
-        else {
-            node.log('receiver not connect.');
-        }
+        smeConnector.addMessageListener(msg => {
+            node.send({ payload: msg }, false);
+        });
     };
 
     RED.nodes.registerType("sme-receive", SmeReceiveNode);
