@@ -42,7 +42,8 @@
       "sme-filepicker": "src/sme-filepicker.js",
       "sme-contactpicker": "src/sme-contactpicker.js",
       "sme-conversationpicker": "src/sme-conversationpicker.js",
-      "sme-html": "src/sme-html.js"
+      "sme-html": "src/sme-html.js",
+      "sme-responsereceiver": "src/sme-responsereceiver.js"
     }
 	}
 }
