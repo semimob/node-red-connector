@@ -11,13 +11,13 @@
         outputs: 1,
         align: 'left',
         icon: "font-awesome/fa-send-o",
+        paletteLabel: 'send',
         label: function () {
             return this.name || ('send' + (this.async==1 ? ' async' : ''));
         },
         labelStyle: function () {
             return this.name ? "node_label_italic" : "";
-        },
-        paletteLabel: 'send'
+        }
     });
 </script>
 
