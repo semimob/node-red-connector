@@ -16,7 +16,7 @@ module.exports = function (RED) {
             var form = typeof (msg.payload) == 'object' ? (msg.payload || {}) : {};
 
             var isFormSubmit = (form.Type || '').toLowerCase() == 'chat'
-                && ((form.TypeID || '').toLowerCase() != '68c87543-27d7-49c6-a56f-ebce74ca8275')
+                && ((form.TypeID || '').toLowerCase() == '68c87543-27d7-49c6-a56f-ebce74ca8275')
                 && Array.isArray(form.FormItems);
 
             if (isFormSubmit) {
