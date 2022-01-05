@@ -43,7 +43,7 @@
       "sme-contactpicker": "src/sme-contactpicker.js",
       "sme-conversationpicker": "src/sme-conversationpicker.js",
       "sme-html": "src/sme-html.js",
-      "sme-responsereceiver": "src/sme-responsereceiver.js"
+      "sme-valueextractor": "src/sme-valueextractor.js"
     }
 	}
 }

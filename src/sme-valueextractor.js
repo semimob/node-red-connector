@@ -2,11 +2,16 @@
 
 module.exports = function (RED) {
 
-    function SmeResponseReceiverNode(config) {
+    function SmeValueExtractorNode(config) {
         RED.nodes.createNode(this, config);
 
         this.name = config.name;
         this.message = config.message;
+        this.storage = config.storage;
+        this.storageType = config.storageType;
+
+        if (!(this.storage && this.storageType))
+            return;
 
         var node = this;
 
@@ -20,27 +25,34 @@ module.exports = function (RED) {
                 && Array.isArray(form.FormItems);
 
             if (isFormSubmit) {
-                console.log('submit');
                 var isMessageMatched = !node.message || node.message == form.FormReference;
                 if (isMessageMatched) {
-                    console.log('matched');
-                    var m = {};
+                    var values = {};
 
                     for (let i = 0; i < form.FormItems.length; i++) {
                         var formItem = form.FormItems[i];
-                        m['' + (formItem.FormReference || i)] = formItem.FormValue;
+                        values['' + (formItem.FormReference || i)] = formItem.FormValue;
                     }
 
-                    msg.payload = m;
-
-                    send(msg, false);
+                    switch (node.storageType) {
+                        case 'msg':
+                            msg[node.storage] = values;
+                            break;
+                        case 'flow':
+                            node.context().flow.set(node.storage, values);
+                            break;
+                        case 'global':
+                            node.context().global.set(node.storage, values);
+                            break;
+                    }
                 }
             }
-            console.log('end');
+
+            send(msg, false);
 
             done && done();
         });
     };
 
-    RED.nodes.registerType("sme-responsereceiver", SmeResponseReceiverNode);
+    RED.nodes.registerType("sme-valueextractor", SmeValueExtractorNode);
 };
