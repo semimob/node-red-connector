@@ -29,6 +29,7 @@
       "sme-receive": "src/sme-receive.js",
       "sme-send": "src/sme-send.js",
       "sme-text": "src/sme-text.js",
+      "sme-html": "src/sme-html.js",
       "sme-label": "src/sme-label.js",
       "sme-textbox": "src/sme-textbox.js",
       "sme-singlechoice": "src/sme-singlechoice.js",
@@ -42,8 +43,9 @@
       "sme-filepicker": "src/sme-filepicker.js",
       "sme-contactpicker": "src/sme-contactpicker.js",
       "sme-conversationpicker": "src/sme-conversationpicker.js",
-      "sme-html": "src/sme-html.js",
-      "sme-valueextractor": "src/sme-valueextractor.js"
+      "sme-formgetter": "src/sme-formgetter.js",
+      "sme-valuesetter": "src/sme-formsetter.js",
+      "sme-recycler": "src/sme-recycler.js"
     }
 	}
 }

@@ -2,7 +2,7 @@
 
 module.exports = function (RED) {
 
-    function SmeValueExtractorNode(config) {
+    function SmeNode(config) {
         RED.nodes.createNode(this, config);
 
         this.name = config.name;
@@ -20,11 +20,11 @@ module.exports = function (RED) {
 
             var form = typeof (msg.payload) == 'object' ? (msg.payload || {}) : {};
 
-            var isFormSubmit = (form.Type || '').toLowerCase() == 'chat'
-                && ((form.TypeID || '').toLowerCase() == '68c87543-27d7-49c6-a56f-ebce74ca8275')
+            var isFormOrSubmitMessage = (form.Type || '').toLowerCase() == 'chat'
+                && ((form.TypeID || '').toLowerCase() in ['457d1d4f-c982-4caf-bcc4-4b435860efa3', '68c87543-27d7-49c6-a56f-ebce74ca8275'])
                 && Array.isArray(form.FormItems);
 
-            if (isFormSubmit) {
+            if (isFormOrSubmitMessage) {
                 var isMessageMatched = !node.message || node.message == form.FormReference;
                 if (isMessageMatched) {
                     var values = {};
@@ -54,5 +54,5 @@ module.exports = function (RED) {
         });
     };
 
-    RED.nodes.registerType("sme-valueextractor", SmeValueExtractorNode);
+    RED.nodes.registerType("sme-formgetter", SmeNode);
 };

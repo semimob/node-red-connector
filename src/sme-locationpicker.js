@@ -8,6 +8,7 @@ module.exports = function (RED) {
         this.name = config.name;
         this.title = config.title;
         this.buttonText = config.buttonText;
+        this.currentLocationOnly = config.currentLocationOnly;
         this.required = config.required;
         this.formStatus = config.formStatus;
 
@@ -29,7 +30,8 @@ module.exports = function (RED) {
                 FormTypeID: '20a0ce4b-a236-4e96-9629-45a3af5f62ea',
                 FormTypeConfig: {
                     Title: node.title,
-                    ButtonText: node.buttonText
+                    ButtonText: node.buttonText,
+                    CurrentLocationOnly: node.currentLocationOnly ? 1 : 0
                 },
                 FormValue: node.value,
                 FormRequired: m.FormItems.length == 0 || (node.required == 1),
