@@ -6,15 +6,23 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
 
         this.name = config.name;
-        this.message = config.message;
+        this.formReference = config.formReference;
+        this.formValue = config.formValue && JSON.parse(config.formValue);
 
-        if (!(this.storage && this.storageType))
+        if (!(this.formReference && this.formValue))
             return;
 
         var node = this;
 
         node.on('input', function (msg, send, done) {
             send = send || function () { node.send.apply(node, arguments) };
+
+            msg.payload = {
+                Type: 'client',
+                TypeID: '197AD780-BDB0-4DA8-995C-9A64EB53B443',
+                FormReference: node.formReference,
+                State: node.formValue
+            };
 
             send(msg, false);
 

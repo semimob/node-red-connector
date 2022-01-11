@@ -13,9 +13,9 @@
         paletteLabel: 'text message',
         label: function () {
             if (this.name)
-                return name;
+                return this.name;
 
-            var message = this.text || 'label message';
+            var message = this.text || 'text message';
             var maxLenth = 20;
             if (message.length > maxLenth)
                 message = message.substr(0, maxLenth - 3) + '...';
