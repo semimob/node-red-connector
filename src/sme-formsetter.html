@@ -4,8 +4,9 @@
         color: '#DEBD5C',
         defaults: {
             name: { value: "" },
-            formReference: { value: "", required: true },
-            formValue: { value: "", required: true }
+            message: { value: "", required: true },
+            value: { value: "payload" },
+            valueType: { value: "msg" }
         },
         inputs: 1,
         outputs: 1,
@@ -13,16 +14,17 @@
         icon: "font-awesome/fa-edit",
         paletteLabel: 'form setter',
         label: function () {
-            return this.name || (this.formReference && ('set form: ' + this.formReference)) || 'form setter';
+            return this.name || (this.formReference && ('set: ' + this.formReference)) || 'form setter';
         },
         labelStyle: function () {
             return this.name ? "node_label_italic" : "";
         },
         oneditprepare: function () {
-            $("#node-input-formValue").typedInput({
-                type: "json",
-                types: ["json"]
-            })
+            $("#node-input-value").typedInput({
+                type: "msg",
+                types: ["msg", "flow", "global", "json"],
+                typeField: "#node-input-valueType"
+            });
         }
     });
 </script>
@@ -33,12 +35,13 @@
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row">
-        <label for="node-input-formReference"><i class="fa fa-cog"></i> Form Reference</label>
-        <input type="text" id="node-input-formReference" placeholder="Reference of the form to set value.">
+        <label for="node-input-message"><i class="fa fa-cog"></i> Message</label>
+        <input type="text" id="node-input-message" placeholder="Message of the form to set value.">
     </div>
     <div class="form-row">
-        <label for="node-input-formValue"><i class="fa fa-cog"></i> Value</label>
-        <input type="text" id="node-input-formValue" placeholder="JSON value to set to the form.">
+        <label for="node-input-value"><i class="fa fa-cog"></i> Value</label>
+        <input type="text" id="node-input-value">
+        <input type="hidden" id="node-input-valueType">
     </div>
 </script>
 

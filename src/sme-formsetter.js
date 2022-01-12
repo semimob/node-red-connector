@@ -6,10 +6,11 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
 
         this.name = config.name;
-        this.formReference = config.formReference;
-        this.formValue = config.formValue && JSON.parse(config.formValue);
+        this.message = config.message;
+        this.value = config.value;
+        this.valueType = config.valueType;
 
-        if (!(this.formReference && this.formValue))
+        if (!this.message)
             return;
 
         var node = this;
@@ -17,15 +18,33 @@ module.exports = function (RED) {
         node.on('input', function (msg, send, done) {
             send = send || function () { node.send.apply(node, arguments) };
 
-            msg.payload = {
-                Type: 'client',
-                TypeID: '197AD780-BDB0-4DA8-995C-9A64EB53B443',
-                FormReference: node.formReference,
-                State: node.formValue
-            };
+            var formValues = null;
+            switch (node.valueType) {
+                case 'msg':
+                    formValues = msg[node.value];
+                    break;
+                case 'flow':
+                    formValues = node.context().flow.get(node.value);
+                    break;
+                case 'global':
+                    formValues = node.context().global.get(node.value);
+                    break;
+                case 'json':
+                    formValues = JSON.parse(node.value);
+                    break;
+            }
 
-            send(msg, false);
+            if (formValues) {
+                var setFormMsg = {
+                    Type: 'client',
+                    TypeID: '197AD780-BDB0-4DA8-995C-9A64EB53B443',
+                    FormReference: node.message,
+                    State: formValues
+                };
 
+                send({ payload: setFormMsg }, false);
+            }
+            
             done && done();
         });
     };
