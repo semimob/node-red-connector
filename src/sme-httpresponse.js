@@ -2,6 +2,14 @@
 
 module.exports = function (RED) {
 
+    function isTextContentType(contentType) {
+        if (!contentType)
+            return false;
+
+        var c = contentType.toLowerCase();
+        return c.startsWith("text/") || c.startsWith("multipart/") || contentType.indexOf("script") >= 0;
+    }
+
     function SmeNode(config) {
         RED.nodes.createNode(this, config);
 
@@ -50,8 +58,10 @@ module.exports = function (RED) {
                 }
 
                 if (msg.payload) {
+                    console.log(typeof (msg.payload));
                     if (Buffer.isBuffer(msg.payload)) {
-                        httpResponse.Content = msg.payload.toString('base64');
+                        var contentType = msg.headers && msg.headers["content-type"];
+                        httpResponse.Content = isTextContentType(contentType) ? msg.payload.toString() : msg.payload.toString('base64');
                     }
                     else if (typeof (msg.payload) == 'string') {
                         httpResponse.Content = msg.payload;
