@@ -3,7 +3,8 @@
         category: 'semilimes',
         color: '#DEBD5C',
         defaults: {
-            name: { value: "" }
+            name: { value: "" },
+            baseUrl: {value: "http://localhost/"}
         },
         inputs: 1,
         outputs: 1,
@@ -23,6 +24,10 @@
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-baseUrl"><i class="fa fa-cog"></i> Base URL</label>
+        <input type="text" id="node-input-baseUrl" placeholder="Local web server exposing to semilimes.">
     </div>
 </script>
 

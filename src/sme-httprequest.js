@@ -6,6 +6,7 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
 
         this.name = config.name;
+        this.baseUrl = config.baseUrl;
        
         var node = this;
 
@@ -18,7 +19,7 @@ module.exports = function (RED) {
                 if (req) {
                     msg.HttpRequest = req;
                     msg.method = req.Method;
-                    msg.url = req.Path;
+                    msg.url = (node.baseUrl || '') + req.Path;
                     msg.headers = req.Headers && req.Headers.map(x => (x.Name && (x.Name + ':')) + (x.Value || ''));
                     msg.cookies = req.Cookies;
                     msg.payload = {};
