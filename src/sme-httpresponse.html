@@ -9,9 +9,9 @@
         outputs: 1,
         align: 'right',
         icon: "font-awesome/fa-envelope-o",
-        paletteLabel: 'http response',
+        paletteLabel: 'user-web response',
         label: function () {
-            return this.name || 'http response';
+            return this.name || 'user-web response';
         },
         labelStyle: function () {
             return this.name ? "node_label_italic" : "";
@@ -27,5 +27,5 @@
 </script>
 
 <script type="text/html" data-help-name="sme-httpresponse">
-    <p>Convert response of Node-RED http request to semilimes http response message.</p>
+    <p>Convert the response of Node-RED http request node to HTTP-response message of semilimes.</p>
 </script>
