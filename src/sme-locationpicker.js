@@ -31,7 +31,7 @@ module.exports = function (RED) {
                 FormTypeConfig: {
                     Title: node.title,
                     ButtonText: node.buttonText,
-                    CurrentLocationOnly: node.currentLocationOnly ? 1 : 0
+                    CurrentLocationOnly: node.currentLocationOnly == '1' ? 1 : 0
                 },
                 FormValue: node.value,
                 FormRequired: m.FormItems.length == 0 || (node.required == 1),
