@@ -1,0 +1,44 @@
+<script type="text/javascript">
+    RED.nodes.registerType('sme-form', {
+        category: 'semilimes',
+        color: '#E2D96E',
+        defaults: {
+            name: { value: "" },
+            formName: { value: "" },
+            formStatus: { value: "0" }
+        },
+        inputs: 1,
+        outputs: 1,
+        align: 'left',
+        icon: "font-awesome/fa-window-maximize",
+        label: function () {
+            return this.name || this.formName || 'form message';
+        },
+        labelStyle: function () {
+            return this.name ? "node_label_italic" : "";
+        },
+        paletteLabel: 'form message',
+    });
+</script>
+
+<script type="text/html" data-template-name="sme-form">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-formName"><i class="fa fa-tag"></i> Form name</label>
+        <input type="text" id="node-input-formName" placeholder="Unique name to identify the form.">
+    </div>
+    <div class="form-row">
+        <label for="node-input-formStatus"><i class="fa fa-cog"></i> <span> Form State</span></label>
+        <select id="node-input-formStatus">
+            <option value="1">Enabled</option>
+            <option value="0">Disabled</option>
+        </select>
+    </div>
+</script>
+
+<script type="text/html" data-help-name="sme-form">
+    <p>Create a semilimes form message.</p>
+</script>

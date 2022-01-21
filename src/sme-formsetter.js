@@ -6,7 +6,7 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
 
         this.name = config.name;
-        this.message = config.message;
+        this.formName = config.formName;
         this.value = config.value;
         this.valueType = config.valueType;
 
@@ -38,7 +38,7 @@ module.exports = function (RED) {
                 var setFormMsg = {
                     Type: 'client',
                     TypeID: '197AD780-BDB0-4DA8-995C-9A64EB53B443',
-                    FormReference: node.message,
+                    FormReference: node.formName,
                     State: formValues
                 };
 

@@ -2,7 +2,7 @@
 
 module.exports = function (RED) {
 
-    function SmeReceiveNode(config) {
+    function SmeNode(config) {
         RED.nodes.createNode(this, config);
         var node = this;
 
@@ -16,5 +16,5 @@ module.exports = function (RED) {
         });
     };
 
-    RED.nodes.registerType("sme-receive", SmeReceiveNode);
+    RED.nodes.registerType("sme-listener", SmeNode);
 };

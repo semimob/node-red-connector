@@ -1,7 +1,7 @@
 <script type="text/javascript">
     RED.nodes.registerType('sme-multichoice', {
         category: 'semilimes',
-        color: '#E2D96E',
+        color: '#E6E0F8',
         defaults: {
             name: { value: "" },
             title: { value: "Which ones do you prefer?" },
@@ -11,8 +11,7 @@
             choice4: { value: "" },
             choice5: { value: "" },
             choice6: { value: "" },
-            required: { value: "0" },
-            formStatus: { value: "1" }
+            required: { value: "0" }
         },
         inputs: 1,
         outputs: 1,
@@ -66,13 +65,6 @@
         <select id="node-input-required">
             <option value="1">True</option>
             <option value="0">False</option>
-        </select>
-    </div>
-    <div class="form-row">
-        <label for="node-input-fromState"><i class="fa fa-cog"></i> <span> Form State</span></label>
-        <select id="node-input-formState">
-            <option value="1">Enabled</option>
-            <option value="0">Disabled</option>
         </select>
     </div>
 </script>

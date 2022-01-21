@@ -6,7 +6,7 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
 
         this.name = config.name;
-        this.message = config.message;
+        this.formName = config.formName;
         this.storage = config.storage;
         this.storageType = config.storageType;
 
@@ -25,7 +25,7 @@ module.exports = function (RED) {
                 && Array.isArray(form.FormItems);
 
             if (isFormOrSubmitMessage) {
-                var isMessageMatched = !node.message || node.message == form.FormReference;
+                var isMessageMatched = !node.formName || node.formName == form.FormReference;
                 if (isMessageMatched) {
                     var values = {};
 

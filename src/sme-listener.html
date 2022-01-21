@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType('sme-receive', {
+    RED.nodes.registerType('sme-listener', {
         category: 'semilimes',
         color: "#D7D7A0",
         defaults: {
@@ -10,9 +10,9 @@
         outputs: 1,
         align: 'left',
         icon: "font-awesome/fa-flash",
-        paletteLabel: 'receive',
+        paletteLabel: 'listener',
         label: function () {
-            return this.name || 'receive';
+            return this.name || 'listen for semilimes messages';
         },
         labelStyle: function () {
             return this.name ? "node_label_italic" : "";
@@ -20,7 +20,7 @@
     });
 </script>
 
-<script type="text/html" data-template-name="sme-receive">
+<script type="text/html" data-template-name="sme-listener">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
@@ -31,6 +31,6 @@
 	</div>
 </script>
 
-<script type="text/html" data-help-name="sme-receive">
+<script type="text/html" data-help-name="sme-listener">
     <p>Listen for messages from semilimes.</p>
 </script>

@@ -4,7 +4,7 @@
         color: '#DEBD5C',
         defaults: {
             name: { value: "" },
-            message: { value: "", required: true },
+            formName: { value: "", required: true },
             value: { value: "payload" },
             valueType: { value: "msg" }
         },
@@ -12,9 +12,9 @@
         outputs: 1,
         align: 'left',
         icon: "font-awesome/fa-edit",
-        paletteLabel: 'form setter',
+        paletteLabel: 'set values',
         label: function () {
-            return this.name || (this.formReference && ('set: ' + this.formReference)) || 'form setter';
+            return this.name || (this.formName && ('set: ' + this.formName)) || 'set values';
         },
         labelStyle: function () {
             return this.name ? "node_label_italic" : "";
@@ -35,8 +35,8 @@
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row">
-        <label for="node-input-message"><i class="fa fa-tag"></i> Message</label>
-        <input type="text" id="node-input-message" placeholder="Message of the form to set value.">
+        <label for="node-input-formName"><i class="fa fa-tag"></i> Form name</label>
+        <input type="text" id="node-input-formName" placeholder="Name of the form to set value.">
     </div>
     <div class="form-row">
         <label for="node-input-value"><i class="fa fa-tag"></i> Value</label>

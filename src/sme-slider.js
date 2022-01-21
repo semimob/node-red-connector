@@ -11,7 +11,6 @@ module.exports = function (RED) {
         this.max = config.max;
         this.step = config.step;
         this.required = config.required;
-        this.formStatus = config.formStatus;
 
         var node = this;
 
@@ -20,11 +19,8 @@ module.exports = function (RED) {
 
             var m = typeof (msg.payload) == 'object' ? (msg.payload || {}) : {};
 
-            m.Type = 'chat';
-            m.TypeID = '457d1d4f-c982-4caf-bcc4-4b435860efa3';
-            m.Body = node.title || node.name || m.Body;
-            m.FormReference = node.name || m.FormReference;
-            m.FormStatus = node.formStatus ? 1 : 0;
+            m.Type = m.Type || 'chat';
+            m.TypeID = m.TypeID || '457d1d4f-c982-4caf-bcc4-4b435860efa3';
             m.FormItems = m.FormItems || [];
 
             m.FormItems.push({

@@ -1,7 +1,7 @@
 <script type="text/javascript">
     RED.nodes.registerType('sme-httprequest', {
         category: 'semilimes',
-        color: '#DEBD5C',
+        color: '#A6BBCF',
         defaults: {
             name: { value: "" },
             baseUrl: {value: "http://localhost/"}
@@ -9,8 +9,8 @@
         inputs: 1,
         outputs: 1,
         align: 'left',
-        icon: "font-awesome/fa-envelope-open-o",
-        paletteLabel: 'user-web request',
+        icon: "font-awesome/fa-share",
+        paletteLabel: 'userweb request',
         label: function () {
             return this.name || 'user-web request';
         },

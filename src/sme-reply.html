@@ -1,31 +1,31 @@
 <script type="text/javascript">
-    RED.nodes.registerType('sme-recycler', {
+    RED.nodes.registerType('sme-reply', {
         category: 'semilimes',
-        color: '#DEBD5C',
+        color: '#E2D96E',
         defaults: {
             name: { value: "" }
         },
         inputs: 1,
         outputs: 1,
         align: 'left',
-        icon: "font-awesome/fa-recycle",
+        icon: "font-awesome/fa-mail-reply",
         label: function () {
-            return this.name || 'message recycler';
+            return this.name || 'message reply';
         },
         labelStyle: function () {
             return this.name ? "node_label_italic" : "";
         },
-        paletteLabel: 'message recycler',
+        paletteLabel: 'reply',
     });
 </script>
 
-<script type="text/html" data-template-name="sme-recycler">
+<script type="text/html" data-template-name="sme-reply">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
 </script>
 
-<script type="text/html" data-help-name="sme-recycler">
-    <p>Recycle a received message for sending back as a new message.</p>
+<script type="text/html" data-help-name="sme-reply">
+    <p>Create empty message to reply a received message.</p>
 </script>

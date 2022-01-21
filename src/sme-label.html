@@ -1,7 +1,7 @@
 <script type="text/javascript">
     RED.nodes.registerType('sme-label', {
         category: 'semilimes',
-        color: '#E2D96E',
+        color: '#E6E0F8',
         defaults: {
             name: { value: "" },
             text: { value: "label message." }
@@ -10,7 +10,7 @@
         outputs: 1,
         align: 'left',
         icon: "font-awesome/fa-font",
-        paletteLabel: 'label message',
+        paletteLabel: 'label',
         label: function () {
             if (this.name)
                 return this.name;
@@ -55,5 +55,5 @@
 </script>
 
 <script type="text/html" data-help-name="sme-label">
-    <p>Plain label message.</p>
+    <p>Create a text item in semilimes form message.</p>
 </script>
