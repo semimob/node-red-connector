@@ -1,20 +1,20 @@
 <script type="text/javascript">
-    RED.nodes.registerType('sme-formgetter', {
+    RED.nodes.registerType('sme-formsubmission', {
         category: 'semilimes',
-        color: '#DEBD5C',
+        color: '#A6BBCF',
         defaults: {
             name: { value: "" },
-            formName: { value: "" },
-            storage: { value: "" },
+            reference: { value: "" },
+            storage: { value: "payload" },
             storageType: { value: "msg" }
         },
         inputs: 1,
         outputs: 1,
         align: 'left',
-        icon: "font-awesome/fa-share-square-o",
-        paletteLabel: 'get values',
+        icon: "font-awesome/fa-arrow-circle-o-right",
+        paletteLabel: 'form submission',
         label: function () {
-            return this.name || (this.formName && ('get: ' + this.formName)) || 'get values';
+            return this.name || (this.formName && ('get: ' + this.formName)) || 'form submission';
         },
         labelStyle: function () {
             return this.name ? "node_label_italic" : "";
@@ -29,14 +29,14 @@
     });
 </script>
 
-<script type="text/html" data-template-name="sme-formgetter">
+<script type="text/html" data-template-name="sme-formsubmission">
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row">
-        <label for="node-input-formName"><i class="fa fa-tag"></i> Form name</label>
-        <input type="text" id="node-input-formName" placeholder="Name of the form to get values.">
+        <label for="node-input-reference"><i class="fa fa-tag"></i> Reference</label>
+        <input type="text" id="node-input-reference" placeholder="Reference of the form message to catch submission.">
     </div>
     <div class="form-row">
         <label for="node-input-storage"><i class="fa fa-tag"></i> Set to</label>
@@ -45,6 +45,6 @@
     </div>
 </script>
 
-<script type="text/html" data-help-name="sme-formgetter">
-    <p>Get values of form and submission messages.</p>
+<script type="text/html" data-help-name="sme-formsubmission">
+    <p>Catch form submission.</p>
 </script>

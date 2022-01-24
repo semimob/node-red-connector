@@ -4,7 +4,9 @@ module.exports = function (RED) {
 
     function SmeTextNode(config) {
         RED.nodes.createNode(this, config);
+
         this.text = config.text;
+        this.reference = config.reference;
 
         var node = this;
 
@@ -16,6 +18,7 @@ module.exports = function (RED) {
 
                 m.Type = 'chat';
                 m.TypeID = '590e4e6c-2c5d-47e8-8f38-311d5a299ee7';
+                m.Reference = node.reference;
                 m.Body = node.text;
 
                 msg.payload = m;

@@ -1,0 +1,46 @@
+<script type="text/javascript">
+    RED.nodes.registerType('sme-sendingoption', {
+        category: 'semilimes',
+        color: '#C0C0C0',
+        defaults: {
+            name: { value: "" },
+            receiverName: { value: "" },
+            action: { value: "None" }
+        },
+        inputs: 1,
+        outputs: 1,
+        align: 'left',
+        icon: "font-awesome/fa-address-card-o",
+        label: function () {
+            return this.name || 'sending options';
+        },
+        labelStyle: function () {
+            return this.name ? "node_label_italic" : "";
+        },
+        paletteLabel: 'sending options',
+    });
+</script>
+
+<script type="text/html" data-template-name="sme-sendingoption">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-receiverName"><i class="fa fa-tag"></i> Receiver</label>
+        <input type="text" id="node-input-receiverName" placeholder="semilimes container's name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-action"><i class="fa fa-cog"></i> <span> Action</span></label>
+        <select id="node-input-action">
+            <option value="None">None</option>
+            <option value="UpdateByReference">Update message by Reference if exist.</option>
+            <option value="UpdateLastMessage">Update last message.</option>
+            <option value="DeleteByReference">Delete message by Reference.</option>
+        </select>
+    </div>
+</script>
+
+<script type="text/html" data-help-name="sme-sendingoption">
+    <p>Specify semilimes object which receives the messages.</p>
+</script>

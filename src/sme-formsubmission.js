@@ -6,7 +6,7 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
 
         this.name = config.name;
-        this.formName = config.formName;
+        this.reference = config.reference;
         this.storage = config.storage;
         this.storageType = config.storageType;
 
@@ -18,19 +18,19 @@ module.exports = function (RED) {
         node.on('input', function (msg, send, done) {
             send = send || function () { node.send.apply(node, arguments) };
 
-            var form = typeof (msg.payload) == 'object' ? (msg.payload || {}) : {};
+            var formMsg = typeof (msg.payload) == 'object' ? (msg.payload || {}) : {};
 
-            var isFormOrSubmitMessage = (form.Type || '').toLowerCase() == 'chat'
-                && ((form.TypeID || '').toLowerCase() in ['457d1d4f-c982-4caf-bcc4-4b435860efa3', '68c87543-27d7-49c6-a56f-ebce74ca8275'])
-                && Array.isArray(form.FormItems);
+            var isFormSubmitMessage = (formMsg.Type || '').toLowerCase() == 'chat'
+                && ((formMsg.TypeID || '').toLowerCase() == '68c87543-27d7-49c6-a56f-ebce74ca8275')
+                && Array.isArray(formMsg.FormItems);
 
-            if (isFormOrSubmitMessage) {
-                var isMessageMatched = !node.formName || node.formName == form.FormReference;
+            if (isFormSubmitMessage) {
+                var isMessageMatched = !node.reference || node.reference == formMsg.Reference;
                 if (isMessageMatched) {
                     var values = {};
 
-                    for (let i = 0; i < form.FormItems.length; i++) {
-                        var formItem = form.FormItems[i];
+                    for (let i = 0; i < formMsg.FormItems.length; i++) {
+                        var formItem = formMsg.FormItems[i];
                         values['' + (formItem.FormReference || i)] = formItem.FormValue;
                     }
 
@@ -54,5 +54,5 @@ module.exports = function (RED) {
         });
     };
 
-    RED.nodes.registerType("sme-formgetter", SmeNode);
+    RED.nodes.registerType("sme-formsubmission", SmeNode);
 };

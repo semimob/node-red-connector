@@ -6,6 +6,7 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
 
         this.name = config.name;
+        this.reference = config.reference;
        
         var node = this;
 
@@ -18,6 +19,7 @@ module.exports = function (RED) {
                     var reply = {
                         'Type': 'chat',
                         'ConverationID': conversationID,
+                        'Reference': node.reference
                     };
 
                     send(reply, false);

@@ -4,6 +4,9 @@ module.exports = function (RED) {
 
     function SmeHtmlNode(config) {
         RED.nodes.createNode(this, config);
+
+        this.name = config.name;
+        this.reference = config.reference;
         this.html = config.html;
         this.text = config.text;
 
@@ -17,6 +20,7 @@ module.exports = function (RED) {
             send({
                 Type: 'chat',
                 TypeID: '38199F47-504C-4C73-97E5-8076C8CFAA21',
+                Reference: node.reference,
                 Html: m,
                 Body: node.text
             });

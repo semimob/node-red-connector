@@ -1,10 +1,10 @@
 <script type="text/javascript">
     RED.nodes.registerType('sme-formsetter', {
         category: 'semilimes',
-        color: '#DEBD5C',
+        color: '#E2D96E',
         defaults: {
             name: { value: "" },
-            formName: { value: "", required: true },
+            reference: { value: "", required: true },
             value: { value: "payload" },
             valueType: { value: "msg" }
         },
@@ -12,9 +12,9 @@
         outputs: 1,
         align: 'left',
         icon: "font-awesome/fa-edit",
-        paletteLabel: 'set values',
+        paletteLabel: 'set form values message',
         label: function () {
-            return this.name || (this.formName && ('set: ' + this.formName)) || 'set values';
+            return this.name || (this.formName && ('set: ' + this.formName)) || 'set form values message';
         },
         labelStyle: function () {
             return this.name ? "node_label_italic" : "";
@@ -35,8 +35,8 @@
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row">
-        <label for="node-input-formName"><i class="fa fa-tag"></i> Form name</label>
-        <input type="text" id="node-input-formName" placeholder="Name of the form to set value.">
+        <label for="node-input-reference"><i class="fa fa-tag"></i> Reference</label>
+        <input type="text" id="node-input-reference" placeholder="Reference of the form message for setting values.">
     </div>
     <div class="form-row">
         <label for="node-input-value"><i class="fa fa-tag"></i> Value</label>

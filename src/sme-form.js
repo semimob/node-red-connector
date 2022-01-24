@@ -6,7 +6,7 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
 
         this.name = config.name;
-        this.formName = config.formName;
+        this.reference = config.reference;
         this.formStatus = config.formStatus;
 
         var node = this;
@@ -16,7 +16,8 @@ module.exports = function (RED) {
 
             m.Type = 'chat';
             m.TypeID = '457d1d4f-c982-4caf-bcc4-4b435860efa3';
-            m.FormReference = node.formName;
+
+            m.Reference = node.reference;
             m.FormStatus = node.formStatus ? 1 : 0;
             m.FormItems = m.FormItems || [];
             m.Body = m.Body || node.name || node.formName;
