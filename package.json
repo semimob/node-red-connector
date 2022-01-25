@@ -30,6 +30,7 @@
       "sme-html": "src/sme-html.js",
       "sme-form": "src/sme-form.js",
       "sme-formsetter": "src/sme-formsetter.js",
+      "sme-newcontainer": "src/sme-newcontainer.js",
       "sme-label": "src/sme-label.js",
       "sme-textbox": "src/sme-textbox.js",
       "sme-singlechoice": "src/sme-singlechoice.js",

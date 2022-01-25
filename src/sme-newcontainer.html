@@ -1,0 +1,63 @@
+<script type="text/javascript">
+    RED.nodes.registerType('sme-newcontainer', {
+        category: 'semilimes',
+        color: '#E7E7AE',
+        defaults: {
+            name: { value: "" },
+            containerType: { value: "" },
+            containerName: { value: "", requried: true },
+            containerDesc: { value: "" },
+            containerParent: { value: "" }
+        },
+        inputs: 1,
+        outputs: 1,
+        align: 'left',
+        icon: "font-awesome/fa-window-maximize",
+        paletteLabel: 'new container',
+        label: function () {
+            return this.name || (this.formName && ('set: ' + this.formName)) || 'new container';
+        },
+        labelStyle: function () {
+            return this.name ? "node_label_italic" : "";
+        },
+        oneditprepare: function () {
+            $("#node-input-value").typedInput({
+                type: "msg",
+                types: ["msg", "flow", "global", "json"],
+                typeField: "#node-input-valueType"
+            });
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="sme-newcontainer">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-containerType"><i class="fa fa-tag"></i> <span> Type</span></label>
+        <select id="node-input-containerType">
+            <option value="">(Default)</option>
+            <option value="Moment">Moment</option>
+            <option value="Group">Group Chat</option>
+            <option value="Channel">Channel</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-containerName"><i class="fa fa-tag"></i> Container name</label>
+        <input type="text" id="node-input-containerName">
+    </div>
+    <div class="form-row">
+        <label for="node-input-containerDesc"><i class="fa fa-tag"></i> Description</label>
+        <input type="text" id="node-input-containerDesc">
+    </div>
+    <div class="form-row">
+        <label for="node-input-containerParent"><i class="fa fa-tag"></i> Parent container</label>
+        <input type="text" id="node-input-containerParent">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="sme-newcontainer">
+    <p>Create moment, profile, group chat, channel and others.</p>
+</script>
