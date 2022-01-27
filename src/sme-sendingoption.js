@@ -18,8 +18,6 @@ module.exports = function (RED) {
                 msg.payload.ReceiverName = node.receiverName;
 
                 switch (node.action || '') {
-                    case 'None':
-                        break;
                     case 'UpdateByReference':
                         if (msg.payload.Reference) {
                             msg.payload.Request = {
@@ -37,14 +35,6 @@ module.exports = function (RED) {
                         };
 
                         msg.payload.TypeID = '3B6A45A1-7142-498C-A641-607EEBDE3C06';
-                        break;
-                    case 'DeleteByReference':
-                        if (msg.payload.Reference) {
-                            msg.payload.TypeID = '63F5A289-1F97-489B-B132-F0D8310B2808';
-                            msg.payload.Request = {
-                                MessageReference: msg.payload.Reference
-                            };
-                        }
                         break;
                 }
             }

@@ -5,7 +5,7 @@
         defaults: {
             name: { value: "" },
             receiverName: { value: "" },
-            action: { value: "None" }
+            action: { value: "" }
         },
         inputs: 1,
         outputs: 1,
@@ -27,16 +27,15 @@
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row">
-        <label for="node-input-receiverName"><i class="fa fa-tag"></i> Container</label>
-        <input type="text" id="node-input-receiverName" placeholder="semilimes container's name">
+        <label for="node-input-receiverName"><i class="fa fa-tag"></i> To Object</label>
+        <input type="text" id="node-input-receiverName" placeholder="semilimes object's name">
     </div>
     <div class="form-row">
         <label for="node-input-action"><i class="fa fa-cog"></i> <span> Action</span></label>
         <select id="node-input-action">
-            <option value="None">None</option>
+            <option value=""></option>
             <option value="UpdateLastMessage">Update last message.</option>
             <option value="UpdateByReference">Update message by Reference.</option>
-            <option value="DeleteByReference">Delete message by Reference.</option>
         </select>
     </div>
 </script>
