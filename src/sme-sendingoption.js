@@ -15,7 +15,11 @@ module.exports = function (RED) {
             send = send || function () { node.send.apply(node, arguments) };
 
             if (msg.payload != null && typeof (msg.payload) == 'object') {
-                msg.payload.ReceiverName = node.receiverName;
+                if (node.receiverName) {
+                    msg.payload.ReceiverName = node.receiverName;
+                    msg.payload.ReceiverID = null;
+                    msg.payload.ConversationID = null;
+                }
 
                 switch (node.action || '') {
                     case 'UpdateByReference':

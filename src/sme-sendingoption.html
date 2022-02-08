@@ -1,7 +1,7 @@
 <script type="text/javascript">
     RED.nodes.registerType('sme-sendingoption', {
         category: 'semilimes',
-        color: '#FFFFFF',
+        color: '#FFCC66',
         defaults: {
             name: { value: "" },
             receiverName: { value: "" },
@@ -12,12 +12,12 @@
         align: 'left',
         icon: "font-awesome/fa-address-card-o",
         label: function () {
-            return this.name || 'sending options';
+            return this.name || 'message action';
         },
         labelStyle: function () {
             return this.name ? "node_label_italic" : "";
         },
-        paletteLabel: 'sending options',
+        paletteLabel: 'message action',
     });
 </script>
 
@@ -27,7 +27,7 @@
         <input type="text" id="node-input-name" placeholder="Name">
     </div>
     <div class="form-row">
-        <label for="node-input-receiverName"><i class="fa fa-tag"></i> To Object</label>
+        <label for="node-input-receiverName"><i class="fa fa-tag"></i> Send to Object</label>
         <input type="text" id="node-input-receiverName" placeholder="semilimes object's name">
     </div>
     <div class="form-row">
