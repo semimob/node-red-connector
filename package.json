@@ -17,7 +17,11 @@
     "node-red",
     "semilimes"
   ],
+  "engines": {
+    "node": ">=16.13.1"
+  },
   "node-red": {
+    "version": ">=2.1.4",
     "nodes": {
       "sme-core": "src/sme-core.js",
       "sme-server": "src/sme-server.js",
