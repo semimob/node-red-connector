@@ -1,7 +1,7 @@
 # Message Format
 This document describes JSON message format to communicate with semlimes Server.
 
-# Common attributes of the JSON message
+## Common attributes of the JSON message
 
 | Name | Description |
 | --- | --- |
@@ -24,3 +24,44 @@ If the ConversationID attribute is omitted, ReceiverID can be provided to indica
 | Name | Description |
 | --- | --- |
 | `ReceiverID` | User identifier of the receiver. |
+
+## Chat messages
+
+### Quote message format
+Attribute `ReplyMessage` attribute is used to store the quoted message.
+
+```
+{
+  “MessageID”: “<MessageID>”,
+  ...
+  “ReplyMessage”: {
+    “MessageID”: “<Quoted-MessageID>”,
+    “Body”: “<Quoted-message-body>”,
+    ...
+  }
+}
+```
+
+### React message format
+Chat messages can contains reacts of users in `React` attribute in this structure:
+
+```
+{
+  “MessageID”: “<MessageID>”,
+  ...
+  “React”: {
+    “<ReactType1>”: [
+      “<UserID of user 1>”,
+      “<UserID of user 1>”,		// A user can react multiple times.
+      “<UserID of user 2>”,
+      ...	
+    ],
+    “<ReactType2>”: [
+      “<UserID of user 2>”,
+      “<UserID of user 3>”,
+      ...	
+    ]
+  }
+}
+```
+
