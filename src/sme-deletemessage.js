@@ -7,6 +7,7 @@ module.exports = function (RED) {
 
         this.name = config.name;
         this.reference = config.reference;
+        this.option = config.option;
 
         if (!this.reference)
             return;

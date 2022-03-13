@@ -11,12 +11,12 @@
         outputs: 1,
         align: 'left',
         icon: "font-awesome/fa-comment-o",
-        paletteLabel: 'text message',
+        paletteLabel: 'plain text message',
         label: function () {
             if (this.name)
                 return this.name;
 
-            var message = this.text || 'text message';
+            var message = this.text || 'plain text message';
             var maxLenth = 20;
             if (message.length > maxLenth)
                 message = message.substr(0, maxLenth - 3) + '...';

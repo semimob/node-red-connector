@@ -12,7 +12,7 @@
         icon: "font-awesome/fa-flash",
         paletteLabel: 'listener',
         label: function () {
-            return this.name || 'listen to semilimes';
+            return this.name || 'semilimes listener';
         },
         labelStyle: function () {
             return this.name ? "node_label_italic" : "";
@@ -32,5 +32,27 @@
 </script>
 
 <script type="text/html" data-help-name="sme-listener">
-    <p>Listen for messages from semilimes.</p>
-</script>
+    <p>Listen for messages from semilimes via a provided semilimes connector.</p>
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt>
+            Connector
+            <span class="property-type">sme-connector</span>
+        </dt>
+        <dd>Specify a semilimes Connector configuration node which manages connection to semilimes server.</dd>
+    </dl>
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt>
+            payload
+            <span class="property-type">sme-message</span>
+        </dt>
+    </dl>
+    <h3>Details</h3>
+    <p><code>msg.payload</code> is used to store received message from semilimes. It is an <code>sme-message</code> object which was JSON-parsed.</p>
+    <h3>References</h3>
+    <ul>
+        <li><a>Message Formats</a> - full description of <code>sme-message</code>(s) and their properties.</li>
+        <li><a href="https://github.com/semimob/node-red-connector.git">GitHub</a> - the nodes github repository</li>
+    </ul>
+</script>`

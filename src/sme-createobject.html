@@ -1,7 +1,7 @@
 <script type="text/javascript">
     RED.nodes.registerType('sme-createobject', {
         category: 'semilimes',
-        color: '#FFCC66',
+        color: '#E2D96E',
         defaults: {
             name: { value: "" },
             objectType: { value: "" },
@@ -17,9 +17,9 @@
         outputs: 1,
         align: 'left',
         icon: "font-awesome/fa-window-maximize",
-        paletteLabel: 'new object action',
+        paletteLabel: 'create object',
         label: function () {
-            return this.name || (this.formName && ('set: ' + this.formName)) || 'new object action';
+            return this.name || (this.formName && ('set: ' + this.formName)) || 'create object';
         },
         labelStyle: function () {
             return this.name ? "node_label_italic" : "";
