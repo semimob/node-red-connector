@@ -2,7 +2,7 @@
 
 module.exports = function (RED) {
 
-    function SmeTextBoxNode(config) {
+    function SmeNode(config) {
         RED.nodes.createNode(this, config);
 
         this.name = config.name;
@@ -39,5 +39,5 @@ module.exports = function (RED) {
         });
     };
 
-    RED.nodes.registerType("sme-textbox", SmeTextBoxNode);
+    RED.nodes.registerType("sme-textbox", SmeNode);
 };

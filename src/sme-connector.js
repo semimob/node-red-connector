@@ -23,7 +23,7 @@ module.exports = function (RED) {
         };
     }
 
-    function SmeConnectorNode(config) {		
+    function SmeNode(config) {		
         RED.nodes.createNode(this, config);
         var applicationID = config.applicationID;
 
@@ -84,5 +84,5 @@ module.exports = function (RED) {
         this.addStatusListener = addStatusListener;
     };
 	
-	RED.nodes.registerType("sme-connector", SmeConnectorNode);
+    RED.nodes.registerType("sme-connector", SmeNode);
 };

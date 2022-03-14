@@ -2,7 +2,7 @@
 
 module.exports = function (RED) {
 
-    function SmeMultiChoiceNode(config) {
+    function SmeNode(config) {
         RED.nodes.createNode(this, config);
 
         this.name = config.name;
@@ -48,5 +48,5 @@ module.exports = function (RED) {
         });
     };
 
-    RED.nodes.registerType("sme-multichoice", SmeMultiChoiceNode);
+    RED.nodes.registerType("sme-multichoice", SmeNode);
 };

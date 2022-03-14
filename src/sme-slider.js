@@ -2,7 +2,7 @@
 
 module.exports = function (RED) {
 
-    function SmeSliderNode(config) {
+    function SmeNode(config) {
         RED.nodes.createNode(this, config);
 
         this.name = config.name;
@@ -43,5 +43,5 @@ module.exports = function (RED) {
         });
     };
 
-    RED.nodes.registerType("sme-slider", SmeSliderNode);
+    RED.nodes.registerType("sme-slider", SmeNode);
 };

@@ -9,7 +9,7 @@
         inputs: 1,
         outputs: 1,
         align: 'left',
-        icon: "font-awesome/fa-edit",
+        icon: "function.svg",
         label: function () {
             return this.name || (this.option == 'UpdateLastMessage' ? 'update last message' : 'update message by reference');
         },
@@ -35,7 +35,7 @@
 </script>
 
 <script type="text/html" data-help-name="sme-updatemessage">
-    <p>Update the last message of the destination conversation.</p>
+    <p>Convert the input message to a message which replaces an existing message of the destination conversation.</p>
     <h3>Inputs</h3>
     <dl class="message-properties">
         <dt><code>msg.payload</code> <span class="property-type">sme-message</span></dt>

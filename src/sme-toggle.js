@@ -2,7 +2,7 @@
 
 module.exports = function (RED) {
 
-    function SmeToggleNode(config) {
+    function SmeNode(config) {
         RED.nodes.createNode(this, config);
 
         this.name = config.name;
@@ -36,5 +36,5 @@ module.exports = function (RED) {
         });
     };
 
-    RED.nodes.registerType("sme-toggle", SmeToggleNode);
+    RED.nodes.registerType("sme-toggle", SmeNode);
 };

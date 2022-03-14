@@ -2,7 +2,7 @@
 
 module.exports = function (RED) {
 
-    function SmeLabelNode(config) {
+    function SmeNode(config) {
         RED.nodes.createNode(this, config);
         this.text = config.text;
 
@@ -35,5 +35,5 @@ module.exports = function (RED) {
         });
     };
 
-    RED.nodes.registerType("sme-label", SmeLabelNode);
+    RED.nodes.registerType("sme-label", SmeNode);
 };

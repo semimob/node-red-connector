@@ -2,7 +2,7 @@
 
 module.exports = function (RED) {
 
-    function SmeDatePickerNode(config) {
+    function SmeNode(config) {
         RED.nodes.createNode(this, config);
 
         this.name = config.name;
@@ -40,5 +40,5 @@ module.exports = function (RED) {
         });
     };
 
-    RED.nodes.registerType("sme-datepicker", SmeDatePickerNode);
+    RED.nodes.registerType("sme-datepicker", SmeNode);
 };

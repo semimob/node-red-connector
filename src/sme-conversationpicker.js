@@ -2,7 +2,7 @@
 
 module.exports = function (RED) {
 
-    function SmeConversationPickerNode(config) {
+    function SmeNode(config) {
         RED.nodes.createNode(this, config);
 
         this.name = config.name;
@@ -40,5 +40,5 @@ module.exports = function (RED) {
         });
     };
 
-    RED.nodes.registerType("sme-conversationpicker", SmeConversationPickerNode);
+    RED.nodes.registerType("sme-conversationpicker", SmeNode);
 };

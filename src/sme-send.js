@@ -2,7 +2,7 @@
 
 module.exports = function (RED) {
 
-    function SmeSendNode(config) {
+    function SmeNode(config) {
         RED.nodes.createNode(this, config);
         this.async = config.async;
         var node = this;
@@ -35,5 +35,5 @@ module.exports = function (RED) {
         });
     };
 
-    RED.nodes.registerType("sme-send", SmeSendNode);
+    RED.nodes.registerType("sme-send", SmeNode);
 };

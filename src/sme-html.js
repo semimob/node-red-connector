@@ -2,7 +2,7 @@
 
 module.exports = function (RED) {
 
-    function SmeHtmlNode(config) {
+    function SmeNode(config) {
         RED.nodes.createNode(this, config);
 
         this.name = config.name;
@@ -29,5 +29,5 @@ module.exports = function (RED) {
         });
     };
 
-    RED.nodes.registerType("sme-html", SmeHtmlNode);
+    RED.nodes.registerType("sme-html", SmeNode);
 };

@@ -2,7 +2,7 @@
 
 module.exports = function (RED) {
 
-    function SmeTextNode(config) {
+    function SmeNode(config) {
         RED.nodes.createNode(this, config);
 
         this.text = config.text;
@@ -30,5 +30,5 @@ module.exports = function (RED) {
         });
     };
 
-    RED.nodes.registerType("sme-text", SmeTextNode);
+    RED.nodes.registerType("sme-text", SmeNode);
 };
