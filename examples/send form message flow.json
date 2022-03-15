@@ -1,0 +1,693 @@
+[
+    {
+        "id": "4c24277b1c71d0d4",
+        "type": "tab",
+        "label": "send form message",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "6cea875861733bb5",
+        "type": "sme-listener",
+        "z": "4c24277b1c71d0d4",
+        "name": "",
+        "connector": "935c6425dd554e13",
+        "x": 210,
+        "y": 180,
+        "wires": [
+            [
+                "0167a6196337dee4"
+            ]
+        ]
+    },
+    {
+        "id": "98351eae75b70ebc",
+        "type": "sme-post",
+        "z": "4c24277b1c71d0d4",
+        "name": "",
+        "connector": "935c6425dd554e13",
+        "x": 790,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "0167a6196337dee4",
+        "type": "debug",
+        "z": "4c24277b1c71d0d4",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 770,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "033dfdd0c21a139d",
+        "type": "comment",
+        "z": "4c24277b1c71d0d4",
+        "name": "Configure 'Connection' property of the 'semilimes listener' node to setup connection to semilimes.",
+        "info": "",
+        "x": 450,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "0e3ef629c89fc04f",
+        "type": "sme-form",
+        "z": "4c24277b1c71d0d4",
+        "name": "",
+        "reference": "",
+        "formStatus": "0",
+        "x": 700,
+        "y": 360,
+        "wires": [
+            [
+                "98351eae75b70ebc"
+            ]
+        ]
+    },
+    {
+        "id": "e02957e08672ec99",
+        "type": "comment",
+        "z": "4c24277b1c71d0d4",
+        "name": "Use a form message and combine items to create complex form.",
+        "info": "",
+        "x": 350,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "f405a1a5c1f4ac0d",
+        "type": "inject",
+        "z": "4c24277b1c71d0d4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 300,
+        "wires": [
+            [
+                "22360ea23dd539f6"
+            ]
+        ]
+    },
+    {
+        "id": "22360ea23dd539f6",
+        "type": "sme-singlechoice",
+        "z": "4c24277b1c71d0d4",
+        "name": "Breakfast",
+        "title": "Which one do you prefer?",
+        "choice1": "option 1",
+        "choice2": "option 2",
+        "choice3": "option 3",
+        "choice4": "",
+        "choice5": "",
+        "choice6": "",
+        "required": "0",
+        "x": 420,
+        "y": 300,
+        "wires": [
+            [
+                "02be98875c8a9e70"
+            ]
+        ]
+    },
+    {
+        "id": "02be98875c8a9e70",
+        "type": "sme-multichoice",
+        "z": "4c24277b1c71d0d4",
+        "name": "Drinks",
+        "title": "Which ones do you prefer?",
+        "choice1": "option 1",
+        "choice2": "option 2",
+        "choice3": "option 3",
+        "choice4": "",
+        "choice5": "",
+        "choice6": "",
+        "required": "0",
+        "x": 410,
+        "y": 360,
+        "wires": [
+            [
+                "1db34413316f2ac6"
+            ]
+        ]
+    },
+    {
+        "id": "70dcdea5a6b7ff7a",
+        "type": "inject",
+        "z": "4c24277b1c71d0d4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 360,
+        "wires": [
+            [
+                "02be98875c8a9e70"
+            ]
+        ]
+    },
+    {
+        "id": "07a9e7ac4689a13f",
+        "type": "sme-toggle",
+        "z": "4c24277b1c71d0d4",
+        "name": "Sex",
+        "title": "Sex",
+        "x": 410,
+        "y": 480,
+        "wires": [
+            [
+                "be03f40aa6f567ac"
+            ]
+        ]
+    },
+    {
+        "id": "70f958175b797077",
+        "type": "inject",
+        "z": "4c24277b1c71d0d4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 480,
+        "wires": [
+            [
+                "07a9e7ac4689a13f"
+            ]
+        ]
+    },
+    {
+        "id": "1db34413316f2ac6",
+        "type": "sme-textbox",
+        "z": "4c24277b1c71d0d4",
+        "name": "Comments",
+        "title": "This comment will be updated.",
+        "value": "",
+        "required": "0",
+        "x": 430,
+        "y": 420,
+        "wires": [
+            [
+                "07a9e7ac4689a13f"
+            ]
+        ]
+    },
+    {
+        "id": "c8d4ca38674d3058",
+        "type": "inject",
+        "z": "4c24277b1c71d0d4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 420,
+        "wires": [
+            [
+                "1db34413316f2ac6"
+            ]
+        ]
+    },
+    {
+        "id": "be03f40aa6f567ac",
+        "type": "sme-slider",
+        "z": "4c24277b1c71d0d4",
+        "name": "Age",
+        "title": "Age",
+        "min": "",
+        "max": "",
+        "step": "",
+        "x": 410,
+        "y": 540,
+        "wires": [
+            [
+                "0b85f6189fa4b0f0"
+            ]
+        ]
+    },
+    {
+        "id": "7ff0ccf2e30307b0",
+        "type": "inject",
+        "z": "4c24277b1c71d0d4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 540,
+        "wires": [
+            [
+                "be03f40aa6f567ac"
+            ]
+        ]
+    },
+    {
+        "id": "d31f2ea9d7d3006f",
+        "type": "inject",
+        "z": "4c24277b1c71d0d4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 240,
+        "wires": [
+            [
+                "64a4dcffbb1fad38"
+            ]
+        ]
+    },
+    {
+        "id": "0b85f6189fa4b0f0",
+        "type": "sme-datepicker",
+        "z": "4c24277b1c71d0d4",
+        "name": "Birthday",
+        "title": "Birthday",
+        "buttonText": "",
+        "required": "0",
+        "x": 420,
+        "y": 600,
+        "wires": [
+            [
+                "fa543b0d24daca4c"
+            ]
+        ]
+    },
+    {
+        "id": "cdd6b4e5695a49e7",
+        "type": "inject",
+        "z": "4c24277b1c71d0d4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 600,
+        "wires": [
+            [
+                "0b85f6189fa4b0f0"
+            ]
+        ]
+    },
+    {
+        "id": "fa543b0d24daca4c",
+        "type": "sme-timepicker",
+        "z": "4c24277b1c71d0d4",
+        "name": "Time",
+        "title": "Time",
+        "buttonText": "",
+        "required": "0",
+        "x": 410,
+        "y": 660,
+        "wires": [
+            [
+                "17279ef7f2ccb606"
+            ]
+        ]
+    },
+    {
+        "id": "49eaeb065e4091a4",
+        "type": "inject",
+        "z": "4c24277b1c71d0d4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 660,
+        "wires": [
+            [
+                "fa543b0d24daca4c"
+            ]
+        ]
+    },
+    {
+        "id": "64a4dcffbb1fad38",
+        "type": "sme-label",
+        "z": "4c24277b1c71d0d4",
+        "name": "Welcome",
+        "text": "This is a label message.\nAnd this is the second line.",
+        "x": 420,
+        "y": 240,
+        "wires": [
+            [
+                "22360ea23dd539f6"
+            ]
+        ]
+    },
+    {
+        "id": "922baff8785756ef",
+        "type": "inject",
+        "z": "4c24277b1c71d0d4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 720,
+        "wires": [
+            [
+                "17279ef7f2ccb606"
+            ]
+        ]
+    },
+    {
+        "id": "17279ef7f2ccb606",
+        "type": "sme-locationpicker",
+        "z": "4c24277b1c71d0d4",
+        "name": "OfficeLocation",
+        "title": "Office Location",
+        "buttonText": "Select location",
+        "currentLocationOnly": "1",
+        "required": "0",
+        "x": 440,
+        "y": 720,
+        "wires": [
+            [
+                "dde2213abb585a13"
+            ]
+        ]
+    },
+    {
+        "id": "dde2213abb585a13",
+        "type": "sme-filepicker",
+        "z": "4c24277b1c71d0d4",
+        "name": "Resume",
+        "title": "Title",
+        "buttonText": "Select files",
+        "required": "0",
+        "x": 420,
+        "y": 780,
+        "wires": [
+            [
+                "95f1bc2c6ba7845b"
+            ]
+        ]
+    },
+    {
+        "id": "4280ab1724ac9c0b",
+        "type": "inject",
+        "z": "4c24277b1c71d0d4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 780,
+        "wires": [
+            [
+                "dde2213abb585a13"
+            ]
+        ]
+    },
+    {
+        "id": "95f1bc2c6ba7845b",
+        "type": "sme-photopicker",
+        "z": "4c24277b1c71d0d4",
+        "name": "Avatar",
+        "title": "Avatar",
+        "buttonText": "Select photos",
+        "required": "0",
+        "x": 410,
+        "y": 840,
+        "wires": [
+            [
+                "5017ea6465b610ee"
+            ]
+        ]
+    },
+    {
+        "id": "e96bca86b2f226d0",
+        "type": "inject",
+        "z": "4c24277b1c71d0d4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 840,
+        "wires": [
+            [
+                "95f1bc2c6ba7845b"
+            ]
+        ]
+    },
+    {
+        "id": "5017ea6465b610ee",
+        "type": "sme-contactpicker",
+        "z": "4c24277b1c71d0d4",
+        "name": "Contacts",
+        "title": "Select contacts",
+        "buttonText": "Select contacts",
+        "required": "0",
+        "x": 420,
+        "y": 900,
+        "wires": [
+            [
+                "bc7bf33ff23a68cb"
+            ]
+        ]
+    },
+    {
+        "id": "d8393b37bde424f2",
+        "type": "inject",
+        "z": "4c24277b1c71d0d4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 900,
+        "wires": [
+            [
+                "5017ea6465b610ee"
+            ]
+        ]
+    },
+    {
+        "id": "bc7bf33ff23a68cb",
+        "type": "sme-conversationpicker",
+        "z": "4c24277b1c71d0d4",
+        "name": "QAs",
+        "title": "Questions & Answers",
+        "buttonText": "Select conversations",
+        "required": "0",
+        "x": 410,
+        "y": 960,
+        "wires": [
+            [
+                "0e3ef629c89fc04f"
+            ]
+        ]
+    },
+    {
+        "id": "ce203a6e8c22821f",
+        "type": "inject",
+        "z": "4c24277b1c71d0d4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 960,
+        "wires": [
+            [
+                "bc7bf33ff23a68cb"
+            ]
+        ]
+    },
+    {
+        "id": "935c6425dd554e13",
+        "type": "sme-connector",
+        "name": "",
+        "server": "b2623b38c0fed7d0",
+        "appName": "Node-RED",
+        "reservedCode": "",
+        "applicationID": ""
+    },
+    {
+        "id": "b2623b38c0fed7d0",
+        "type": "sme-server",
+        "name": "",
+        "host": "cloud.semilimes.net"
+    }
+]

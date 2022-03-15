@@ -11,4 +11,5 @@ Setup connection to semilimes server in Node-RED flow.
 3. Add a `post` node and configure its `Connector` property to the same `sme-connector` configuration.
 You now can both send and receive messages with semilimes using the `listener` and `post` nodes.
 
-Example: [connect to semilimes](../examples/connect to semilimes flow.json)
+Try this flow to connect to semilimes, send and receive messages.
+[connect to semilimes](../examples/connect to semilimes flow.json)

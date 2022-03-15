@@ -2,7 +2,7 @@
     {
         "id": "4c24277b1c71d0d4",
         "type": "tab",
-        "label": "Flow 1",
+        "label": "connect to semilimes",
         "disabled": false,
         "info": "",
         "env": []
@@ -126,5 +126,4 @@
         "name": "",
         "host": "cloud.semilimes.net"
     }
-]
 ]
