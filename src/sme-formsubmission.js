@@ -5,7 +5,6 @@ module.exports = function (RED) {
     function SmeNode(config) {
         RED.nodes.createNode(this, config);
 
-        this.name = config.name;
         this.reference = config.reference;
         this.storage = config.storage;
         this.storageType = config.storageType;
@@ -45,10 +44,10 @@ module.exports = function (RED) {
                             node.context().global.set(node.storage, values);
                             break;
                     }
+
+                    send(msg, false);
                 }
             }
-
-            send(msg, false);
 
             done && done();
         });

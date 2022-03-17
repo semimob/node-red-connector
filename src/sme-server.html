@@ -2,24 +2,19 @@
     RED.nodes.registerType('sme-server', {
         category: 'config',
         defaults: {
-            name: { value: "" },
             host: { value: "cloud.semilimes.net" }
         },
         icon: "font-awesome/fa-cog",
         label: function () {
-            return this.name || this.host || "semilimes server";
+            return this.host || "semilimes server";
         },
         labelStyle: function () {
-            return this.name ? "node_label_italic" : "";
+            return this.host ? "node_label_italic" : "";
         }
     });
 </script>
 
 <script type="text/html" data-template-name="sme-server">
-    <div class="form-row">
-        <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-config-input-name" placeholder="Name">
-    </div>
     <div class="form-row">
         <label for="node-config-input-host"><i class="fa fa-tag"></i> Host</label>
         <input type="text" id="node-config-input-host" placeholder="server name">

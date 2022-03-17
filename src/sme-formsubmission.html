@@ -3,7 +3,6 @@
         category: 'semilimes',
         color: '#A6BBCF',
         defaults: {
-            name: { value: "" },
             reference: { value: "" },
             storage: { value: "payload" },
             storageType: { value: "msg" }
@@ -14,10 +13,10 @@
         icon: "font-awesome/fa-arrow-circle-o-right",
         paletteLabel: 'form submission',
         label: function () {
-            return this.name || (this.formName && ('get: ' + this.formName)) || 'form submission';
+            return this.reference ? ('[' + this.reference + ']') : 'form submission';
         },
         labelStyle: function () {
-            return this.name ? "node_label_italic" : "";
+            return this.reference ? "node_label_italic" : "";
         },
         oneditprepare: function () {
             $("#node-input-storage").typedInput({
@@ -30,10 +29,6 @@
 </script>
 
 <script type="text/html" data-template-name="sme-formsubmission">
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
-    </div>
     <div class="form-row">
         <label for="node-input-reference"><i class="fa fa-tag"></i> Reference</label>
         <input type="text" id="node-input-reference" placeholder="Reference of the form message to catch submission.">

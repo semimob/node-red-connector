@@ -11,7 +11,6 @@
         "id": "6cea875861733bb5",
         "type": "sme-listener",
         "z": "4c24277b1c71d0d4",
-        "name": "",
         "connector": "935c6425dd554e13",
         "x": 210,
         "y": 180,
@@ -25,7 +24,6 @@
         "id": "98351eae75b70ebc",
         "type": "sme-post",
         "z": "4c24277b1c71d0d4",
-        "name": "",
         "connector": "935c6425dd554e13",
         "x": 790,
         "y": 240,
@@ -35,7 +33,6 @@
         "id": "0167a6196337dee4",
         "type": "debug",
         "z": "4c24277b1c71d0d4",
-        "name": "",
         "active": true,
         "tosidebar": true,
         "console": false,
@@ -61,7 +58,6 @@
         "id": "0e3ef629c89fc04f",
         "type": "sme-form",
         "z": "4c24277b1c71d0d4",
-        "name": "",
         "reference": "",
         "formStatus": "0",
         "x": 700,
@@ -86,7 +82,6 @@
         "id": "f405a1a5c1f4ac0d",
         "type": "inject",
         "z": "4c24277b1c71d0d4",
-        "name": "",
         "props": [
             {
                 "p": "payload"
@@ -678,7 +673,6 @@
     {
         "id": "935c6425dd554e13",
         "type": "sme-connector",
-        "name": "",
         "server": "b2623b38c0fed7d0",
         "appName": "Node-RED",
         "reservedCode": "",
@@ -687,7 +681,6 @@
     {
         "id": "b2623b38c0fed7d0",
         "type": "sme-server",
-        "name": "",
         "host": "cloud.semilimes.net"
     }
 ]

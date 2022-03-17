@@ -5,15 +5,11 @@ module.exports = function (RED) {
     function SmeNode(config) {
         RED.nodes.createNode(this, config);
 
-        this.name = config.name;
         this.option = config.option;
         this.messageId = config.messageId;
         this.messageIdType = config.messageIdType;
         this.reference = config.reference;
         this.referenceType = config.referenceType;
-
-        if (!this.reference)
-            return;
 
         var node = this;
 

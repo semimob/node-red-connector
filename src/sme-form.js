@@ -20,7 +20,7 @@ module.exports = function (RED) {
             m.Reference = node.reference;
             m.FormStatus = node.formStatus ? 1 : 0;
             m.FormItems = m.FormItems || [];
-            m.Body = m.Body || node.name || node.formName;
+            m.Body = m.Body || node.formName;
 
             msg.payload = m;
 

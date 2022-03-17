@@ -3,7 +3,7 @@
         category: 'semilimes',
         color: '#E2D96E',
         defaults: {
-            name: { value: "" },
+            option: { value: "DeleteByReference", required: true },
             messageId: { value: "" },
             messageIdType: { value: "msg" },
             reference: { value: "" },
@@ -15,10 +15,16 @@
         icon: "font-awesome/fa-remove",
         paletteLabel: 'delete message',
         label: function () {
-            return this.name || (this.formName && ('set: ' + this.formName)) || 'delete message';
-        },
-        labelStyle: function () {
-            return this.name ? "node_label_italic" : "";
+            switch (this.option) {
+                case 'DeleteByID':
+                    return 'delete by by message ID';
+                case 'DeleteByReference':
+                    return 'delete by message reference';
+                case 'DeleteAll':
+                    return 'delete all messages';
+                default:
+                    return 'delete message';
+            }
         },
         oneditprepare: function () {
             $("#node-input-messageId").typedInput({
@@ -37,10 +43,6 @@
 </script>
 
 <script type="text/html" data-template-name="sme-deletemessage">
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
-    </div>
     <div class="form-row">
         <label for="node-input-option"><i class="fa fa-cog"></i> <span> Option</span></label>
         <select id="node-input-option">

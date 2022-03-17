@@ -3,7 +3,6 @@
         category: 'semilimes',
         color: "#D7D7A0",
         defaults: {
-            name: { value: "" },
             connector: { type: 'sme-connector', required: true }
         },
         inputs: 0,
@@ -11,20 +10,11 @@
         align: 'left',
         icon: "font-awesome/fa-flash",
         paletteLabel: 'listener',
-        label: function () {
-            return this.name || 'semilimes listener';
-        },
-        labelStyle: function () {
-            return this.name ? "node_label_italic" : "";
-        }
+        label: 'semilimes listener',
     });
 </script>
 
 <script type="text/html" data-template-name="sme-listener">
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
-    </div>
 	<div class="form-row">
 		<label for="node-input-connector"><i class="fa fa-cog"></i> Connector</label>
 		<input type="text" id="node-input-connector" placeholder="semilimes connector">

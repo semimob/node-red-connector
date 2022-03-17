@@ -13,17 +13,11 @@
         icon: "font-awesome/fa-comment-o",
         paletteLabel: 'plain text message',
         label: function () {
-            if (this.name)
-                return this.name;
-
             var message = this.text || 'plain text message';
             var maxLenth = 20;
             if (message.length > maxLenth)
                 message = message.substr(0, maxLenth - 3) + '...';
             return message;
-        },
-        labelStyle: function () {
-            return this.name ? "node_label_italic" : "";
         },
         oneditprepare: function () {
             this.editor = RED.editor.createEditor({
@@ -45,10 +39,6 @@
 </script>
 
 <script type="text/html" data-template-name="sme-text">
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
-    </div>
     <div class="form-row">
         <label for="node-input-reference"><i class="fa fa-tag"></i> Reference</label>
         <input type="text" id="node-input-reference" placeholder="Reference to identify the message for programing.">

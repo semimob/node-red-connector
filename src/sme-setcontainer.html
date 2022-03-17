@@ -3,7 +3,6 @@
         category: 'semilimes',
         color: '#E2D96E',
         defaults: {
-            name: { value: "" },
             objectName: { value: "" }
         },
         inputs: 1,
@@ -11,7 +10,7 @@
         align: 'left',
         icon: "function.svg",
         label: function () {
-            return this.name || 'set container';
+            return this.objectName ? ('=>' + this.objectName) : 'set container';
         },
         labelStyle: function () {
             return this.name ? "node_label_italic" : "";
@@ -21,10 +20,6 @@
 </script>
 
 <script type="text/html" data-template-name="sme-setrecipient">
-    <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
-    </div>
     <div class="form-row">
         <label for="node-input-objectName"><i class="fa fa-tag"></i> Container name</label>
         <input type="text" id="node-input-objectName" placeholder="semilimes container's name">

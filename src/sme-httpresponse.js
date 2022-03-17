@@ -12,8 +12,6 @@ module.exports = function (RED) {
 
     function SmeNode(config) {
         RED.nodes.createNode(this, config);
-
-        this.name = config.name;
        
         var node = this;
 

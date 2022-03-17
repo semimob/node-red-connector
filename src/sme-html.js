@@ -5,7 +5,6 @@ module.exports = function (RED) {
     function SmeNode(config) {
         RED.nodes.createNode(this, config);
 
-        this.name = config.name;
         this.reference = config.reference;
         this.html = config.html;
         this.text = config.text;
@@ -15,7 +14,7 @@ module.exports = function (RED) {
         node.on('input', function (msg, send, done) {
             send = send || function () { node.send.apply(node, arguments) };
 
-            var m = node.html || msg.payload || '';
+            var m = node.html || ('' + (msg.payload || ''));
 
             send({
                 Type: 'chat',

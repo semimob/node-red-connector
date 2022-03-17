@@ -5,7 +5,6 @@ module.exports = function (RED) {
     function SmeNode(config) {
         RED.nodes.createNode(this, config);
 
-        this.name = config.name;
         this.objectType = config.objectType;
         this.objectName = config.objectName;
         this.objectDesc = config.objectDesc;
