@@ -14,16 +14,20 @@ module.exports = function (RED) {
         node.on('input', function (msg, send, done) {
             send = send || function () { node.send.apply(node, arguments) };
 
-            var m = node.html || ('' + (msg.payload || ''));
+            var m = typeof (msg.payload) == 'object' ? (msg.payload || {}) : {};
+            var html = node.html || m.Html;
 
-            send({
-                Type: 'chat',
-                TypeID: '38199F47-504C-4C73-97E5-8076C8CFAA21',
-                Reference: node.reference,
-                Html: m,
-                Body: node.text
-            });
+            if (html) {
+                m.Type = 'chat';
+                m.TypeID = '38199F47-504C-4C73-97E5-8076C8CFAA21';
+                m.Reference = node.reference;
+                m.Html = html;
 
+                msg.payload = m;
+
+                send(msg, false);
+            }
+            
             done && done();
         });
     };

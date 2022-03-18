@@ -12,6 +12,8 @@ module.exports = function (RED) {
         var node = this;
 
         node.on('input', function (msg, send, done) {
+            send = send || function () { node.send.apply(node, arguments) };
+
             var m = typeof (msg.payload) == 'object' ? (msg.payload || {}) : {};
 
             m.Type = 'chat';

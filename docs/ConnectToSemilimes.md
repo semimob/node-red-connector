@@ -12,4 +12,7 @@ Setup connection to semilimes server in Node-RED flow.
 You now can both send and receive messages with semilimes using the `listener` and `post` nodes.
 
 Try this flow to connect to semilimes, send and receive messages.
-[connect to semilimes](../examples/connect to semilimes flow.json)
+![connect to semilimes](../examples/connect to semilimes flow.json)
+
+# References
+Sample ![flow](../examples/send%20HTML%20message%20flow.json) to send ![HTML Message](HtmlMessage.md) to semilimes.

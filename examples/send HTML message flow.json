@@ -1,0 +1,126 @@
+[
+    {
+        "id": "b3cdbce7fd685999",
+        "type": "tab",
+        "label": "send HTML message",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "e4b6e5aa69e5c7a6",
+        "type": "sme-listener",
+        "z": "b3cdbce7fd685999",
+        "connector": "d41b83de71e38c79",
+        "x": 210,
+        "y": 200,
+        "wires": [
+            [
+                "0ed8d5ebdf79c106"
+            ]
+        ]
+    },
+    {
+        "id": "2897d1bbfe77f02d",
+        "type": "sme-post",
+        "z": "b3cdbce7fd685999",
+        "connector": "d41b83de71e38c79",
+        "x": 790,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "9f8f82aaf0406108",
+        "type": "inject",
+        "z": "b3cdbce7fd685999",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 300,
+        "wires": [
+            [
+                "a1260a8c08e541b9"
+            ]
+        ]
+    },
+    {
+        "id": "0ed8d5ebdf79c106",
+        "type": "debug",
+        "z": "b3cdbce7fd685999",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 770,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "dd08e517e9a92705",
+        "type": "comment",
+        "z": "b3cdbce7fd685999",
+        "name": "Configure 'Connection' property of the 'semilimes listener' node to setup connection to semilimes.",
+        "info": "",
+        "x": 450,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "5df51bed03867ac2",
+        "type": "comment",
+        "z": "b3cdbce7fd685999",
+        "name": "This flow send an HTML message.",
+        "info": "[Supported HTML tags](https://github.com/semimob/node-red-connector/blob/main/docs/HtmlMessage.md)",
+        "x": 260,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "a1260a8c08e541b9",
+        "type": "sme-html",
+        "z": "b3cdbce7fd685999",
+        "reference": "",
+        "html": "<h3>This is an <b>HTML</b> message.<h3>",
+        "text": "",
+        "x": 480,
+        "y": 300,
+        "wires": [
+            [
+                "2897d1bbfe77f02d"
+            ]
+        ]
+    },
+    {
+        "id": "d41b83de71e38c79",
+        "type": "sme-connector",
+        "name": "",
+        "server": "b2623b38c0fed7d0",
+        "appName": "Node-RED",
+        "reservedCode": "",
+        "applicationID": ""
+    },
+    {
+        "id": "b2623b38c0fed7d0",
+        "type": "sme-server",
+        "host": "cloud.semilimes.net"
+    }
+]
