@@ -24,6 +24,7 @@ The nodes are tested with `Node.js v16.13.1` and `Node-RED v2.1.4`. However, it 
 - Use `post` and `send` nodes to send messages to semilimes.
 - Use `receive` node to listener for messages from semilimes.
 - Register your Node-RED flow to semilimes as an application via `connector` properties of the nodes. Then you can add your flow to your semilimes account to interact with it.
+[How to connect to semilimes](docs/ConnectToSemilimes.md)
 
 # License
 Apache License
