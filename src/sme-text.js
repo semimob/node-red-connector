@@ -6,6 +6,7 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
 
         this.text = config.text;
+        this.textType = config.textType;
         this.reference = config.reference;
 
         var node = this;
@@ -19,11 +20,40 @@ module.exports = function (RED) {
                 m.Type = 'chat';
                 m.TypeID = '590e4e6c-2c5d-47e8-8f38-311d5a299ee7';
                 m.Reference = node.reference;
-                m.Body = node.text;
 
-                msg.payload = m;
+                var textValue = null;
+                switch (node.textType) {
+                    case 'str':
+                        textValue = node.text;
+                        break;
+                    case 'msg':
+                        if (msg != null) {
+                            if (node.text != null) {
+                                textValue = typeof (msg) === 'object' ? msg[node.text] : null;
+                            }
+                            else if (typeof (msg) === 'string') {
+                                textValue = msg;
+                            }
+                            else if (typeof (msg) === 'object' && typeof (msg.payload) === 'string') {
+                                textValue = msg.payload;
+                            }
+                        }
+                        break;
+                    case 'flow':
+                        textValue = node.context().flow.get(node.text);
+                        break;
+                    case 'global':
+                        textValue = node.context().global.get(node.text);
+                        break;
+                }
 
-                send(msg, false);
+                if (textValue != null) {
+                    m.Body = textValue;
+
+                    msg.payload = m;
+
+                    send(msg, false);
+                }
             }
 
             done && done();

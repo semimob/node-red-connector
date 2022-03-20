@@ -5,7 +5,8 @@
         defaults: {
             name: { value: "" },
             reference: { value: "" },
-            text: { value: "This is a text message." }
+            text: { value: "This is a text message." },
+            textType: { value: "str" },
         },
         inputs: 1,
         outputs: 1,
@@ -20,20 +21,11 @@
             return message;
         },
         oneditprepare: function () {
-            this.editor = RED.editor.createEditor({
-                id: 'node-input-text-editor',
-                mode: 'ace/mode/text',
-                value: this.text
+            $("#node-input-text").typedInput({
+                type: "str",
+                types: ["str", "msg", "flow", "global"],
+                typeField: "#node-input-textType"
             });
-        },
-        oneditsave: function () {
-            this.text = this.editor.getValue();
-            this.editor.destroy();
-            delete this.editor;
-        },
-        oneditcancel: function () {
-            this.editor.destroy();
-            delete this.editor;
         }
     });
 </script>
@@ -45,7 +37,8 @@
     </div>
     <div class="form-row">
         <label for="node-input-text"><i class="fa fa-tag"></i> Text</label>
-        <div style="height: 250px; min-height:150px;" class="node-text-editor" id="node-input-text-editor"></div>
+        <input type="text" id="node-input-text">
+        <input type="hidden" id="node-input-textType">
     </div>
 </script>
 
