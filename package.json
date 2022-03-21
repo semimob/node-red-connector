@@ -18,10 +18,10 @@
     "semilimes"
   ],
   "engines": {
-    "node": ">=16.13.1"
+    "node": ">=10.0.0"
   },
   "node-red": {
-    "version": ">=2.1.4",
+    "version": ">=1.3.7",
     "nodes": {
       "sme-core": "src/sme-core.js",
       "sme-server": "src/sme-server.js",
