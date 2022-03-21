@@ -1,0 +1,203 @@
+[
+    {
+        "id": "44c414e0a3e1053e",
+        "type": "tab",
+        "label": "send plan text message",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "7c05e2a567e4086a",
+        "type": "sme-listener",
+        "z": "44c414e0a3e1053e",
+        "connector": "d41b83de71e38c79",
+        "x": 210,
+        "y": 200,
+        "wires": [
+            [
+                "73075a4518719ab7"
+            ]
+        ]
+    },
+    {
+        "id": "ab3750f02762c1f2",
+        "type": "sme-post",
+        "z": "44c414e0a3e1053e",
+        "connector": "d41b83de71e38c79",
+        "x": 790,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "605b47d61b269cbf",
+        "type": "inject",
+        "z": "44c414e0a3e1053e",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 300,
+        "wires": [
+            [
+                "b404a75f2fafa24c"
+            ]
+        ]
+    },
+    {
+        "id": "73075a4518719ab7",
+        "type": "debug",
+        "z": "44c414e0a3e1053e",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 770,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "b0bb221d62513d27",
+        "type": "comment",
+        "z": "44c414e0a3e1053e",
+        "name": "Configure 'Connection' property of the 'semilimes listener' node to setup connection to semilimes.",
+        "info": "",
+        "x": 450,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "b404a75f2fafa24c",
+        "type": "sme-text",
+        "z": "44c414e0a3e1053e",
+        "name": "",
+        "reference": "hello",
+        "text": "Hello from Node-RED.",
+        "textType": "str",
+        "x": 480,
+        "y": 300,
+        "wires": [
+            [
+                "ab3750f02762c1f2"
+            ]
+        ]
+    },
+    {
+        "id": "3323b1264dbbb811",
+        "type": "inject",
+        "z": "44c414e0a3e1053e",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 200,
+        "y": 440,
+        "wires": [
+            [
+                "ac793cc10cb73b38"
+            ]
+        ]
+    },
+    {
+        "id": "3dc785aef2bec930",
+        "type": "sme-text",
+        "z": "44c414e0a3e1053e",
+        "name": "",
+        "reference": "hello",
+        "text": "payload",
+        "textType": "msg",
+        "x": 560,
+        "y": 440,
+        "wires": [
+            [
+                "d67674c2e1c43415"
+            ]
+        ]
+    },
+    {
+        "id": "ccbbed26ee497245",
+        "type": "comment",
+        "z": "44c414e0a3e1053e",
+        "name": "You can use message 'Reference' to update an existing message.",
+        "info": "",
+        "x": 350,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "ac793cc10cb73b38",
+        "type": "function",
+        "z": "44c414e0a3e1053e",
+        "name": "",
+        "func": "msg.payload = 'Timestamp - ' + msg.payload;\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 380,
+        "y": 440,
+        "wires": [
+            [
+                "3dc785aef2bec930"
+            ]
+        ]
+    },
+    {
+        "id": "d67674c2e1c43415",
+        "type": "sme-updatemessage",
+        "z": "44c414e0a3e1053e",
+        "option": "UpdateByReference",
+        "x": 810,
+        "y": 440,
+        "wires": [
+            [
+                "ab3750f02762c1f2"
+            ]
+        ]
+    },
+    {
+        "id": "d41b83de71e38c79",
+        "type": "sme-connector",
+        "name": "",
+        "server": "b2623b38c0fed7d0",
+        "appName": "Node-RED",
+        "reservedCode": "",
+        "applicationID": ""
+    },
+    {
+        "id": "b2623b38c0fed7d0",
+        "type": "sme-server",
+        "host": "cloud.semilimes.net"
+    }
+]
