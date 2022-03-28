@@ -1,7 +1,7 @@
 <script type="text/javascript">
     RED.nodes.registerType('sme-formsubmission', {
         category: 'semilimes',
-        color: '#A6BBCF',
+        color: '#E2D96E',
         defaults: {
             reference: { value: "" },
             storage: { value: "payload" },
@@ -10,10 +10,10 @@
         inputs: 1,
         outputs: 1,
         align: 'left',
-        icon: "font-awesome/fa-arrow-circle-o-right",
+        icon: "font-awesome/fa-filter",
         paletteLabel: 'form submission',
         label: function () {
-            return this.reference ? ('[' + this.reference + ']') : 'form submission';
+            return this.reference ? ('form [' + this.reference + '] submission') : 'all form submission';
         },
         labelStyle: function () {
             return this.reference ? "node_label_italic" : "";
@@ -31,7 +31,7 @@
 <script type="text/html" data-template-name="sme-formsubmission">
     <div class="form-row">
         <label for="node-input-reference"><i class="fa fa-tag"></i> Reference</label>
-        <input type="text" id="node-input-reference" placeholder="Reference of the form message to catch submission.">
+        <input type="text" id="node-input-reference" placeholder="Reference of the form.">
     </div>
     <div class="form-row">
         <label for="node-input-storage"><i class="fa fa-tag"></i> Set submitted values to</label>
@@ -41,5 +41,5 @@
 </script>
 
 <script type="text/html" data-help-name="sme-formsubmission">
-    <p>Catch form submission.</p>
+    <p>Catch submission of all forms or a specified form.</p>
 </script>

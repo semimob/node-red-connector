@@ -29,5 +29,5 @@ module.exports = function (RED) {
         });
     };
 
-    RED.nodes.registerType("sme-setrecipient", SmeNode);
+    RED.nodes.registerType("sme-setbucket", SmeNode);
 };

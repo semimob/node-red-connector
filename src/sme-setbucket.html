@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType('sme-setrecipient', {
+    RED.nodes.registerType('sme-setbucket', {
         category: 'semilimes',
         color: '#E2D96E',
         defaults: {
@@ -10,24 +10,24 @@
         align: 'left',
         icon: "function.svg",
         label: function () {
-            return this.objectName ? ('=>' + this.objectName) : 'set container';
+            return this.objectName ? ('-> bucket: ' + this.objectName) : 'set bucket';
         },
         labelStyle: function () {
             return this.name ? "node_label_italic" : "";
         },
-        paletteLabel: 'set container',
+        paletteLabel: 'set bucket',
     });
 </script>
 
-<script type="text/html" data-template-name="sme-setrecipient">
+<script type="text/html" data-template-name="sme-setbucket">
     <div class="form-row">
-        <label for="node-input-objectName"><i class="fa fa-tag"></i> Container name</label>
-        <input type="text" id="node-input-objectName" placeholder="semilimes container's name">
+        <label for="node-input-objectName"><i class="fa fa-tag"></i> Bucket name</label>
+        <input type="text" id="node-input-objectName">
     </div>
 </script>
 
-<script type="text/html" data-help-name="sme-setrecipient">
-    <p>Set recipient/container of the input messages.</p>
+<script type="text/html" data-help-name="sme-setbucket">
+    <p>Set recipient of the input messages.</p>
     <h3>Inputs</h3>
     <dl class="message-properties">
         <dt><code>msg.payload</code> <span class="property-type">sme-message</span></dt>

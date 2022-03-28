@@ -25,11 +25,11 @@ module.exports = function (RED) {
 
     function SmeNode(config) {		
         RED.nodes.createNode(this, config);
-        var applicationID = config.applicationID;
+        var applicationID = this.credentials.applicationID;
 
-        var serverHost = (config.server && RED.nodes.getNode(config.server).host) || "cloud.semilimes.net";
-        var serverApiURL = `https://${serverHost}/CloudServer/api/`;
-        var serverWsURL = `wss://${serverHost}/CloudServer/wsclient?t=` + applicationID;
+        var server = this.credentials.server || "cloud.semilimes.net";
+        var serverApiURL = `https://${server}/CloudServer/api/`;
+        var serverWsURL = `wss://${server}/CloudServer/wsclient?t=` + applicationID;
 
         var core = new Core();
 
@@ -84,5 +84,12 @@ module.exports = function (RED) {
         this.addStatusListener = addStatusListener;
     };
 	
-    RED.nodes.registerType("sme-connector", SmeNode);
+    RED.nodes.registerType("sme-connector", SmeNode, {
+        credentials: {
+            reservedCode: { type: "text" },
+            server: { type: "text" },
+            appName: { type: "text" },
+            applicationID: { type: "text" }
+        },
+    });
 };

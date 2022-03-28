@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    RED.nodes.registerType('sme-createobject', {
+    RED.nodes.registerType('sme-createbucket', {
         category: 'semilimes',
         color: '#E2D96E',
         defaults: {
@@ -16,9 +16,9 @@
         outputs: 1,
         align: 'left',
         icon: "font-awesome/fa-window-maximize",
-        paletteLabel: 'create message container',
+        paletteLabel: 'create bucket',
         label: function () {
-            return this.objectName ? ('create {' + this.objectName + '}') : 'create message container';
+            return this.objectName ? ('create {' + this.objectName + '}') : 'create bucket';
         },
         labelStyle: function () {
             return this.objectName ? "node_label_italic" : "";
@@ -34,7 +34,7 @@
     });
 </script>
 
-<script type="text/html" data-template-name="sme-createobject">
+<script type="text/html" data-template-name="sme-createbucket">
     <div class="form-row">
         <label for="node-input-objectType"><i class="fa fa-tag"></i> <span> Type</span></label>
         <select id="node-input-objectType">
@@ -118,6 +118,6 @@
     </div>
 </script>
 
-<script type="text/html" data-help-name="sme-createobject">
-    <p>Create moment, profile, group chat, channel and others.</p>
+<script type="text/html" data-help-name="sme-createbucket">
+    <p>Create new bucket such as moment, profile, group chat, channel and others.</p>
 </script>

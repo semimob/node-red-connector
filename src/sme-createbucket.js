@@ -56,5 +56,5 @@ module.exports = function (RED) {
         });
     };
 
-    RED.nodes.registerType("sme-createobject", SmeNode);
+    RED.nodes.registerType("sme-createbucket", SmeNode);
 };

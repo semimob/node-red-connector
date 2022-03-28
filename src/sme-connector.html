@@ -1,43 +1,39 @@
 <script type="text/javascript">
     RED.nodes.registerType('sme-connector', {
         category: 'config',
-        defaults: {
-            name: { value: '' },
-            server: { type: 'sme-server', required: false },
-            appName: { value: "", required: true },
-            reservedCode: { value: "" },
-            applicationID: { value: "" }
+        credentials: {
+            reservedCode: { type: "text" },
+            server: { type: "text", required: false },
+            appName: { type: "text", required: true },
+            applicationID: { type: "text", required: true }
         },
         icon: "font-awesome/fa-cog",
         label: function () {
-            if (this.name)
-                return this.name;
-            if (this.server) {
-                var configNode = RED.nodes.node(this.server);
-                if (configNode && configNode.host)
-                    return '[' + configNode.host + ']';
-            }
-            return "smilimes connector";
+            return this.credentials.server || "semilimes connector";
         },
         labelStyle: function () {
-            return this.name ? "node_label_italic" : "";
+            return this.credentials.server ? "node_label_italic" : "";
         },
+        paletteLabel: 'connector',
         oneditprepare: function () {
             displayApplicationInfo({
-                ApplicationID: this.applicationID,
+                ApplicationID: this.credentials.applicationID,
                 RegistrationID: null,
             });
+
+            $('#node-config-input-server').val(this.credentials.server);
+            $('#node-config-input-appName').val(this.credentials.appName);
+            $('#node-config-input-reservedCode').val(this.credentials.reservedCode);
         }
     });
 	
     function updateRegistrationQrCode(registrationID) {
         if (registrationID) {
-            var server = $('#node-config-input-server').val();
-            var serverHost = (server && RED.nodes.node(server).host) || 'cloud.semilimes.net';
+            var server = $('#node-config-input-server').val() || 'cloud.semilimes.net';
 
             var qrApplicaionRegistrationObjectTypeID = 'DDCA371F-1A13-42CF-9C5D-F41ABB36C66F';    //  This should be changed to a new type.
-            var qrContent = 'https://' + serverHost + '/CloudServer/qr/' + registrationID + '/' + qrApplicaionRegistrationObjectTypeID;
-            var qrCodeImageUrl = 'https://' + serverHost + '/CloudServer/api/FF0DB915-A2C3-455A-ABBD-973CD6287FBB?text=' + encodeURI(qrContent);
+            var qrContent = 'https://' + server + '/CloudServer/qr/' + registrationID + '/' + qrApplicaionRegistrationObjectTypeID;
+            var qrCodeImageUrl = 'https://' + server + '/CloudServer/api/FF0DB915-A2C3-455A-ABBD-973CD6287FBB?text=' + encodeURI(qrContent);
             console.log(qrCodeImageUrl);
             $('#tokenQRCodeImg').attr('src', qrCodeImageUrl);
             $('#tokenQRCodeContainer').show();
@@ -56,47 +52,36 @@
     function getConnectionInfo() {
         // Get applicationID from UI
         var applicationID = $('#node-config-input-applicationID').val();
-        if (applicationID && !confirm('Re-register the current applicationID!'))
-            return;
-
+        
         $('connectButton').attr('disabled', true);
 
         // Remove last QR-Code
         displayApplicationInfo(null);
 
         // Call server to register app.
-        var server = $('#node-config-input-server').val();
-        var configNode = (server && RED.nodes.node(server));
-        var serverHost = (configNode && configNode.host) || "cloud.semilimes.net";
+        var server = $('#node-config-input-server').val() || 'cloud.semilimes.net';
+        var name = $('#node-config-input-appName').val() || $('#node-config-input-name').val();
+        var reservedCode = $('#node-config-input-reservedCode').val() || applicationID;
 
-        if (configNode) {
-            var name = $('#node-config-input-appName').val() || $('#node-config-input-name').val();
-            var reservedCode = $('#node-config-input-reservedCode').val() || applicationID;
+        var generateTokenUrl = 'https://' + server + '/CloudServer/api/E3ABADBC-1919-4123-8314-48C257724064?format=json&name=' + encodeURI(name || '') + '&reservedCode=' + encodeURI(reservedCode || '');
+        $.getJSON(generateTokenUrl, function (value) {
+            if (value.Success) {
+                displayApplicationInfo(value);
+            }
+            else {
+                if (value.ResponseStatus && value.ResponseStatus.Message)
+                    alert(value.ResponseStatus.Message);
+            }
 
-            var generateTokenUrl = 'https://' + serverHost + '/CloudServer/api/E3ABADBC-1919-4123-8314-48C257724064?format=json&name=' + encodeURI(name || '') + '&reservedCode=' + encodeURI(reservedCode || '');
-            $.getJSON(generateTokenUrl, function (value) {
-                if (value.Success) {
-                    displayApplicationInfo(value);
-                }
-                else {
-                    if (value.ResponseStatus && value.ResponseStatus.Message)
-                        alert(value.ResponseStatus.Message);
-                }
-
-                $('connectButton').removeAttr('disabled');
-            });
-        }
+            $('connectButton').removeAttr('disabled');
+        });
     }
 </script>
 
 <script type="text/html" data-template-name="sme-connector">
     <div class="form-row">
-        <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-config-input-name" placeholder="Name">
-    </div>
-    <div class="form-row">
         <label for="node-config-input-server"><i class="fa fa-tag"></i> Server</label>
-        <input type="text" id="node-config-input-server" placeholder="semilimes server">
+        <input type="text" id="node-config-input-server">
     </div>
     <div class="form-row">
         <label for="node-config-input-appName"><i class="fa fa-tag"></i> App name</label>

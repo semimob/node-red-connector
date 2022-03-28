@@ -13,10 +13,10 @@
         icon: "font-awesome/fa-edit",
         paletteLabel: 'set form values',
         label: function () {
-            return (this.formName && ('set: ' + this.formName)) || 'set form values';
+            return (this.reference && ('set: ' + this.reference)) || 'set form values';
         },
         labelStyle: function () {
-            return this.formName ? "node_label_italic" : "";
+            return this.reference ? "node_label_italic" : "";
         },
         oneditprepare: function () {
             $("#node-input-value").typedInput({

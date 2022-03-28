@@ -18,13 +18,12 @@
     "semilimes"
   ],
   "engines": {
-    "node": ">=10.0.0"
+    "node": ">=12.0.0"
   },
   "node-red": {
     "version": ">=1.3.7",
     "nodes": {
       "sme-core": "src/sme-core.js",
-      "sme-server": "src/sme-server.js",
       "sme-connector": "src/sme-connector.js",
       "sme-listener": "src/sme-listener.js",
       "sme-post": "src/sme-post.js",
@@ -32,10 +31,9 @@
       "sme-text": "src/sme-text.js",
       "sme-html": "src/sme-html.js",
       "sme-form": "src/sme-form.js",
-      "sme-createobject": "src/sme-createobject.js",
+      "sme-formsubmission": "src/sme-formsubmission.js",
       "sme-formsetter": "src/sme-formsetter.js",
       "sme-updatemessage": "src/sme-updatemessage.js",
-      "sme-setcontainer": "src/sme-setcontainer.js",
       "sme-deletemessage": "src/sme-deletemessage.js",
       "sme-label": "src/sme-label.js",
       "sme-textbox": "src/sme-textbox.js",
@@ -50,9 +48,8 @@
       "sme-filepicker": "src/sme-filepicker.js",
       "sme-contactpicker": "src/sme-contactpicker.js",
       "sme-conversationpicker": "src/sme-conversationpicker.js",
-      "sme-formsubmission": "src/sme-formsubmission.js",
-      "sme-httprequest": "src/sme-httprequest.js",
-      "sme-httpresponse": "src/sme-httpresponse.js"
+      "sme-createobject": "src/sme-createbucket.js",
+      "sme-setcontainer": "src/sme-setbucket.js"
     }
   },
   "dependencies": {
