@@ -11,9 +11,9 @@
         outputs: 1,
         align: 'left',
         icon: "font-awesome/fa-edit",
-        paletteLabel: 'set form values',
+        paletteLabel: 'set form',
         label: function () {
-            return (this.reference && ('set: ' + this.reference)) || 'set form values';
+            return 'set form: ' + (this.reference || '');
         },
         labelStyle: function () {
             return this.reference ? "node_label_italic" : "";
@@ -41,5 +41,5 @@
 </script>
 
 <script type="text/html" data-help-name="sme-formsetter">
-    <p>Set values of form message.</p>
+    <p>Set values to a form message.</p>
 </script>

@@ -33,7 +33,7 @@
       "sme-form": "src/sme-form.js",
       "sme-formsubmission": "src/sme-formsubmission.js",
       "sme-formsetter": "src/sme-formsetter.js",
-      "sme-updatemessage": "src/sme-updatemessage.js",
+      "sme-option": "src/sme-option.js",
       "sme-deletemessage": "src/sme-deletemessage.js",
       "sme-label": "src/sme-label.js",
       "sme-textbox": "src/sme-textbox.js",

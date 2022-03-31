@@ -3,31 +3,31 @@
         category: 'semilimes',
         color: '#E2D96E',
         defaults: {
-            objectName: { value: "" }
+            bucketName: { value: "", required: true }
         },
         inputs: 1,
         outputs: 1,
         align: 'left',
         icon: "function.svg",
         label: function () {
-            return this.objectName ? ('-> bucket: ' + this.objectName) : 'set bucket';
+            return 'bucket: ' + (this.bucketName || '');
         },
         labelStyle: function () {
-            return this.name ? "node_label_italic" : "";
+            return this.bucketName ? "node_label_italic" : "";
         },
-        paletteLabel: 'set bucket',
+        paletteLabel: 'bucket',
     });
 </script>
 
 <script type="text/html" data-template-name="sme-setbucket">
     <div class="form-row">
-        <label for="node-input-objectName"><i class="fa fa-tag"></i> Bucket name</label>
-        <input type="text" id="node-input-objectName">
+        <label for="node-input-bucketName"><i class="fa fa-tag"></i> Bucket name</label>
+        <input type="text" id="node-input-bucketName">
     </div>
 </script>
 
 <script type="text/html" data-help-name="sme-setbucket">
-    <p>Set recipient of the input messages.</p>
+    <p>Set recipient to the input messages.</p>
     <h3>Inputs</h3>
     <dl class="message-properties">
         <dt><code>msg.payload</code> <span class="property-type">sme-message</span></dt>

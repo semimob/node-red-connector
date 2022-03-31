@@ -13,7 +13,7 @@
         icon: "font-awesome/fa-filter",
         paletteLabel: 'form submission',
         label: function () {
-            return this.reference ? ('form [' + this.reference + '] submission') : 'all form submission';
+            return this.reference ? ('form submission: ' + this.reference) : 'all form submissions';
         },
         labelStyle: function () {
             return this.reference ? "node_label_italic" : "";
@@ -41,5 +41,5 @@
 </script>
 
 <script type="text/html" data-help-name="sme-formsubmission">
-    <p>Catch submission of all forms or a specified form.</p>
+    <p>Filter submissions of a specified form.</p>
 </script>

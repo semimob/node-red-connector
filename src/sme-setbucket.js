@@ -5,7 +5,7 @@ module.exports = function (RED) {
     function SmeNode(config) {
         RED.nodes.createNode(this, config);
 
-        this.objectName = config.objectName;
+        this.bucketName = config.bucketName;
 
         var node = this;
 
@@ -13,8 +13,8 @@ module.exports = function (RED) {
             send = send || function () { node.send.apply(node, arguments) };
 
             if (msg.payload != null && typeof (msg.payload) == 'object') {
-                if (node.objectName) {
-                    msg.payload.ReceiverName = node.objectName;
+                if (node.bucketName) {
+                    msg.payload.ReceiverName = node.bucketName;
                     msg.payload.ReceiverID = null;
                     msg.payload.ConversationID = null;
 

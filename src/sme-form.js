@@ -5,7 +5,6 @@ module.exports = function (RED) {
     function SmeNode(config) {
         RED.nodes.createNode(this, config);
 
-        this.name = config.name;
         this.reference = config.reference;
         this.formStatus = config.formStatus;
 
@@ -22,7 +21,7 @@ module.exports = function (RED) {
             m.Reference = node.reference;
             m.FormStatus = node.formStatus ? 1 : 0;
             m.FormItems = m.FormItems || [];
-            m.Body = m.Body || node.formName;
+            m.Body = m.Body || node.reference;
 
             msg.payload = m;
 

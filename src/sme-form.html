@@ -10,12 +10,12 @@
         outputs: 1,
         align: 'left',
         icon: "font-awesome/fa-list-alt",
-        paletteLabel: 'form message',
+        paletteLabel: 'form',
         label: function () {
-            return this.formName ? ('[' + this.formName + ']') : 'form message';
+            return 'form: ' + (this.reference || '');
         },
         labelStyle: function () {
-            return this.formName ? "node_label_italic" : "";
+            return this.reference ? "node_label_italic" : "";
         },
     });
 </script>
