@@ -1,9 +1,113 @@
 "use strict";
 
+const { publicDecrypt } = require('crypto');
+const { send } = require('process');
+const { debug } = require('util');
+
 module.exports = function (RED) {
     const https = require('https');
     const EventEmitter = require('events');
     const ws = require('ws');
+
+    //--------------------SmeHelper-----------------------------------
+    function SmeHelper() {
+        const SME_BAG_NAME = '_sme';
+        const SME_SENDING_BOX_NAME = 'sendingMsgs';
+        const SME_RECEIVED_MSG_NAME = 'receivedMsg';
+
+        function getSmeBag(nodeRedMsg) {
+            if (!nodeRedMsg)
+                return null;
+
+            var smeBag = nodeRedMsg[SME_BAG_NAME];
+            if (smeBag == null)
+                smeBag = nodeRedMsg[SME_BAG_NAME] = {};
+            return smeBag;
+        }
+
+        function setReceivedMsg(nodeRedMsg, smeMsg) {
+            if (nodeRedMsg && smeMsg) {
+                var smeBag = getSmeBag(nodeRedMsg);
+                if (smeBag) {
+                    smeBag[SME_RECEIVED_MSG_NAME] = smeMsg;
+                    return smeMsg;
+                }
+            }
+
+            return null;
+        }
+
+        function getReceivedMsg(nodeRedMsg) {
+            if (!nodeRedMsg)
+                return null;
+
+            var smeBag = getSmeBag(nodeRedMsg);
+            return smeBag[SME_RECEIVED_MSG_NAME];
+        }
+
+        function getSendingBox(nodeRedMsg) {
+            if (!nodeRedMsg)
+                return null;
+
+            var smeBag = getSmeBag(nodeRedMsg);
+            var smeSendingMsgs = smeBag[SME_SENDING_BOX_NAME];
+            if (smeSendingMsgs == null)
+                smeSendingMsgs = smeBag[SME_SENDING_BOX_NAME] = [];
+            return smeSendingMsgs;
+        }
+
+        function addSendingMsg(nodeRedMsg, smeMsg) {
+            if (nodeRedMsg && smeMsg) {
+                var sendingMsgArray = getSendingBox(nodeRedMsg);
+                if (sendingMsgArray)
+                    sendingMsgArray.push(smeMsg);
+
+                return smeMsg;
+            }
+
+            return null;
+        }
+
+        function clearSendingBox(nodeRedMsg) {
+            if (nodeRedMsg) {
+                var smeBag = getSmeBag(nodeRedMsg);
+                delete smeBag[SME_SENDING_BOX_NAME];
+            }
+        }
+
+        function getOrCreateNewSendingFormMessage(nodeRedMsg) {
+            if (nodeRedMsg == null)
+                return null;
+
+            var smeSendingMsgs = getSendingBox(nodeRedMsg);
+
+            var lastMsg = smeSendingMsgs.length == 0 ? null : smeSendingMsgs[smeSendingMsgs.length - 1];
+            var isLastMsgForm = lastMsg && lastMsg.TypeID && lastMsg.TypeID.toUpperCase() == '457D1D4F-C982-4CAF-BCC4-4B435860EFA3';
+
+            var smeFormMsg = null;
+            if (isLastMsgForm)
+                smeFormMsg = lastMsg;
+            else {
+                smeFormMsg = {};
+                smeSendingMsgs.push(smeFormMsg);
+            }
+
+            smeFormMsg.Type = smeFormMsg.Type || 'chat';
+            smeFormMsg.TypeID = smeFormMsg.TypeID || '457d1d4f-c982-4caf-bcc4-4b435860efa3';
+            smeFormMsg.FormItems = smeFormMsg.FormItems || [];
+
+            return smeFormMsg;
+        }
+
+        //  Export
+        this.getSmeBag = getSmeBag;
+        this.setReceivedMsg = setReceivedMsg;
+        this.getReceivedMsg = getReceivedMsg;
+        this.addSendingMsg = addSendingMsg;
+        this.getSendingBox = getSendingBox;
+        this.clearSendingBox = clearSendingBox;
+        this.getOrAddSendingFormMsg = getOrCreateNewSendingFormMessage;
+    }
 
     //--------------------SmeWebSocket-----------------------------------
     function SmeWebSocket(serverWsURL) {
@@ -84,7 +188,7 @@ module.exports = function (RED) {
                     try {
                         msg = JSON.parse(msg);
                     }
-                    catch{ }
+                    catch { }
                 }
                 messageDeliver.emit('message', msg);
             });
@@ -164,6 +268,7 @@ module.exports = function (RED) {
     };
 
     return {
+        SmeHelper: SmeHelper,
         SmeApiClient: SmeApiClient,
         SmeWebSocket: SmeWebSocket
     };

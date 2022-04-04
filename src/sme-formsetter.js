@@ -1,5 +1,7 @@
 "use strict";
 
+const Core = require('./sme-core.js');
+
 module.exports = function (RED) {
 
     function SmeNode(config) {
@@ -41,8 +43,12 @@ module.exports = function (RED) {
                     State: formValues
                 };
 
-                send({ payload: setFormMsg }, false);
+                var core = new Core();
+                var smeHelper = new core.SmeHelper();
+                var smeFormMsg = smeHelper.addSendingMsg(msg, setFormMsg);                
             }
+
+            send(msg, false);
             
             done && done();
         });

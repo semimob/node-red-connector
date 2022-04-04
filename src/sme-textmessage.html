@@ -1,0 +1,50 @@
+<script type="text/javascript">
+    RED.nodes.registerType('sme-textmessage', {
+        category: 'semilimes',
+        color: '#E2D96E',
+        defaults: {
+            name: { value: "" },
+            reference: { value: "" },
+            text: { value: "This is a text message." },
+            textType: { value: "str" },
+        },
+        inputs: 1,
+        outputs: 1,
+        align: 'left',
+        icon: "font-awesome/fa-comment-o",
+        paletteLabel: 'plain text message',
+        label: function () {
+            var message = this.text || 'plain text message';
+            var maxLenth = 20;
+            if (message.length > maxLenth)
+                message = message.substr(0, maxLenth - 3) + '...';
+            return message;
+        },
+        labelStyle: function () {
+            return this.text ? "node_label_italic" : "";
+        },
+        oneditprepare: function () {
+            $("#node-input-text").typedInput({
+                type: "str",
+                types: ["str", "msg", "flow", "global"],
+                typeField: "#node-input-textType"
+            });
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="sme-textmessage">
+    <div class="form-row">
+        <label for="node-input-reference"><i class="fa fa-tag"></i> Reference</label>
+        <input type="text" id="node-input-reference" placeholder="Reference to identify the message for programming.">
+    </div>
+    <div class="form-row">
+        <label for="node-input-text"><i class="fa fa-tag"></i> Text</label>
+        <input type="text" id="node-input-text">
+        <input type="hidden" id="node-input-textType">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="sme-textmessage">
+    <p>Plain text message.</p>
+</script>

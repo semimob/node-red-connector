@@ -1,0 +1,45 @@
+<script type="text/javascript">
+    RED.nodes.registerType('sme-htmlmessage', {
+        category: 'semilimes',
+        color: '#E2D96E',
+        defaults: {
+            reference: { value: "" },
+            html: { value: "" },
+        },
+        inputs: 1,
+        outputs: 1,
+        align: 'left',
+        icon: "font-awesome/fa-comment-o",
+        label: function () {
+            if (this.html) {
+                var message = this.html;
+                var maxLenth = 20;
+                if (message.length > maxLenth)
+                    message = message.substr(0, maxLenth - 3) + '...';
+
+                return 'html: ' + message;
+            }
+
+            return 'HTML message';
+        },
+        labelStyle: function () {
+            return this.html ? "node_label_italic" : "";
+        },
+        paletteLabel: 'HTML message'
+    });
+</script>
+
+<script type="text/html" data-template-name="sme-htmlmessage">
+    <div class="form-row">
+        <label for="node-input-reference"><i class="fa fa-tag"></i> Reference</label>
+        <input type="text" id="node-input-reference" placeholder="Reference to identify the message for programming.">
+    </div>
+    <div class="form-row">
+        <label for="node-input-html"><i class="fa fa-tag"></i> HTML</label>
+        <input type="text" id="node-input-html" placeholder="msg.payload">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="sme-htmlmessage">
+    <p>Create HTML message.</p>
+</script>

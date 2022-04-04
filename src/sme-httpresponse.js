@@ -1,5 +1,7 @@
 "use strict";
 
+const Core = require('./sme-core.js');
+
 module.exports = function (RED) {
 
     function isTextContentType(contentType) {
@@ -18,10 +20,13 @@ module.exports = function (RED) {
         node.on('input', function (msg, send, done) {
             send = send || function () { node.send.apply(node, arguments) };
 
-            var requestID = msg.HttpRequest && msg.HttpRequest.RequestID;
-            if (requestID) {
+            var core = new Core();
+            var smeHelper = new core.SmeHelper();
+            var smeReceivedMsg = smeHelper.getReceivedMsg(msg);
 
-                var httpResponse = {
+            var requestID = smeReceivedMsg && smeReceivedMsg.HttpRequest && smeReceivedMsg.HttpRequest.RequestID;
+            if (requestID) {
+                var smeHttpResponse = {
                     RequestID: requestID,
                     StatusCode: msg.statusCode,
                     StatusMessage: msg.statusMessage,
@@ -29,18 +34,18 @@ module.exports = function (RED) {
                 };
 
                 if (msg.headers) {
-                    httpResponse.Headers = {};
+                    smeHttpResponse.Headers = {};
                     for (var headerName in msg.headers) {
                         var headerValue = msg.headers[headerName];
-                        httpResponse.Headers[headerName] = typeof (headerValue || '') == 'string' ? headerValue : JSON.stringify(headerValue);
+                        smeHttpResponse.Headers[headerName] = typeof (headerValue || '') == 'string' ? headerValue : JSON.stringify(headerValue);
                     }
                 }
 
                 if (msg.responseCookies) {
-                    httpResponse.SetCookies = [];
+                    smeHttpResponse.SetCookies = [];
                     for (var cookieName in msg.responseCookies) {
                         var cookie = msg.responseCookies[cookieName];
-                        httpResponse.SetCookies.push({
+                        smeHttpResponse.SetCookies.push({
                             Name: cookieName,
                             Path: cookie.path || cookie.Path,
                             Domain: cookie.domain || cookie.Domain,
@@ -59,23 +64,25 @@ module.exports = function (RED) {
                     console.log(typeof (msg.payload));
                     if (Buffer.isBuffer(msg.payload)) {
                         var contentType = msg.headers && msg.headers["content-type"];
-                        httpResponse.Content = isTextContentType(contentType) ? msg.payload.toString() : msg.payload.toString('base64');
+                        smeHttpResponse.Content = isTextContentType(contentType) ? msg.payload.toString() : msg.payload.toString('base64');
                     }
                     else if (typeof (msg.payload) == 'string') {
-                        httpResponse.Content = msg.payload;
+                        smeHttpResponse.Content = msg.payload;
                     }
                     else {
-                        httpResponse.Content = JSON.stringify(msg.payload);
+                        smeHttpResponse.Content = JSON.stringify(msg.payload);
                     }
                 }
                 
-                var payload = {};
-                payload.Type = 'client';
-                payload.TypeID = '80348B9C-8FB4-4071-BF4A-E07852543D06';
-                payload.HttpResponse = httpResponse;
+                var smeSendingMsg = {};
+                smeSendingMsg.Type = 'client';
+                smeSendingMsg.TypeID = '80348B9C-8FB4-4071-BF4A-E07852543D06';
+                smeSendingMsg.HttpResponse = smeHttpResponse;
 
-                send({ payload: payload }, false);
+                var smeReceivedMsg = smeHelper.addSendingMsg(msg, smeSendingMsg);
             }
+
+            send(msg, false);
 
             done && done();
         });

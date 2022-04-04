@@ -1,5 +1,7 @@
 "use strict";
 
+const Core = require('./sme-core.js');
+
 module.exports = function (RED) {
 
     function SmeNode(config) {
@@ -11,8 +13,15 @@ module.exports = function (RED) {
             return;
 
         //	Listener for message...
-        smeConnector.addMessageListener(msg => {
-            node.send({ payload: msg }, false);
+        smeConnector.addMessageListener(smeMsg => {
+            var clonedMsg = JSON.parse(JSON.stringify(smeMsg));
+            var nodeRedMsg = { payload: smeMsg };
+
+            var core = new Core();
+            var smeHelper = new core.SmeHelper();
+            smeHelper.setReceivedMsg(nodeRedMsg, clonedMsg);
+
+            node.send(nodeRedMsg, false);
         });
     };
 

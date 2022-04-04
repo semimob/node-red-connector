@@ -1,0 +1,123 @@
+<script type="text/javascript">
+    RED.nodes.registerType('sme-bucketcreator', {
+        category: 'semilimes',
+        color: '#E2D96E',
+        defaults: {
+            objectType: { value: "" },
+            objectName: { value: "", requried: true },
+            objectDesc: { value: "" },
+            objectParent: { value: "" },
+            objectVisible: { value: true },
+            objectLocked: { value: false },
+            objectReaction: { value: true },
+            objectTag: { value: "" }
+        },
+        inputs: 1,
+        outputs: 1,
+        align: 'left',
+        icon: "font-awesome/fa-archive",
+        paletteLabel: 'bucket creator',
+        label: function () {
+            return this.objectName ? ('create: ' + this.objectName) : 'bucket creator';
+        },
+        labelStyle: function () {
+            return this.objectName ? "node_label_italic" : "";
+        },
+        oneditprepare: function () {
+            $('#node-input-objectTagSelector td').on('click', function () {
+                var dataTag = $(this).children(':first').data('tag');
+                console.log('data tag: ', dataTag);
+                $('#node-input-objectSeletedTag').html(dataTag ? $(this).html() : '');
+                $('#node-input-objectTag').val(dataTag);
+            });
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="sme-bucketcreator">
+    <div class="form-row">
+        <label for="node-input-objectType"><i class="fa fa-tag"></i> <span> Type</span></label>
+        <select id="node-input-objectType">
+            <option value=""></option>
+            <option value="Moment">Moment</option>
+            <option value="Profile">Profile</option>
+            <option value="Group">Group Chat</option>
+            <option value="Channel">Channel</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-objectName"><i class="fa fa-tag"></i> Object name</label>
+        <input type="text" id="node-input-objectName">
+    </div>
+    <div class="form-row">
+        <label for="node-input-objectDesc"><i class="fa fa-tag"></i> Description</label>
+        <input type="text" id="node-input-objectDesc">
+    </div>
+    <div class="form-row">
+        <label for="node-input-objectParent"><i class="fa fa-tag"></i> Parent name</label>
+        <input type="text" id="node-input-objectParent">
+    </div>
+    <div class="form-row">
+        <label for="node-input-objectVisible"><i class="fa fa-tag"></i> Visible</label>
+        <input type="checkbox" id="node-input-objectVisible">
+    </div>
+    <div class="form-row">
+        <label for="node-input-objectLocked"><i class="fa fa-tag"></i> Lock content</label>
+        <input type="checkbox" id="node-input-objectLocked">
+    </div>
+    <div class="form-row">
+        <label for="node-input-objectReaction"><i class="fa fa-tag"></i> Enable reaction</label>
+        <input type="checkbox" id="node-input-objectReaction">
+    </div>
+    <div class="form-row">
+        <label for="node-input-objectTag"><i class="fa fa-tag"></i> Tag</label>
+        <div style="display:inline-block">
+            <label id="node-input-objectSeletedTag"></label>
+            <input type="text" id="node-input-objectTag">
+            <table id="node-input-objectTagSelector" cellpadding="5" border="1" style="border-color:lightgray">
+                <tr>
+                    <td colspan="5" data-tag="" align="center">No tag</td>
+                </tr>
+                <tr>
+                    <td><i style="color: red" class="fa fa-circle" aria-hidden="true" data-tag="59136550-f727-11ea-ab05-613872f4917c"></i></td>
+                    <td><i style="color: yellow" class="fa fa-circle" aria-hidden="true" data-tag="591428a0-f727-11ea-b28d-37542cfa6d87"></i></td>
+                    <td><i style="color: green" class="fa fa-circle" aria-hidden="true" data-tag="5914ebf0-f727-11ea-b91b-2de5457f4268"></i></td>
+                    <td><i style="color: blue" class="fa fa-circle" aria-hidden="true" data-tag="5915d650-f727-11ea-8757-c783e04d983e"></i></td>
+                    <td><i style="color: purple" class="fa fa-circle" aria-hidden="true" data-tag="591699a0-f727-11ea-8a46-5f53250dae87"></i></td>
+                </tr>
+                <tr>
+                    <td><i style="color: red" class="fa fa-square" aria-hidden="true" data-tag="12d92f70-f727-11ea-8cc6-01832f135034"></i></td>
+                    <td><i style="color: yellow" class="fa fa-square" aria-hidden="true" data-tag="12db2b40-f727-11ea-bab2-7973958c76cf"></i></td>
+                    <td><i style="color: green" class="fa fa-square" aria-hidden="true" data-tag="12dbee90-f727-11ea-aff0-4751b1bf4d58"></i></td>
+                    <td><i style="color: blue" class="fa fa-square" aria-hidden="true" data-tag="12dd2710-f727-11ea-a340-8fd2c5192768"></i></td>
+                    <td><i style="color: purple" class="fa fa-square" aria-hidden="true" data-tag="12ddea60-f727-11ea-968a-f9c75f68a16f"></i></td>
+                </tr>
+                <tr>
+                    <td><i style="color: red; font-size: x-large" class="fa fa-caret-up" aria-hidden="true" data-tag="2899ba50-f727-11ea-97e0-ed48cfbd3c8b"></i></td>
+                    <td><i style="color: yellow; font-size: x-large" class="fa fa-caret-up" aria-hidden="true" data-tag="289aa4b0-f727-11ea-a206-87e0c0138f9e"></i></td>
+                    <td><i style="color: green; font-size: x-large" class="fa fa-caret-up" aria-hidden="true" data-tag="289c0440-f727-11ea-a81f-67c0698020bd"></i></td>
+                    <td><i style="color: blue; font-size: x-large" class="fa fa-caret-up" aria-hidden="true" data-tag="289ca080-f727-11ea-9bdf-69179de0a5a6"></i></td>
+                    <td><i style="color: purple; font-size: x-large" class="fa fa-caret-up" aria-hidden="true" data-tag="289d63d0-f727-11ea-8d00-81f6b3859f0b"></i></td>
+                </tr>
+                <tr>
+                    <td><i style="color: red" class="fa fa-star" aria-hidden="true" data-tag="4b6e0c70-f727-11ea-942d-2f1eb6fddbd0"></i></td>
+                    <td><i style="color: yellow" class="fa fa-star" aria-hidden="true" data-tag="4b6fe130-f727-11ea-b0d4-6bdfde157c93"></i></td>
+                    <td><i style="color: green" class="fa fa-star" aria-hidden="true" data-tag="4b70cb90-f727-11ea-bc7f-df94bc6a4321"></i></td>
+                    <td><i style="color: blue" class="fa fa-star" aria-hidden="true" data-tag="4b71dd00-f727-11ea-8e9a-e7121bc3d7b2"></i></td>
+                    <td><i style="color: purple" class="fa fa-star" aria-hidden="true" data-tag="4b727940-f727-11ea-87a7-1f63099e6952"></i></td>
+                </tr>
+                <tr>
+                    <td><i style="color: red" class="fa fa-heart" aria-hidden="true" data-tag="6a442ee0-f727-11ea-b967-91e8825a69af"></i></td>
+                    <td><i style="color: yellow" class="fa fa-heart" aria-hidden="true" data-tag="6a4603a0-f727-11ea-9dbc-236e6e77c2b3"></i></td>
+                    <td><i style="color: green" class="fa fa-heart" aria-hidden="true" data-tag="6a46c6f0-f727-11ea-9b5c-2bd2bb34343a"></i></td>
+                    <td><i style="color: blue" class="fa fa-heart" aria-hidden="true" data-tag="6a47d860-f727-11ea-bd31-9d41abbbe26c"></i></td>
+                    <td><i style="color: purple" class="fa fa-heart" aria-hidden="true" data-tag="6a489bb0-f727-11ea-b5f4-21b21aafb3ed"></i></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</script>
+
+<script type="text/html" data-help-name="sme-bucketcreator">
+    <p>Create new bucket such as moment, profile, group chat, channel and others.</p>
+</script>

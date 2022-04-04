@@ -1,0 +1,92 @@
+<script type="text/javascript">
+    RED.nodes.registerType('sme-bucketselector', {
+        category: 'semilimes',
+        color: '#E2D96E',
+        defaults: {
+            bucketType: { value: "Reply" },
+            bucketName: { value: "" },
+            autoBucket: { value: "0" },
+        },
+        inputs: 1,
+        outputs: 1,
+        align: 'left',
+        icon: "font-awesome/fa-archive",
+        label: function () {
+            switch (this.bucketType) {
+                case 'Reply': return 'select: Reply back to bucket';
+                case 'Sender': return 'select: Sender';
+                case 'Submiter': return 'select: Submitter';
+                case 'NamedBucket': {
+                    if (this.bucketName) {
+                        return this.autoBucket == "1" ? ('select: *' + this.bucketName) : ('select: ' + this.bucketName);
+                    }
+                    break;
+                }
+            }
+
+            return 'bucket selector';
+        },
+        labelStyle: function () {
+            return this.bucketName ? "node_label_italic" : "";
+        },
+        paletteLabel: 'bucket selector',
+        oneditprepare: function () {
+            updateUI();
+        }
+    });
+
+    function updateUI() {
+        var bucketType = $('#node-input-bucketType').val();
+        var isNamedBucketType = bucketType == "NamedBucket";
+        if (isNamedBucketType) {
+            $('#node-input-bucketNameProp').show();
+            $('#node-input-autoBucketProp').show();
+        }
+        else {
+            $('#node-input-bucketNameProp').hide();
+            $('#node-input-autoBucketProp').hide();
+        }
+    }
+</script>
+
+<script type="text/html" data-template-name="sme-bucketselector">
+    <div class="form-row">
+        <label for="node-input-bucketType"><i class="fa fa-cog"></i> <span> Bucket</span></label>
+        <select id="node-input-bucketType" onchange="updateUI()">
+            <option value="Reply">Reply back to bucket</option>
+            <option value="Sender">Sender</option>
+            <option value="Submiter">Form submitter</option>
+            <option value="NamedBucket">Another bucket...</option>
+        </select>
+    </div>
+    <div class="form-row" id="node-input-bucketNameProp">
+        <label for="node-input-bucketName"><i class="fa fa-tag"></i> Bucket name</label>
+        <input type="text" id="node-input-bucketName">
+    </div>
+    <div class="form-row" id="node-input-autoBucketProp">
+        <label for="node-input-autoBucket"><i class="fa fa-cog"></i> <span> Auto create bucket</span></label>
+        <select id="node-input-autoBucket">
+            <option value="1">Enabled</option>
+            <option value="0">Disabled</option>
+        </select>
+    </div>
+</script>
+
+<script type="text/html" data-help-name="sme-bucketselector">
+    <p>Set recipient to the input messages.</p>
+    <h3>Inputs</h3>
+    <dl class="message-properties">
+        <dt><code>msg.payload</code> <span class="property-type">sme-message</span></dt>
+        <dd>Must contain a valid semilimes message.</dd>
+    </dl>
+    <h3>Outputs</h3>
+    <dl class="message-properties">
+        <dt><code>msg.payload</code> <span class="property-type">sme-message</span></dt>
+        <dd>Return the input message with attributes set to targeting the specified container.</dd>
+    </dl>
+    <h3>References</h3>
+    <ul>
+        <li><a href="https://github.com/semimob/node-red-connector/blob/main/docs/MessageFormat.md">Message Formats</a> - full description of <code>sme-message</code>(s) and their properties.</li>
+        <li><a href="https://github.com/semimob/node-red-connector.git">GitHub</a> - the nodes github repository</li>
+    </ul>
+</script>

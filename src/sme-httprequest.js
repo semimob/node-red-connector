@@ -1,5 +1,7 @@
 "use strict";
 
+const Core = require('./sme-core.js');
+
 module.exports = function (RED) {
 
     function SmeNode(config) {
@@ -12,23 +14,27 @@ module.exports = function (RED) {
         node.on('input', function (msg, send, done) {
             send = send || function () { node.send.apply(node, arguments) };
 
-            var typeID = msg.payload && msg.payload.TypeID;
+            var core = new Core();
+            var smeHelper = new core.SmeHelper();
+            var smeReceivedMsg = smeHelper.getReceivedMsg(msg);
+
+            var typeID = smeReceivedMsg.TypeID;
             if (typeID && typeID.toUpperCase() == '25D777FD-9111-48B2-A8A5-2A3E4F1A3CA3') {
-                var req = msg.payload.HttpRequest;
-                if (req) {
-                    msg.HttpRequest = req;
-                    msg.method = req.Method;
-                    msg.url = (node.baseUrl || '') + req.Path;
-                    msg.headers = req.Headers && req.Headers.map(x => (x.Name && (x.Name + ':')) + (x.Value || ''));
-                    msg.cookies = req.Cookies;
+                var smeHttpRequest = smeReceivedMsg.HttpRequest;
+                if (smeHttpRequest) {
+                    msg.HttpRequest = smeHttpRequest;
+                    msg.method = smeHttpRequest.Method;
+                    msg.url = (node.baseUrl || '') + smeHttpRequest.Path;
+                    msg.headers = smeHttpRequest.Headers && smeHttpRequest.Headers.map(x => (x.Name && (x.Name + ':')) + (x.Value || ''));
+                    msg.cookies = smeHttpRequest.Cookies;
                     msg.payload = {};
 
-                    if (req.Content) {
-                        if (req.ContentType && req.ContentType.toUpperCase().startsWith('TEXT/')) {
-                            msg.payload = req.Content;
+                    if (smeHttpRequest.Content) {
+                        if (smeHttpRequest.ContentType && smeHttpRequest.ContentType.toUpperCase().startsWith('TEXT/')) {
+                            msg.payload = smeHttpRequest.Content;
                         }
                         else {
-                            var buff = new Buffer(req.Content, 'base64');
+                            var buff = new Buffer(smeHttpRequest.Content, 'base64');
                             msg.payload = buff.toString();
                         }
                     }

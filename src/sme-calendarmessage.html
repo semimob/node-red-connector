@@ -1,0 +1,42 @@
+<script type="text/javascript">
+    RED.nodes.registerType('sme-calendarmessage', {
+        category: 'semilimes',
+        color: '#E2D96E',
+        defaults: {
+            reference: { value: "" },
+            items: { value: "" },
+            itemsType: { value: "json" }
+        },
+        inputs: 1,
+        outputs: 1,
+        align: 'left',
+        icon: "font-awesome/fa-comment-o",
+        label: function () {
+            return this.reference ? ('calendar: ' + this.reference) : 'calendar message';
+        },
+        paletteLabel: 'calendar message',
+        oneditprepare: function () {
+            $("#node-input-items").typedInput({
+                type: "json",
+                types: ["json", "msg", "flow", "global"],
+                typeField: "#node-input-itemsType"
+            });
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="sme-calendarmessage">
+    <div class="form-row">
+        <label for="node-input-reference"><i class="fa fa-tag"></i> Reference</label>
+        <input type="text" id="node-input-reference" placeholder="Reference to identify the message for programming.">
+    </div>
+    <div class="form-row">
+        <label for="node-input-items"><i class="fa fa-tag"></i> Items</label>
+        <input type="text" id="node-input-items" placeholder="Array of selected days.">
+        <input type="hidden" id="node-input-itemsType">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="sme-calendarmessage">
+    <p>Create a calendar message.</p>
+</script>
