@@ -26,7 +26,6 @@
       "sme-core": "src/sme-core.js",
       "sme-connector": "src/sme-connector.js",
       "sme-listener": "src/sme-listener.js",
-      "sme-poster": "src/sme-poster.js",
       "sme-sender": "src/sme-sender.js",
       "sme-bucketcreator": "src/sme-bucketcreator.js",
       "sme-bucketselector": "src/sme-bucketselector.js",

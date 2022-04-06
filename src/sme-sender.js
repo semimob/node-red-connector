@@ -6,7 +6,7 @@ module.exports = function (RED) {
 
     function SmeNode(config) {
         RED.nodes.createNode(this, config);
-        this.async = config.async;
+        this.async = config.async != "0";
         var node = this;
 
         var smeConnector = config.connector && RED.nodes.getNode(config.connector);
@@ -18,33 +18,45 @@ module.exports = function (RED) {
 
             var core = new Core();
             var smeHelper = new core.SmeHelper();
-            var smeSendingBox = smeHelper.getSendingBox();
-            if (smeSendingBox.length > 0) {
-                smeSendingBox.foreach((smeMsg, index) => {
-                    var promise = smeConnector.sendMessage(smeMsg);
+            var smeSendingBox = smeHelper.getSendingBox(msg);
+            console.log('Async: ', smeSendingBox.length);
+            if (smeSendingBox) {
+                if (node.async) {
+                    //  Send message asynchronously
+                    smeSendingBox.forEach(smeMsg => {
+                        smeConnector.postMessage(smeMsg);
+                    });
+                    smeHelper.clearSendingBox(msg);
+                }
+                else {
+                    //  Send message synchronously
+                    smeSendingBox.forEach((smeMsg, index) => {
+                        var promise = smeConnector.sendMessage(smeMsg);
 
-                    //  Wait for last message sent.
-                    if (index == smeSendingBox.length - 1) {
-                        promise.then(
-                            value => {
-                                smeHelper.clearSendingBox(msg);
-                                send(msg, false);
-                                done && done(value);
-                            },
-                            reason => {
-                                smeHelper.clearSendingBox(msg);
-                                msg.error = reason;
-                                send(msg, false);
-                                done && done(reason);
-                            }
-                        );
-                    }
-                });
+                        //  Wait for last message sent.
+                        if (index == smeSendingBox.length - 1) {
+                            promise.then(
+                                value => {
+                                    smeHelper.clearSendingBox(msg);
+                                    send(msg, false);
+                                    done && done(value);
+                                },
+                                reason => {
+                                    smeHelper.clearSendingBox(msg);
+                                    msg.error = reason;
+                                    send(msg, false);
+                                    done && done(reason);
+                                }
+                            );
+                        }
+                    });
+                }
             }
-            else {
+
+            if (node.async || smeSendingBox.length == 0) {
                 send(msg, false);
                 done && done();
-            }
+            }            
         });
     };
 

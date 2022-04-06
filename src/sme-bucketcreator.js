@@ -8,13 +8,28 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
 
         this.objectType = config.objectType;
+        this.objectTypeCustom = config.objectTypeCustom;
+        this.objectTypeCustomType = config.objectTypeCustomType;
+
         this.objectName = config.objectName;
+        this.objectNameType = config.objectNameType;
+
         this.objectDesc = config.objectDesc;
-        this.objectParent = config.objectParent;
+        this.objectDescType = config.objectDescType;
+
         this.objectVisible = config.objectVisible;
+        this.objectVisibleType = config.objectVisibleType;
+
         this.objectLocked = config.objectLocked;
+        this.objectLockedType = config.objectLockedType;
+
         this.objectReaction = config.objectReaction;
-        this.objectTag = config.objectTag;
+        this.objectReactionType = config.objectReactionType;
+
+        this.objectTagType = config.objectTagType;
+        this.objectCustomTag = config.objectCustomTag;
+        this.objectCustomTagType = config.objectCustomTagType;
+        this.objectStandardTag = config.objectStandardTag;
 
         if (!this.objectName)
             return;
@@ -24,35 +39,51 @@ module.exports = function (RED) {
         node.on('input', function (msg, send, done) {
             send = send || function () { node.send.apply(node, arguments) };
 
-            var objectTypeID = null;
+            var core = new Core();
+            var smeHelper = new core.SmeHelper();
 
-            if (!node.objectParent) {
-                objectTypeID = {
-                    'Moment': '7D4D8B5D-27ED-4E69-A31A-803111C2DFC2',
-                    'Profile': 'D6AA23A5-37D4-4035-8900-AEABF75EEBD9',
-                    'Group': '24C0C6AC-101B-460C-B34D-3DE1163F2058',
-                    'Channel': '6F016F95-2BD1-4311-BFC4-C09B7EF61F7E'
-                }[node.objectType || 'Moment'];
+            var objectType = node.objectType;
+            if (objectType == 'Custom')
+                objectType = smeHelper.getNodeConfigValue(node, msg, node.objectTypeCustomType, node.objectTypeCustom);
+
+            var objectName = smeHelper.getNodeConfigValue(node, msg, node.objectNameType, node.objectName);
+            var objectDesc = smeHelper.getNodeConfigValue(node, msg, node.objectDescType, node.objectDesc);
+            var objectVisible = smeHelper.getNodeConfigValue(node, msg, node.objectVisibleType, node.objectVisible);
+            var objectLocked = smeHelper.getNodeConfigValue(node, msg, node.objectLockedType, node.objectLocked);
+            var objectReaction = smeHelper.getNodeConfigValue(node, msg, node.objectReactionType, node.objectReaction);
+
+            var objectTag = null;
+            switch (node.objectTagType) {
+                case 'Standard': {
+                    objectTag = node.objectStandardTag;
+                    break;
+                }
+                case 'Custom': {
+                    console.log('Custom: ', node);
+                    objectTag = smeHelper.getNodeConfigValue(node, msg, node.objectCustomTagType, node.objectCustomTag);
+                    break;
+                }
             }
 
-            if (objectTypeID || node.objectParent) {
+            objectVisible = smeHelper.isTrue(objectVisible);
+            objectLocked = smeHelper.isTrue(objectLocked);
+            objectReaction = smeHelper.isTrue(objectReaction);
+
+            if (objectType && objectName) {
                 var smeMsg = {
                     Type: 'client',
                     TypeID: '5E78B750-1F60-40EB-9BAC-FA7B39E11767',
                     ObjectInfo: {
-                        ObjectTypeID: objectTypeID,
-                        Name: node.objectName,
-                        Description: node.objectDesc,
-                        ParentName: node.objectParent,
-                        Visisble: node.objectVisible,
-                        LockContent: node.objectLocked,
-                        EnableReaction: node.objectReation,
-                        Tag: node.objectTag,
+                        ObjectType: objectType,
+                        Name: objectName,
+                        Description: objectDesc,
+                        Visisble: objectVisible,
+                        LockContent: objectLocked,
+                        EnableReaction: objectReaction,
+                        Tag: objectTag,
                     }
                 };
 
-                var core = new Core();
-                var smeHelper = new core.SmeHelper();
                 smeHelper.addSendingMsg(msg, smeMsg);
             }
 

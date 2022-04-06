@@ -47,6 +47,7 @@ module.exports = function (RED) {
 
             var firstDate = selectedItems.length <= 0 ? Date.now() : selectedItems[0].Start;
             var smeCalendarMsg = {
+                Type: "chat",
                 TypeID: '2DD36694-2455-4023-8FBC-C293F2BBA86C', //   predefined ID of semilimes's calendar message.
                 Date: firstDate,
                 Items: selectedItems

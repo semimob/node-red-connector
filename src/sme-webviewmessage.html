@@ -4,7 +4,9 @@
         color: '#E2D96E',
         defaults: {
             reference: { value: "" },
-            html: { value: "" },
+            url: { value: "" },
+            urlType: { value: "str" },
+            viewSize: { value: "1:2" },
         },
         inputs: 1,
         outputs: 1,
@@ -25,7 +27,14 @@
         labelStyle: function () {
             return this.html ? "node_label_italic" : "";
         },
-        paletteLabel: 'web view message'
+        paletteLabel: 'web view message',
+        oneditprepare: function () {
+            $("#node-input-url").typedInput({
+                type: "str",
+                types: ["str", "msg", "flow", "global"],
+                typeField: "#node-input-urlType"
+            });
+        }
     });
 </script>
 
@@ -35,8 +44,18 @@
         <input type="text" id="node-input-reference" placeholder="Reference to identify the message for programming.">
     </div>
     <div class="form-row">
-        <label for="node-input-html"><i class="fa fa-tag"></i> HTML</label>
-        <input type="text" id="node-input-html" placeholder="msg.payload">
+        <label for="node-input-url"><i class="fa fa-tag"></i> URL</label>
+        <input type="text" id="node-input-url">
+        <input type="hidden" id="node-input-urlType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-viewSize"><i class="fa fa-cog"></i> <span> View size(H:W)</span></label>
+        <select id="node-input-viewSize">
+            <option value="1:2" selected>1:2</option>
+            <option value="1:1">1:1</option>
+            <option value="3:2">3:2</option>
+            <option value="2:1">2:1</option>
+        </select>
     </div>
 </script>
 

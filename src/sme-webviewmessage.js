@@ -8,25 +8,30 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
 
         this.reference = config.reference;
-        this.html = config.html;
+        this.url = config.url;
+        this.viewSize = config.viewSize || '1:2';
 
         var node = this;
 
         node.on('input', function (msg, send, done) {
             send = send || function () { node.send.apply(node, arguments) };
 
-            var html = node.html || msg.Html;
-            if (html) {
+            if (node.url) {
                 var smeMsg = {
                     Type: 'chat',
-                    TypeID: '38199F47-504C-4C73-97E5-8076C8CFAA21',
+                    TypeID: 'D4FC2714-DE91-4067-8A33-2CE1FD42A71F',
                     Reference: node.reference,
-                    Html: html,
+                    Body: node.url,
+                    WebView: {
+                        Url: node.url,
+                        ViewTypeID: '71de2cb1-d996-4497-807b-b389db5cf217',
+                        LiveWebOption: node.viewSize,
+                    }
                 };
 
                 var core = new Core();
                 var smeHelper = new core.SmeHelper();
-                var smeFormMsg = smeHelper.addSendingMsg(msg, smeMsg);
+                smeHelper.addSendingMsg(msg, smeMsg);
             }
 
             send(msg, false);

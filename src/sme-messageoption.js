@@ -20,7 +20,7 @@ module.exports = function (RED) {
             var smeSendingBox = smeHelper.getSendingBox();
 
             if (smeSendingBox) {
-                smeSendingBox.foreach(smeMsg => {
+                smeSendingBox.forEach(smeMsg => {
                     var deliveryOption = smeMsg.DeliveryOption;
                     if (deliveryOption == null)
                         deliveryOption = smeMsg.DeliveryOption = {};

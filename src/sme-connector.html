@@ -3,27 +3,29 @@
         category: 'config',
         credentials: {
             reservedCode: { type: "text" },
-            server: { type: "text", required: false },
+            server: { type: "text" },
             appName: { type: "text", required: true },
-            applicationID: { type: "text", required: false }
+            applicationID: { type: "text" }
         },
         icon: "font-awesome/fa-cog",
         label: function () {
-            return this.credentials.server || "semilimes connector";
+            return (this.credentials && this.credentials.server) || "semilimes connector";
         },
         labelStyle: function () {
-            return this.credentials.server ? "node_label_italic" : "";
+            return (this.credentials && this.credentials.server) ? "node_label_italic" : "";
         },
         paletteLabel: 'connector',
         oneditprepare: function () {
-            updateApplicationInfo({
-                ApplicationID: this.credentials.applicationID,
-                RegistrationID: null,
-            });
+            if (this.credentials) {
+                updateApplicationInfo({
+                    ApplicationID: this.credentials.applicationID,
+                    RegistrationID: null,
+                });
 
-            $('#node-config-input-server').val(this.credentials.server);
-            $('#node-config-input-appName').val(this.credentials.appName);
-            $('#node-config-input-reservedCode').val(this.credentials.reservedCode);
+                $('#node-config-input-server').val(this.credentials.server);
+                $('#node-config-input-appName').val(this.credentials.appName);
+                $('#node-config-input-reservedCode').val(this.credentials.reservedCode);
+            }
         }
     });
 	

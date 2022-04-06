@@ -4,7 +4,7 @@
         color: "#D7D7A0",
         defaults: {
             connector: { type: 'sme-connector', required: true },
-            async: { value: 1, required: true },
+            async: { value: "1", required: true },
         },
         inputs: 1,
         outputs: 1,
@@ -25,8 +25,8 @@
     <div class="form-row">
         <label for="node-input-async"><i class="fa fa-spinner"></i> <span> Send</span></label>
         <select id="node-input-async">
-            <option value="0">Synchronously</option>
             <option value="1" selected>Asynchronously</option>
+            <option value="0">Synchronously</option>
         </select>
     </div>
 </script>

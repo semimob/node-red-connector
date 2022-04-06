@@ -58,9 +58,9 @@ module.exports = function (RED) {
 
         function addSendingMsg(nodeRedMsg, smeMsg) {
             if (nodeRedMsg && smeMsg) {
-                var sendingMsgArray = getSendingBox(nodeRedMsg);
-                if (sendingMsgArray)
-                    sendingMsgArray.push(smeMsg);
+                var smeSendingMsgs = getSendingBox(nodeRedMsg);
+                if (smeSendingMsgs)
+                    smeSendingMsgs.push(smeMsg);
 
                 return smeMsg;
             }
@@ -99,6 +99,28 @@ module.exports = function (RED) {
             return smeFormMsg;
         }
 
+        function getNodeConfigValue(node, msg, selectionType, selectionValue) {
+            if (selectionType && selectionValue) {
+                switch (selectionType) {
+                    case 'str': return selectionValue;
+                    case 'json': return JSON.parse(selectionValue);
+                    case 'msg': return msg[selectionValue];
+                    case 'flow': return node && node.context().flow.get(selectionValue);
+                    case 'global': return node && node.context().global.get(selectionValue);
+                }
+            }
+
+            return null;
+        }
+
+        function isTrue(obj) {
+            return obj && ['1', 'TRUE', 'YES'].indexOf(('' + obj).toUpperCase()) >= 0;
+        }
+
+        function isFalse(obj) {
+            return obj == null || ['', '0', 'FALSE', 'NO'].indexOf(('' + obj).toUpperCase()) >= 0;
+        }
+
         //  Export
         this.getSmeBag = getSmeBag;
         this.setReceivedMsg = setReceivedMsg;
@@ -107,6 +129,9 @@ module.exports = function (RED) {
         this.getSendingBox = getSendingBox;
         this.clearSendingBox = clearSendingBox;
         this.getOrAddSendingFormMsg = getOrCreateNewSendingFormMessage;
+        this.getNodeConfigValue = getNodeConfigValue;
+        this.isTrue = isTrue;
+        this.isFalse = isFalse;
     }
 
     //--------------------SmeWebSocket-----------------------------------

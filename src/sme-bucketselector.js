@@ -23,7 +23,7 @@ module.exports = function (RED) {
             if (smeSendingBox) {
                 var smeReceivedMsg = smeHelper.getReceivedMsg(msg);
 
-                smeSendingBox.foreach(smeMsg => {
+                smeSendingBox.forEach(smeMsg => {
                     switch (node.bucketType) {
                         case 'Reply': {
                             smeMsg.ReceiverName = null;
