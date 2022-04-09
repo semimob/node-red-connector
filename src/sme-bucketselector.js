@@ -1,6 +1,7 @@
 "use strict";
 
 const Core = require('./sme-core.js');
+const smeMessagedeleter = require('./sme-messagedeleter.js');
 
 module.exports = function (RED) {
 
@@ -8,7 +9,13 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
 
         this.bucketType = config.bucketType;
+
         this.bucketName = config.bucketName;
+        this.bucketNameType = config.bucketNameType;
+
+        this.bucketReference = config.bucketReference;
+        this.bucketReferenceType = config.bucketReferenceType;
+
         this.autoBucket = config.autoBucket == "1";
 
         var node = this;
@@ -18,7 +25,7 @@ module.exports = function (RED) {
 
             var core = new Core();
             var smeHelper = new core.SmeHelper();
-            var smeSendingBox = smeHelper.getSendingBox();
+            var smeSendingBox = smeHelper.getSendingBox(msg);
 
             if (smeSendingBox) {
                 var smeReceivedMsg = smeHelper.getReceivedMsg(msg);
@@ -26,41 +33,47 @@ module.exports = function (RED) {
                 smeSendingBox.forEach(smeMsg => {
                     switch (node.bucketType) {
                         case 'Reply': {
-                            smeMsg.ReceiverName = null;
-                            smeMsg.ReceiverID = null;
-                            smeMsg.ConversationID = null;
                             if (smeReceivedMsg)
                                 smeMsg.ConversationID = smeReceivedMsg.ConversationID;
                             break;
                         }
                         case 'Sender': {
-                            smeMsg.ReceiverName = node.bucketName;
-                            smeMsg.ReceiverID = null;
-                            smeMsg.ConversationID = null;
                             if (smeReceivedMsg)
                                 smeMsg.ReceiverID = smeReceivedMsg.SenderID;
                             break;
                         }
                         case 'Submiter': {
-                            smeMsg.ReceiverName = node.bucketName;
-                            smeMsg.ReceiverID = null;
-                            smeMsg.ConversationID = null;
                             if (smeReceivedMsg)
                                 smeMsg.ReceiverID = smeReceivedMsg.SubmitUserID;
                             break;
                         }
+                        case 'UserMoment': {
+                            var deliveryOption = smeHelper.getMsgDeliveryOption(smeMsg.DeliveryOption);
+                            deliveryOption.PublishToMoment = true;
+                            break;
+                        }
+                        case 'UserProfile': {
+                            var deliveryOption = smeHelper.getMsgDeliveryOption(smeMsg.DeliveryOption);
+                            deliveryOption.PublishToProfile = true;
+                            break;
+                        }
                         case 'NamedBucket': {
-                            smeMsg.ReceiverName = node.bucketName;
-                            smeMsg.ReceiverID = null;
-                            smeMsg.ConversationID = null;
-                            if (node.bucketName) {
-                                smeMsg.ReceiverName = node.bucketName;
-
-                                if (node.autoBucket) {
-                                    var deliveryOption = smeMsg.DeliveryOption || {};;
-                                    deliveryOption.AutoBucket = true;
-                                    smeMsg.DeliveryOption = deliveryOption;
-                                }
+                            var bucketName = smeHelper.getNodeConfigValue(node, msg, node.bucketNameType, node.bucketName);
+                            if (bucketName) {
+                                var toObject = smeHelper.getMsgDeliveryOptionToObject(smeMsg);
+                                toObject.Name = bucketName;
+                                if (node.autoBucket)
+                                    toObject.AutoCreateObject = true;
+                            }
+                            break;
+                        }
+                        case 'ReferencedBucket': {
+                            var bucketReference = smeHelper.getNodeConfigValue(node, msg, node.bucketReferenceType, node.bucketReference);
+                            if (bucketReference) {
+                                var toObject = smeHelper.getMsgDeliveryOptionToObject(smeMsg);
+                                toObject.Reference = bucketReference;
+                                if (node.autoBucket)
+                                    toObject.AutoCreateObject = true;
                             }
                             break;
                         }

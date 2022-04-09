@@ -13,8 +13,8 @@
             if (this.messageMode) {
                 switch (this.messageMode) {
                     case 'Truncate': return 'option: Truncate';
-                    case 'LastMessage': return 'option: Update last message';
-                    case 'ByReference': return 'option: Update by reference';
+                    case 'ReplaceLastMessage': return 'option: Update last message';
+                    case 'ReplaceByReference': return 'option: Update by reference';
                     case 'PublishToMoment': return 'option: Publbish to moment';
                     case 'PublishToProfile': return 'option: Publish to profile';
                     default: return 'option: Invvalid';
@@ -35,8 +35,8 @@
         <label for="node-input-messageMode"><i class="fa fa-cog"></i> <span> Mode</span></label>
         <select id="node-input-messageMode">
             <option value="Truncate">Truncate the bucket</option>
-            <option value="LastMessage">Update the last message</option>
-            <option value="ByReference">Update message by reference</option>
+            <option value="ReplaceLastMessage">Update the last message</option>
+            <option value="ReplaceByReference">Update message by reference</option>
             <option value="PublishToMoment">Publish to moment</option>
             <option value="PublishToProfile">Publish to profile</option>
         </select>

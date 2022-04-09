@@ -1,16 +1,9 @@
 <script type="text/javascript">
-    RED.nodes.registerType('sme-bucketcreator', {
+    RED.nodes.registerType('sme-bucketupdater', {
         category: 'semilimes',
         color: '#E2D96E',
         defaults: {
-            objectType: { value: "Bucket" },
-            objectTypeCustomValue: { value: "Bucket" },
-            objectTypeCustomType: { value: "str" },
-
-            objectReference: { value: "" },
-            objectReferenceType: { value: "str" },
-
-            objectName: { value: "New Bucket", requried: true },
+            objectName: { value: "" },
             objectNameType: { value: "str" },
 
             objectDesc: { value: "" },
@@ -37,25 +30,15 @@
         outputs: 1,
         align: 'left',
         icon: "font-awesome/fa-archive",
-        paletteLabel: 'bucket creator',
+        paletteLabel: 'bucket updater',
         label: function () {
-            return this.objectName ? ('create: ' + this.objectName) : 'bucket creator';
+            return this.objectName ? ('update bucket: ' + this.objectName) : 'bucket updater';
         },
         labelStyle: function () {
             return this.objectName ? "node_label_italic" : "";
         },
         oneditprepare: function () {
-            $("#node-input-objectTypeCustomValue").typedInput({
-                type: "str",
-                types: ["str", "msg", "flow", "global"],
-                typeField: "#node-input-objectTypeCustomType"
-            });
-
-            $("#node-input-objectReference").typedInput({
-                type: "str",
-                types: ["str", "msg", "flow", "global"],
-                typeField: "#node-input-objectReferenceType"
-            });
+            updateBucketTagUI();
 
             $("#node-input-objectName").typedInput({
                 type: "str",
@@ -104,20 +87,8 @@
                 $('#node-input-objectStandardTag').val(dataTag);
                 updateBucketTagUI();
             });
-
-            updateBucketTypeUI();
-            updateBucketTagUI();
         }
     });
-
-    function updateBucketTypeUI() {
-        var objectTypeValue = $('#node-input-objectType').val();
-        var panelVisible = objectTypeValue == 'Custom';
-        if (panelVisible)
-            $('#node-input-objectTypeCustomPanel').show();
-        else
-            $('#node-input-objectTypeCustomPanel').hide();
-    }
 
     function updateBucketTagUI() {
         var standardTagValue = $('#node-input-objectStandardTag').val();
@@ -137,30 +108,7 @@
     }
 </script>
 
-<script type="text/html" data-template-name="sme-bucketcreator">
-    <div class="form-row">
-        <label for="node-input-objectType"><i class="fa fa-tag"></i> <span> Type</span></label>
-        <select id="node-input-objectType" onchange="updateBucketTypeUI();">
-            <option value="Custom"></option>
-            <option value="Bucket">Bucket</option>
-            <option value="Moment">Moment</option>
-            <option value="Profile">Profile</option>
-            <option value="Group">Group</option>
-            <option value="Channel">Channel</option>
-            <option value="MessageTemplate">Message Template</option>
-            <option value="BucketTemplate">Bucket Template</option>
-        </select>
-    </div>
-    <div class="form-row" id="node-input-objectTypeCustomPanel">
-        <label for="node-input-objectTypeCustom"></label>
-        <input type="text" id="node-input-objectTypeCustom">
-        <input type="hidden" id="node-input-objectTypeCustomType">
-    </div>
-    <div class="form-row">
-        <label for="node-input-objectReference"><i class="fa fa-tag"></i> Reference</label>
-        <input type="text" id="node-input-objectReference">
-        <input type="hidden" id="node-input-objectReferenceType">
-    </div>
+<script type="text/html" data-template-name="sme-bucketupdater">
     <div class="form-row">
         <label for="node-input-objectName"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-objectName">
@@ -250,6 +198,6 @@
 
 </script>
 
-<script type="text/html" data-help-name="sme-bucketcreator">
-    <p>Create new bucket such as moment, profile, group chat, channel and others.</p>
+<script type="text/html" data-help-name="sme-bucketupdater">
+    <p>Update general information of a bucket.</p>
 </script>

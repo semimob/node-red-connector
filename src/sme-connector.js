@@ -47,7 +47,7 @@ module.exports = function (RED) {
             msg = validateMessage(msg);
             msg.AuthToken = applicationID;
 
-            if (!(msg.ConversationID || msg.ReceiverID || msg.ReceiverName))
+            if (!(msg.ConversationID || msg.ReceiverID || msg.DeliveryOption))
                 msg.ConversationID = applicationID;
 
             webSocket.send(msg);

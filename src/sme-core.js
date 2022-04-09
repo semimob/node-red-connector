@@ -14,6 +14,8 @@ module.exports = function (RED) {
         const SME_BAG_NAME = '_sme';
         const SME_SENDING_BOX_NAME = 'sendingMsgs';
         const SME_RECEIVED_MSG_NAME = 'receivedMsg';
+        const SME_DELIVERY_OPTION_NAME = 'DeliveryOption';
+        const SME_DELIVERY_OPTION_TO_OBJECT_NAME = 'ToObject';
 
         function getSmeBag(nodeRedMsg) {
             if (!nodeRedMsg)
@@ -113,6 +115,27 @@ module.exports = function (RED) {
             return null;
         }
 
+        function getMsgDeliveryOption(smeMsg) {
+            if (!smeMsg)
+                return null;
+
+            var deliveryOption = smeMsg[SME_DELIVERY_OPTION_NAME];
+            if (deliveryOption == null)
+                deliveryOption = smeMsg[SME_DELIVERY_OPTION_NAME] = {};
+            return deliveryOption;
+        }
+
+        function getMsgDeliveryOptionToObject(smeMsg) {
+            var deliveryOption = getMsgDeliveryOption(smeMsg);
+            if (!deliveryOption)
+                return null;
+
+            var toObject = deliveryOption[SME_DELIVERY_OPTION_TO_OBJECT_NAME];
+            if (toObject == null)
+                toObject = deliveryOption[SME_DELIVERY_OPTION_TO_OBJECT_NAME] = {};
+            return toObject;
+        }
+
         function isTrue(obj) {
             return obj && ['1', 'TRUE', 'YES'].indexOf(('' + obj).toUpperCase()) >= 0;
         }
@@ -130,6 +153,8 @@ module.exports = function (RED) {
         this.clearSendingBox = clearSendingBox;
         this.getOrAddSendingFormMsg = getOrCreateNewSendingFormMessage;
         this.getNodeConfigValue = getNodeConfigValue;
+        this.getMsgDeliveryOption = getMsgDeliveryOption;
+        this.getMsgDeliveryOptionToObject = getMsgDeliveryOptionToObject;
         this.isTrue = isTrue;
         this.isFalse = isFalse;
     }

@@ -4,7 +4,13 @@
         color: '#E2D96E',
         defaults: {
             bucketType: { value: "Reply" },
+
             bucketName: { value: "" },
+            bucketNameType: { value: "str" },
+
+            bucketRefenence: { value: "" },
+            bucketRefenenceType: { value: "str" },
+
             autoBucket: { value: "0" },
         },
         inputs: 1,
@@ -22,6 +28,12 @@
                     }
                     break;
                 }
+                case 'ReferencedBucket': {
+                    if (this.bucketName) {
+                        return this.autoBucket == "1" ? ('select: *' + this.bucketRefenence) : ('select: ' + this.bucketRefenence);
+                    }
+                    break;
+                }
             }
 
             return 'bucket selector';
@@ -31,20 +43,44 @@
         },
         paletteLabel: 'bucket selector',
         oneditprepare: function () {
+            $("#node-input-bucketName").typedInput({
+                type: "str",
+                types: ["str", "msg", "flow", "global"],
+                typeField: "#node-input-bucketNameType"
+            });
+
+            $("#node-input-bucketReference").typedInput({
+                type: "str",
+                types: ["str", "msg", "flow", "global"],
+                typeField: "#node-input-bucketReferenceType"
+            });
+
             updateUI();
         }
     });
 
     function updateUI() {
         var bucketType = $('#node-input-bucketType').val();
-        var isNamedBucketType = bucketType == "NamedBucket";
-        if (isNamedBucketType) {
-            $('#node-input-bucketNameProp').show();
-            $('#node-input-autoBucketProp').show();
-        }
-        else {
-            $('#node-input-bucketNameProp').hide();
-            $('#node-input-autoBucketProp').hide();
+        
+        switch (bucketType) {
+            case 'NamedBucket': {
+                $('#node-input-bucketNamePanel').show();
+                $('#node-input-bucketReferencePanel').hide();
+                $('#node-input-autoBucketPanel').show();
+                break;
+            }
+            case 'ReferencedBucket': {
+                $('#node-input-bucketNamePanel').hide();
+                $('#node-input-bucketReferencePanel').show();
+                $('#node-input-autoBucketPanel').show();
+                break;
+            }
+            default: {
+                $('#node-input-bucketNamePanel').hide();
+                $('#node-input-bucketReferencePanel').hide();
+                $('#node-input-autoBucketPanel').hide();
+                break;
+            }
         }
     }
 </script>
@@ -53,17 +89,26 @@
     <div class="form-row">
         <label for="node-input-bucketType"><i class="fa fa-cog"></i> <span> Bucket</span></label>
         <select id="node-input-bucketType" onchange="updateUI()">
+            <option value="NamedBucket">--Named bucket---</option>
+            <option value="ReferencedBucket">--Referenced bucket---</option>
             <option value="Reply">Reply back to bucket</option>
             <option value="Sender">Sender</option>
             <option value="Submiter">Form submitter</option>
-            <option value="NamedBucket">Another bucket...</option>
+            <option value="UserProfile">Publish to Profile</option>
+            <option value="UserMoment">Publish to Moment</option>
         </select>
     </div>
-    <div class="form-row" id="node-input-bucketNameProp">
-        <label for="node-input-bucketName"><i class="fa fa-tag"></i> Bucket name</label>
-        <input type="text" id="node-input-bucketName">
+    <div class="form-row" id="node-input-bucketReferencePanel">
+        <label for="node-input-bucketReference"></label>
+        <input type="text" id="node-input-bucketReference" placeholder="Bucket reference">
+        <input type="hidden" id="node-input-objectReferenceType">
     </div>
-    <div class="form-row" id="node-input-autoBucketProp">
+    <div class="form-row" id="node-input-bucketNamePanel">
+        <label for="node-input-bucketName"></label>
+        <input type="text" id="node-input-bucketName" placeholder="Bucket name">
+        <input type="hidden" id="node-input-objectNameType">
+    </div>
+    <div class="form-row" id="node-input-autoBucketPanel">
         <label for="node-input-autoBucket"><i class="fa fa-cog"></i> <span> Auto create bucket</span></label>
         <select id="node-input-autoBucket">
             <option value="1">Enabled</option>

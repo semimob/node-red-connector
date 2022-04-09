@@ -29,6 +29,7 @@
       "sme-sender": "src/sme-sender.js",
       "sme-bucketcreator": "src/sme-bucketcreator.js",
       "sme-bucketselector": "src/sme-bucketselector.js",
+      "sme-bucketupdater": "src/sme-bucketupdater.js",
       "sme-textmessage": "src/sme-textmessage.js",
       "sme-htmlmessage": "src/sme-htmlmessage.js",
       "sme-calendarmessage": "src/sme-calendarmessage.js",

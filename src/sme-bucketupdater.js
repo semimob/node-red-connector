@@ -6,16 +6,9 @@ module.exports = function (RED) {
 
     function SmeNode(config) {
         RED.nodes.createNode(this, config);
-
-        this.objectType = config.objectType;
-        this.objectTypeCustom = config.objectTypeCustom;
-        this.objectTypeCustomType = config.objectTypeCustomType;
-
-        this.objectReference = config.objectReference;
-        this.objectReferenceType = config.objectReferenceType;
-
-        this.objectAvatar = config.objectAvatar;
-        this.objectAvatarType = config.objectAvatarType;
+        
+        this.objectAvatar = config.objectReference;
+        this.objectAvatarType = config.objectReferenceType;
 
         this.objectName = config.objectName;
         this.objectNameType = config.objectNameType;
@@ -37,9 +30,6 @@ module.exports = function (RED) {
         this.objectCustomTagType = config.objectCustomTagType;
         this.objectStandardTag = config.objectStandardTag;
 
-        if (!this.objectName)
-            return;
-
         var node = this;
 
         node.on('input', function (msg, send, done) {
@@ -48,11 +38,6 @@ module.exports = function (RED) {
             var core = new Core();
             var smeHelper = new core.SmeHelper();
 
-            var objectType = node.objectType;
-            if (objectType == 'Custom')
-                objectType = smeHelper.getNodeConfigValue(node, msg, node.objectTypeCustomType, node.objectTypeCustom);
-
-            var objectReference = smeHelper.getNodeConfigValue(node, msg, node.objectReferenceType, node.objectReference);
             var objectAvatar = smeHelper.getNodeConfigValue(node, msg, node.objectAvatarType, node.objectAvatar);
             var objectName = smeHelper.getNodeConfigValue(node, msg, node.objectNameType, node.objectName);
             var objectDesc = smeHelper.getNodeConfigValue(node, msg, node.objectDescType, node.objectDesc);
@@ -73,35 +58,42 @@ module.exports = function (RED) {
                 }
             }
 
-            objectVisible = smeHelper.isTrue(objectVisible);
-            objectLocked = smeHelper.isTrue(objectLocked);
-            objectReaction = smeHelper.isTrue(objectReaction);
+            var objectInfo = {};
 
-            if (objectType && objectName) {
-                var smeMsg = {
-                    Type: 'client',
-                    TypeID: '5E78B750-1F60-40EB-9BAC-FA7B39E11767',
-                    ObjectInfo: {
-                        ObjectType: objectType,
-                        Reference: objectReference,
-                        AvatarID: objectAvatar,
-                        Name: objectName,
-                        Description: objectDesc,
-                        Visisble: objectVisible,
-                        LockContent: objectLocked,
-                        EnableReaction: objectReaction,
-                        Tag: objectTag,
-                    }
-                };
+            if (objectAvatar)
+                objectInfo.AvatarID = objectAvatar;
 
-                smeHelper.addSendingMsg(msg, smeMsg);
-            }
+            if (objectName)
+                objectInfo.Name = objectName;
+
+            if (objectDesc)
+                objectInfo.Description = objectDesc;
+
+            if (objectVisible)
+                objectInfo.Visisble = smeHelper.isTrue(objectVisible);
+
+            if (objectLocked)
+                objectInfo.LockContent = smeHelper.isTrue(objectLocked);
+
+            if (objectReaction)
+                objectInfo.EnableReaction = smeHelper.isTrue(objectReaction);
+
+            if (objectTag)
+                objectInfo.Tag = objectTag;
+
+            var smeMsg = {
+                Type: 'client',
+                TypeID: '21DDF902-FA62-494F-9294-A55100F6D7B0',
+                ObjectInfo: objectInfo,
+            };
+
+            smeHelper.addSendingMsg(msg, smeMsg);
 
             send(msg, false);
-            
+
             done && done();
         });
     };
 
-    RED.nodes.registerType("sme-bucketcreator", SmeNode);
+    RED.nodes.registerType("sme-bucketupdater", SmeNode);
 };
