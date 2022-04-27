@@ -233,7 +233,6 @@ module.exports = function (RED) {
 
             socket.on('message', function (msg, flags) {
                 msg = msg.toString();
-                console.log('ws received: ', msg);
                 if (msg.startsWith('{')) {
                     try {
                         msg = JSON.parse(msg);
@@ -258,12 +257,10 @@ module.exports = function (RED) {
         }
 
         function addMessageListener(listener) {
-            console.log('Register message listener', listener);
             messageDeliver.addListener('message', listener);
         }
 
         function addStatusListener(listener) {
-            console.log('Register status listener', listener);
             messageDeliver.addListener('status', listener);
         }
 

@@ -22,7 +22,6 @@ module.exports = function (RED) {
             if (typeID && typeID.toUpperCase() == '25D777FD-9111-48B2-A8A5-2A3E4F1A3CA3') {
                 var smeHttpRequest = smeReceivedMsg.HttpRequest;
                 if (smeHttpRequest) {
-                    msg.HttpRequest = smeHttpRequest;
                     msg.method = smeHttpRequest.Method;
                     msg.url = (node.baseUrl || '') + smeHttpRequest.Path;
                     msg.headers = smeHttpRequest.Headers && smeHttpRequest.Headers.map(x => (x.Name && (x.Name + ':')) + (x.Value || ''));

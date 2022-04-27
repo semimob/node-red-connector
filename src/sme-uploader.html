@@ -1,0 +1,29 @@
+<script type="text/javascript">
+    RED.nodes.registerType('sme-uploader', {
+        category: 'semilimes',
+        color: "#D7D7A0",
+        defaults: {
+            connector: { type: 'sme-connector', required: true },
+            async: { value: "1", required: true },
+        },
+        inputs: 1,
+        outputs: 1,
+        align: 'right',
+        icon: "font-awesome/fa-rss",
+        paletteLabel: 'uploader',
+        label: function () {
+            return 'uploader';
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="sme-uploader">
+    <div class="form-row">
+        <label for="node-input-connector"><i class="fa fa-cog"></i> Connector</label>
+        <input type="text" id="node-input-connector" placeholder="semilimes connector">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="sme-uploader">
+    <p>Handle file data from a Read File node to upload to semilimes.</p>
+</script>

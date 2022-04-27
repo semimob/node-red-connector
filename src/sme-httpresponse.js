@@ -61,25 +61,31 @@ module.exports = function (RED) {
                 }
 
                 if (msg.payload) {
-                    console.log(typeof (msg.payload));
                     if (Buffer.isBuffer(msg.payload)) {
                         var contentType = msg.headers && msg.headers["content-type"];
                         smeHttpResponse.Content = isTextContentType(contentType) ? msg.payload.toString() : msg.payload.toString('base64');
                     }
                     else if (typeof (msg.payload) == 'string') {
-                        smeHttpResponse.Content = msg.payload;
+                        var contentType = msg.headers && msg.headers["content-type"];
+                        smeHttpResponse.Content = isTextContentType(contentType) ? msg.payload : Buffer.from(msg.payload).toString('base64');
+
+                        if (isTextContentType(contentType) == false)
+                            node.status({ fill: "red", shape: "ring", text: "Connected HTTP Request node should return binary!" });
                     }
                     else {
                         smeHttpResponse.Content = JSON.stringify(msg.payload);
                     }
                 }
-                
+
                 var smeSendingMsg = {};
                 smeSendingMsg.Type = 'client';
                 smeSendingMsg.TypeID = '80348B9C-8FB4-4071-BF4A-E07852543D06';
                 smeSendingMsg.HttpResponse = smeHttpResponse;
 
                 var smeReceivedMsg = smeHelper.addSendingMsg(msg, smeSendingMsg);
+            }
+            else {
+                node.status({ fill: "red", shape: "ring", text: "Was not connected from an User Web Request node!" });
             }
 
             send(msg, false);
