@@ -47,7 +47,7 @@ module.exports = function (RED) {
             msg = validateMessage(msg);
             msg.AuthToken = applicationID;
 
-            if (!(msg.ConversationID || msg.ReceiverID || msg.DeliveryOption))
+            if (!(msg.ConversationID || msg.ReceiverID || (msg.DeliveryOption && msg.DeliveryOption.ToObject)))
                 msg.ConversationID = applicationID;
 
             webSocket.send(msg);
@@ -56,7 +56,7 @@ module.exports = function (RED) {
         function sendApiMessage(msg, async) {
             msg = validateMessage(msg);
 
-            if (!(msg.ConversationID || msg.ReceiverID || msg.DeliveryOption))
+            if (!(msg.ConversationID || msg.ReceiverID || (msg.DeliveryOption && msg.DeliveryOption.ToObject)))
                 msg.ConversationID = applicationID;
 
             var methodID = async ? '3A01CE9E-F850-4049-AD45-DA372E44B89B' : '4E9DDB53-00A3-4006-AFBC-2C4102EC69C1';
@@ -64,7 +64,7 @@ module.exports = function (RED) {
         }
 
         function callApi(methodID, data) {
-            data.AuthToken = applicationID;
+            data.Token = applicationID;
             return apiClient.callApi(methodID, data);
         }
 

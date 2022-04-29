@@ -4,7 +4,8 @@
         color: "#D7D7A0",
         defaults: {
             connector: { type: 'sme-connector', required: true },
-            async: { value: "1", required: true },
+            content: { value: 'payload', required: true },
+            contentType: { value: 'msg' },
         },
         inputs: 1,
         outputs: 1,
@@ -13,7 +14,14 @@
         paletteLabel: 'uploader',
         label: function () {
             return 'uploader';
-        }
+        },
+        oneditprepare: function () {
+            $("#node-input-content").typedInput({
+                type: "msg",
+                types: ["str", "msg", "flow", "global"],
+                typeField: "#node-input-contentType"
+            });
+        },
     });
 </script>
 
@@ -21,6 +29,11 @@
     <div class="form-row">
         <label for="node-input-connector"><i class="fa fa-cog"></i> Connector</label>
         <input type="text" id="node-input-connector" placeholder="semilimes connector">
+    </div>
+    <div class="form-row">
+        <label for="node-input-content"><i class="fa fa-tag"></i> Content</label>
+        <input type="text" id="node-input-content" placeholder="File content in UTF8 or Base64 encoded.">
+        <input type="hidden" id="node-input-contentType">
     </div>
 </script>
 

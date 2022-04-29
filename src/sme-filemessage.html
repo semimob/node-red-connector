@@ -1,0 +1,42 @@
+<script type="text/javascript">
+    RED.nodes.registerType('sme-filemessage', {
+        category: 'semilimes',
+        color: '#E2D96E',
+        defaults: {
+            reference: { value: "" },
+            files: { value: "payload" },
+            filesType: { value: "msg" },
+        },
+        inputs: 1,
+        outputs: 1,
+        align: 'left',
+        icon: "font-awesome/fa-comment-o",
+        paletteLabel: 'file message',
+        label: function () {
+            return 'file message';
+        },
+        oneditprepare: function () {
+            $("#node-input-files").typedInput({
+                type: "msg",
+                types: ["json", "msg", "flow", "global"],
+                typeField: "#node-input-filesType"
+            });
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="sme-filemessage">
+    <div class="form-row">
+        <label for="node-input-reference"><i class="fa fa-tag"></i> Reference</label>
+        <input type="text" id="node-input-reference" placeholder="Reference to identify the message for programming.">
+    </div>
+    <div class="form-row">
+        <label for="node-input-files"><i class="fa fa-tag"></i> Files</label>
+        <input type="text" id="node-input-files">
+        <input type="hidden" id="node-input-filesType">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="sme-filemessage">
+    <p>Plain text message.</p>
+</script>

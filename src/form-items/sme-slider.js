@@ -32,7 +32,7 @@ module.exports = function (RED) {
                     DivisionStep: this.step || 5
                 },
                 FormRequired: smeFormMsg.FormItems.length == 0 || (node.required == 1),
-                FormReference: node.name
+                Reference: node.name
             });
             
             send(msg, false);

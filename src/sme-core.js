@@ -294,12 +294,22 @@ module.exports = function (RED) {
 
                 var req = https.request(options, (res) => {
                     res.on('data', (d) => {
-                        resolve(d && JSON.parse(d));
+                        //console.log('Call API response: ', d);
+                        try {
+                            var jsonData = d && JSON.parse(d);
+                            if (jsonData) {
+                                //console.log('Call API resolved: ', jsonData);
+                                resolve(jsonData);
+                            }
+                        }
+                        catch (ex) {
+                            console.debug('Error parasing API result: ', d, ex);
+                        }
                     });
                 });
 
                 req.on('error', (e) => {
-                    console.error(e);
+                    console.error('Call API rejected: ', e);
                     reject(e);
                 });
 

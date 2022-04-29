@@ -34,7 +34,7 @@ module.exports = function (RED) {
                         Options: node.options
                     },
                     FormRequired: smeFormMsg.FormItems.length == 0 || (node.required == 1),
-                    FormReference: node.name
+                    Reference: node.name
                 });
             }
             else {

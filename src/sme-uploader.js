@@ -8,6 +8,9 @@ module.exports = function (RED) {
     function SmeNode(config) {
         RED.nodes.createNode(this, config);
 
+        this.content = config.content;
+        this.contentType = config.contentType;
+
         var node = this;
 
         var smeConnector = config.connector && RED.nodes.getNode(config.connector);
@@ -17,22 +20,24 @@ module.exports = function (RED) {
         node.on('input', function (msg, send, done) {
             send = send || function () { node.send.apply(node, arguments) };
 
-            var smeMsg = {
-                Type: 'client',
-                TypeID: '17F90014-424C-4D2D-984A-758A4B79E265',
-            };
+            var core = new Core();
+            var smeHelper = new core.SmeHelper();
+
+            var fileContent = smeHelper.getNodeConfigValue(node, msg, node.contentType, node.content);
+
+            var apiData = {};
 
             if (msg.payload) {
-                smeMsg.FileName = msg.filename;
+                apiData.FileName = msg.filename;
 
-                if (Buffer.isBuffer(msg.payload)) {
-                    smeMsg.Content = msg.payload.toString('base64');
-                    smeMsg.Encoding = 'base64';
+                if (Buffer.isBuffer(fileContent)) {
+                    apiData.Content = fileContent.toString('base64');
+                    apiData.Encoding = 'base64';
                     msg.payload = null;
                 }
                 else if (typeof (msg.payload) == 'string') {
-                    smeMsg.Content = msg.payload;
-                    smeMsg.Encoding = "utf8"
+                    apiData.Content = fileContent;
+                    apiData.Encoding = "utf8"
                     msg.payload = null;
                 }
                 else {
@@ -40,13 +45,19 @@ module.exports = function (RED) {
                 }
             }
 
-            if (smeMsg.Content) {
-                var promise = smeConnector.sendMessage(smeMsg);
+            if (apiData.Content) {
+                var promise = smeConnector.callApi('147056DF-B5EE-4D6C-9B35-737644372F48', apiData);
 
                 promise.then(
                     value => {
+                        //node.log('Uploaded result: ', value);
                         //  Set payload to the returned message.
-                        msg.payload = value && value.Message;
+                        var uploadedFile = value && value.UploadedFile;
+
+                        if (uploadedFile != null) {
+                            msg.payload = uploadedFile;
+                        }
+
                         send(msg, false);
                         done && done(value);
                     },

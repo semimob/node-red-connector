@@ -1,6 +1,6 @@
 [
     {
-        "id": "4c24277b1c71d0d4",
+        "id": "60aa84f35b43b2ca",
         "type": "tab",
         "label": "connect to semilimes",
         "disabled": false,
@@ -8,45 +8,57 @@
         "env": []
     },
     {
-        "id": "6cea875861733bb5",
+        "id": "29b59eecd2a8378a",
         "type": "sme-listener",
-        "z": "4c24277b1c71d0d4",
-        "connector": "935c6425dd554e13",
+        "z": "60aa84f35b43b2ca",
+        "connector": "d41b83de71e38c79",
         "x": 210,
         "y": 200,
         "wires": [
             [
-                "0167a6196337dee4"
+                "6aab569991c036b8"
             ]
         ]
     },
     {
-        "id": "98351eae75b70ebc",
-        "type": "sme-post",
-        "z": "4c24277b1c71d0d4",
-        "connector": "935c6425dd554e13",
-        "x": 790,
-        "y": 300,
+        "id": "6aab569991c036b8",
+        "type": "debug",
+        "z": "60aa84f35b43b2ca",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 770,
+        "y": 200,
         "wires": []
     },
     {
-        "id": "fdf4e93b7e22a5bd",
-        "type": "sme-text",
-        "z": "4c24277b1c71d0d4",
-        "reference": "",
-        "text": "This is a text message.",
-        "x": 490,
-        "y": 300,
-        "wires": [
-            [
-                "98351eae75b70ebc"
-            ]
-        ]
+        "id": "499e3b0ca68626c7",
+        "type": "comment",
+        "z": "60aa84f35b43b2ca",
+        "name": "Configure 'Connector' property of the 'semilimes listener' node to setup connection to semilimes.",
+        "info": "",
+        "x": 450,
+        "y": 80,
+        "wires": []
     },
     {
-        "id": "302cd22a50548f27",
+        "id": "1ff574b03a43889d",
+        "type": "comment",
+        "z": "60aa84f35b43b2ca",
+        "name": "This flow can send and receive messages with semilimes.",
+        "info": "",
+        "x": 330,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "983767d534ed87b2",
         "type": "inject",
-        "z": "4c24277b1c71d0d4",
+        "z": "60aa84f35b43b2ca",
         "props": [
             {
                 "p": "payload"
@@ -63,60 +75,44 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 200,
-        "y": 300,
+        "x": 180,
+        "y": 260,
         "wires": [
             [
-                "fdf4e93b7e22a5bd"
+                "d510e17359adbf91"
             ]
         ]
     },
     {
-        "id": "0167a6196337dee4",
-        "type": "debug",
-        "z": "4c24277b1c71d0d4",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 770,
-        "y": 200,
-        "wires": []
-    },
-    {
-        "id": "033dfdd0c21a139d",
-        "type": "comment",
-        "z": "4c24277b1c71d0d4",
-        "name": "Configure 'Connection' property of the 'semilimes listener' node to setup connection to semilimes.",
-        "info": "",
+        "id": "d510e17359adbf91",
+        "type": "sme-textmessage",
+        "z": "60aa84f35b43b2ca",
+        "reference": "",
+        "text": "This is a text message.",
+        "textType": "str",
         "x": 450,
-        "y": 80,
-        "wires": []
+        "y": 260,
+        "wires": [
+            [
+                "a6ab47cb0de6aa5f"
+            ]
+        ]
     },
     {
-        "id": "01ebd540f811479a",
-        "type": "comment",
-        "z": "4c24277b1c71d0d4",
-        "name": "This flow can send and receive messages with semilimes.",
-        "info": "",
-        "x": 330,
-        "y": 120,
-        "wires": []
+        "id": "a6ab47cb0de6aa5f",
+        "type": "sme-sender",
+        "z": "60aa84f35b43b2ca",
+        "connector": "d41b83de71e38c79",
+        "async": "1",
+        "x": 750,
+        "y": 260,
+        "wires": [
+            []
+        ]
     },
     {
-        "id": "935c6425dd554e13",
+        "id": "d41b83de71e38c79",
         "type": "sme-connector",
-        "server": "b2623b38c0fed7d0",
-        "appName": "Node-RED",
-        "reservedCode": "",
-        "applicationID": ""
-    },
-    {
-        "id": "b2623b38c0fed7d0",
-        "type": "sme-server",
-        "host": "cloud.semilimes.net"
+        "credentials": {}
     }
 ]

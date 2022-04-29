@@ -35,7 +35,7 @@ module.exports = function (RED) {
                     var values = {};
                     for (let i = 0; i < formMsg.FormItems.length; i++) {
                         var formItem = formMsg.FormItems[i];
-                        values['' + (formItem.FormReference || i)] = formItem.FormValue;
+                        values['' + (formItem.Reference || i)] = formItem.FormValue;
                     }
 
                     switch (node.storageType) {

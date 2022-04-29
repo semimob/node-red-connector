@@ -25,7 +25,7 @@ module.exports = function (RED) {
                     Title: node.title,
                 },
                 FormRequired: false,
-                FormReference: node.name
+                Reference: node.name
             });
 
             send(msg, false);

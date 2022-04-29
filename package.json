@@ -33,6 +33,7 @@
       "sme-bucketupdater": "src/sme-bucketupdater.js",
       "sme-textmessage": "src/sme-textmessage.js",
       "sme-htmlmessage": "src/sme-htmlmessage.js",
+      "sme-filemessage": "src/sme-filemessage.js",
       "sme-calendarmessage": "src/sme-calendarmessage.js",
       "sme-webviewmessage": "src/sme-webviewmessage.js",
       "sme-formmessage": "src/sme-formmessage.js",

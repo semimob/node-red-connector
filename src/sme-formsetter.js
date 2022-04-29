@@ -40,7 +40,10 @@ module.exports = function (RED) {
                     Type: 'client',
                     TypeID: '197AD780-BDB0-4DA8-995C-9A64EB53B443',
                     Reference: node.reference,
-                    State: formValues
+                    State: formValues,
+                    DeliveryOption: {
+                        Mode: 'ReplaceByReference'
+                    }
                 };
 
                 var core = new Core();

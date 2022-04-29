@@ -21,15 +21,6 @@
         ]
     },
     {
-        "id": "2897d1bbfe77f02d",
-        "type": "sme-post",
-        "z": "b3cdbce7fd685999",
-        "connector": "d41b83de71e38c79",
-        "x": 790,
-        "y": 300,
-        "wires": []
-    },
-    {
         "id": "9f8f82aaf0406108",
         "type": "inject",
         "z": "b3cdbce7fd685999",
@@ -53,7 +44,7 @@
         "y": 300,
         "wires": [
             [
-                "a1260a8c08e541b9"
+                "40c1fa47b4650b75"
             ]
         ]
     },
@@ -78,7 +69,7 @@
         "id": "dd08e517e9a92705",
         "type": "comment",
         "z": "b3cdbce7fd685999",
-        "name": "Configure 'Connection' property of the 'semilimes listener' node to setup connection to semilimes.",
+        "name": "Configure 'Connector' property of the 'semilimes listener' node to setup connection to semilimes.",
         "info": "",
         "x": 450,
         "y": 80,
@@ -95,32 +86,34 @@
         "wires": []
     },
     {
-        "id": "a1260a8c08e541b9",
-        "type": "sme-html",
+        "id": "40c1fa47b4650b75",
+        "type": "sme-htmlmessage",
         "z": "b3cdbce7fd685999",
         "reference": "",
-        "html": "<h3>This is an <b>HTML</b> message.<h3>",
-        "text": "",
-        "x": 480,
+        "html": "<H3><font color=\"blue\"><B>This is an HTML message.</B></font><H3>",
+        "x": 470,
         "y": 300,
         "wires": [
             [
-                "2897d1bbfe77f02d"
+                "7c3c2e42861f9ace"
             ]
+        ]
+    },
+    {
+        "id": "7c3c2e42861f9ace",
+        "type": "sme-sender",
+        "z": "b3cdbce7fd685999",
+        "connector": "d41b83de71e38c79",
+        "async": "1",
+        "x": 790,
+        "y": 300,
+        "wires": [
+            []
         ]
     },
     {
         "id": "d41b83de71e38c79",
         "type": "sme-connector",
-        "name": "",
-        "server": "b2623b38c0fed7d0",
-        "appName": "Node-RED",
-        "reservedCode": "",
-        "applicationID": ""
-    },
-    {
-        "id": "b2623b38c0fed7d0",
-        "type": "sme-server",
-        "host": "cloud.semilimes.net"
+        "credentials": {}
     }
 ]
