@@ -1,0 +1,134 @@
+[
+    {
+        "id": "742642d58aade75c",
+        "type": "tab",
+        "label": "Send file/photo message.",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "7c3e36e97ed5b0b5",
+        "type": "inject",
+        "z": "742642d58aade75c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 180,
+        "wires": [
+            [
+                "eed072f3fcd62446"
+            ]
+        ]
+    },
+    {
+        "id": "eed072f3fcd62446",
+        "type": "file in",
+        "z": "742642d58aade75c",
+        "name": "",
+        "filename": "Z:\\Temp\\Favicon\\mstile-150x150.png",
+        "format": "",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 290,
+        "y": 240,
+        "wires": [
+            [
+                "b04e2ea8581f7179"
+            ]
+        ]
+    },
+    {
+        "id": "b04e2ea8581f7179",
+        "type": "sme-uploader",
+        "z": "742642d58aade75c",
+        "connector": "d41b83de71e38c79",
+        "content": "payload",
+        "contentType": "msg",
+        "x": 320,
+        "y": 300,
+        "wires": [
+            [
+                "cba9ad3cb15ea035"
+            ]
+        ]
+    },
+    {
+        "id": "cba9ad3cb15ea035",
+        "type": "sme-filemessage",
+        "z": "742642d58aade75c",
+        "reference": "",
+        "files": "payload",
+        "filesType": "msg",
+        "x": 530,
+        "y": 300,
+        "wires": [
+            [
+                "aacedb26f053b6c0"
+            ]
+        ]
+    },
+    {
+        "id": "aacedb26f053b6c0",
+        "type": "sme-sender",
+        "z": "742642d58aade75c",
+        "connector": "d41b83de71e38c79",
+        "async": "1",
+        "x": 770,
+        "y": 300,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "66421909242ec5f8",
+        "type": "comment",
+        "z": "742642d58aade75c",
+        "name": "Configure 'Connector' property of the 'semilimes listener' node to setup connection to semilimes.",
+        "info": "",
+        "x": 370,
+        "y": 41.000000953674316,
+        "wires": []
+    },
+    {
+        "id": "590f6073895b9a64",
+        "type": "comment",
+        "z": "742642d58aade75c",
+        "name": "This flow send a file/photo message.",
+        "info": "",
+        "x": 180,
+        "y": 81.00000095367432,
+        "wires": []
+    },
+    {
+        "id": "3c122d4dcfe1ec25",
+        "type": "comment",
+        "z": "742642d58aade75c",
+        "name": "Change the file node to select a local file.",
+        "info": "",
+        "x": 200,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "d41b83de71e38c79",
+        "type": "sme-connector"
+    }
+]

@@ -1,0 +1,233 @@
+[
+    {
+        "id": "148ca400d93918ab",
+        "type": "tab",
+        "label": "set values to form",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "fec16eb7b230d795",
+        "type": "sme-formsetter",
+        "z": "148ca400d93918ab",
+        "reference": "Abc-form",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 520,
+        "y": 320,
+        "wires": [
+            [
+                "6dee85a1bc7a86ee"
+            ]
+        ]
+    },
+    {
+        "id": "3d92e932d31ae3f6",
+        "type": "inject",
+        "z": "148ca400d93918ab",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 280,
+        "wires": [
+            [
+                "40affe1999fa98e8"
+            ]
+        ]
+    },
+    {
+        "id": "40affe1999fa98e8",
+        "type": "function",
+        "z": "148ca400d93918ab",
+        "name": "off",
+        "func": "return {\n    payload: {\n        lamp: 'off'\n    }\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 280,
+        "wires": [
+            [
+                "fec16eb7b230d795"
+            ]
+        ]
+    },
+    {
+        "id": "40faf0efbb6a2c0c",
+        "type": "inject",
+        "z": "148ca400d93918ab",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 360,
+        "wires": [
+            [
+                "da75e5bc5ae366e1"
+            ]
+        ]
+    },
+    {
+        "id": "da75e5bc5ae366e1",
+        "type": "function",
+        "z": "148ca400d93918ab",
+        "name": "on",
+        "func": "return {\n    payload: {\n        lamp: 'on'\n    }\n}",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 360,
+        "wires": [
+            [
+                "fec16eb7b230d795"
+            ]
+        ]
+    },
+    {
+        "id": "6dee85a1bc7a86ee",
+        "type": "sme-sender",
+        "z": "148ca400d93918ab",
+        "connector": "d41b83de71e38c79",
+        "async": "1",
+        "x": 810,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "81e8966654f4c4af",
+        "type": "sme-form",
+        "z": "148ca400d93918ab",
+        "reference": "Abc-form",
+        "formStatus": "1",
+        "x": 520,
+        "y": 160,
+        "wires": [
+            [
+                "c36f26cf8bc3a94d"
+            ]
+        ]
+    },
+    {
+        "id": "b61f56fbdc65e8a9",
+        "type": "inject",
+        "z": "148ca400d93918ab",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 160,
+        "wires": [
+            [
+                "4ac15c8cf89e523c"
+            ]
+        ]
+    },
+    {
+        "id": "4ac15c8cf89e523c",
+        "type": "sme-singlechoice",
+        "z": "148ca400d93918ab",
+        "name": "lamp",
+        "title": "Which one do you prefer?",
+        "choice1": "on",
+        "choice2": "off",
+        "choice3": "",
+        "choice4": "",
+        "choice5": "",
+        "choice6": "",
+        "required": "0",
+        "x": 290,
+        "y": 160,
+        "wires": [
+            [
+                "81e8966654f4c4af"
+            ]
+        ]
+    },
+    {
+        "id": "c36f26cf8bc3a94d",
+        "type": "sme-sender",
+        "z": "148ca400d93918ab",
+        "connector": "d41b83de71e38c79",
+        "async": "1",
+        "x": 810,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "bc04a29bd55a099a",
+        "type": "comment",
+        "z": "148ca400d93918ab",
+        "name": "Configure 'Connector' property of the 'semilimes listener' node to setup connection to semilimes.",
+        "info": "",
+        "x": 370,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "9088de5a5e6bee25",
+        "type": "comment",
+        "z": "148ca400d93918ab",
+        "name": "This flow show how to send a stateful-form message, then update its value.",
+        "info": "",
+        "x": 300,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "d41b83de71e38c79",
+        "type": "sme-connector"
+    }
+]

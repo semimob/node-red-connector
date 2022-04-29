@@ -1,0 +1,121 @@
+[
+    {
+        "id": "837d43b3b9023c65",
+        "type": "tab",
+        "label": "Send web-view message",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "a1137f93048201ac",
+        "type": "inject",
+        "z": "837d43b3b9023c65",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 220,
+        "wires": [
+            [
+                "5f5c303aa5778363"
+            ]
+        ]
+    },
+    {
+        "id": "5f5c303aa5778363",
+        "type": "sme-webviewmessage",
+        "z": "837d43b3b9023c65",
+        "reference": "",
+        "url": "https://flows.nodered.org/node/node-red-contrib-semilimes",
+        "urlType": "str",
+        "viewSize": "1:1",
+        "x": 350,
+        "y": 220,
+        "wires": [
+            [
+                "0289c85b5fc8ca45"
+            ]
+        ]
+    },
+    {
+        "id": "cec580cf9429d99d",
+        "type": "sme-listener",
+        "z": "837d43b3b9023c65",
+        "connector": "d41b83de71e38c79",
+        "x": 130,
+        "y": 300,
+        "wires": [
+            [
+                "7791611b7fe65da2"
+            ]
+        ]
+    },
+    {
+        "id": "7791611b7fe65da2",
+        "type": "debug",
+        "z": "837d43b3b9023c65",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 650,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "650c1a09425e8211",
+        "type": "comment",
+        "z": "837d43b3b9023c65",
+        "name": "Configure 'Connector' property of the 'semilimes listener' node to setup connection to semilimes.",
+        "info": "",
+        "x": 370,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "649d428ccdc5db52",
+        "type": "comment",
+        "z": "837d43b3b9023c65",
+        "name": "This flow send a message containing a web view.",
+        "info": "",
+        "x": 220,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "0289c85b5fc8ca45",
+        "type": "sme-sender",
+        "z": "837d43b3b9023c65",
+        "connector": "d41b83de71e38c79",
+        "async": "1",
+        "x": 650,
+        "y": 220,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d41b83de71e38c79",
+        "type": "sme-connector"
+    }
+]
