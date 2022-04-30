@@ -162,6 +162,7 @@ module.exports = function (RED) {
     //--------------------SmeWebSocket-----------------------------------
     function SmeWebSocket(serverWsURL) {
 
+        var buffer = [];
         var webSocket = null;
         var requestedToClose = false;
         var reconnectTimer = null;
@@ -223,6 +224,13 @@ module.exports = function (RED) {
             socket.on('open', function () {
                 console.log('ws opened!');
                 messageDeliver.emit('status', 'connected');
+
+                if (buffer.length > 0) {
+                    for (var i = 0; i < buffer.length; i++)
+                        socket.send(buffer[i]);
+                    console.log('ws sent ', buffer.length, ' buffered messages.');
+                    buffer.length = 0;
+                }
             });
 
             socket.on('close', function () {
@@ -249,10 +257,16 @@ module.exports = function (RED) {
         }
 
         function send(msg) {
-            if (webSocket && msg) {
+            if (msg) {
                 if (typeof (msg) === 'object')
                     msg = JSON.stringify(msg);
-                webSocket.send(msg);
+
+                if (webSocket && webSocket.readyState == 1)
+                    webSocket.send(msg);
+                else {
+                    buffer.push(msg);
+                    console.log('buffered: ', msg);
+                }
             }
         }
 

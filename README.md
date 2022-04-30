@@ -1,7 +1,7 @@
 # Node-RED semilimes
 [![Platform](https://img.shields.io/badge/platform-Node--RED-red)](https://nodered.org)   [![License](https://img.shields.io/badge/license-Apache--License-lightgrey)](http://www.apache.org/licenses/LICENSE-2.0) [![Downloads](https://img.shields.io/badge/download-github-purple)](https://github.com/semimob/node-red-connector) [![Install](https://img.shields.io/badge/Install-NPM-blue)](https://www.npmjs.com/package/node-red-contrib-semilimes)
 
-This package of Node-RED nodes to extends your semilimes account with your programming ability, such as auto anwser, booking flow or even message-base interface of your exsting system to expose to semilimes Messenger.
+This package of Node-RED nodes to extends your semilimes account with your programming ability, such as auto reply, booking flow or even message-base interface of your exsting system to expose to semilimes Messenger.
 
 ## Agenda
 - Connect Node-RED to semlimes Messenger.
@@ -28,18 +28,19 @@ The nodes are tested with `Node.js v12.0.0` and `Node-RED v1.3.7`.
 
 ## Connect to semilimes
 Setup connection to semilimes server in Node-RED flow.
+![Connect to semilimes flow](resources/images/connect_to_semilimes_flow.jpg)
 
-1. Add a `listener` node then config its `Connector` property to create a `sme-connector` configuration.
+1. Add a `listener` node then config its `Connector` property to create a `connector` configuration.
 ![Property editor of listener node](resources/images/add_listener_node.jpg)
 
-2. Configure the `sme-connector` node and connect it to semilimes.
+2. Configure the `connector` node and connect it to semilimes.
 ![Config connector node](resources/images/connect_to_semilimes.jpg)
 
-3. Add a `post` node and configure its `Connector` property to the same `sme-connector` configuration.
-You now can both send and receive messages with semilimes using the `listener` and `post` nodes.
+3. Add a `sender` node and configure its `Connector` property to the same `connector` configuration.
+You now can both send and receive messages with semilimes using the `listener` and `sender` nodes.
 
-Try this flow to connect to semilimes, send and receive messages.
-[connect to semilimes](examples/connect to semilimes flow.json)
+Sample flow to connect to semilimes, send and receive messages.
+[Connect to semilimes flow](examples/connect%20to%20semilimes%20flow.json)
 
 # Examples
 - [Sample flow](examples/send%20HTML%20message%20flow.json) to send [HTML Message](HtmlMessage.md) to semilimes.

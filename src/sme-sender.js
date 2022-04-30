@@ -19,7 +19,7 @@ module.exports = function (RED) {
             var core = new Core();
             var smeHelper = new core.SmeHelper();
             var smeSendingBox = smeHelper.getSendingBox(msg);
-            console.log('Sending async count: ', smeSendingBox.length);
+            console.log('Send async count: ', smeSendingBox.length);
             if (smeSendingBox) {
                 if (node.async) {
                     //  Send message asynchronously

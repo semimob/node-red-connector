@@ -8,7 +8,7 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
 
         this.baseUrl = config.baseUrl;
-       
+
         var node = this;
 
         node.on('input', function (msg, send, done) {
@@ -17,7 +17,7 @@ module.exports = function (RED) {
             var core = new Core();
             var smeHelper = new core.SmeHelper();
             var smeReceivedMsg = smeHelper.getReceivedMsg(msg);
-
+            
             var typeID = smeReceivedMsg.TypeID;
             if (typeID && typeID.toUpperCase() == '25D777FD-9111-48B2-A8A5-2A3E4F1A3CA3') {
                 var smeHttpRequest = smeReceivedMsg.HttpRequest;

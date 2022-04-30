@@ -6,6 +6,8 @@
             reference: { value: "" },
             url: { value: "" },
             urlType: { value: "str" },
+            isUserWeb: { value: "1" },
+            enableFullScreen: { value: "1" },
             viewSize: { value: "1:2" },
         },
         inputs: 1,
@@ -47,6 +49,20 @@
         <label for="node-input-url"><i class="fa fa-tag"></i> URL</label>
         <input type="text" id="node-input-url">
         <input type="hidden" id="node-input-urlType">
+    </div>
+    <div class="form-row">
+        <label for="node-input-isUserWeb"></label>
+        <select id="node-input-isUserWeb">
+            <option value="0"></option>
+            <option value="1">Is user web URL</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-enableFullScreen"><i class="fa fa-tag"></i> Full-screen view</label>
+        <select id="node-input-enableFullScreen">
+            <option value="1">Enable</option>
+            <option value="0">Disable</option>
+        </select>
     </div>
     <div class="form-row">
         <label for="node-input-viewSize"><i class="fa fa-cog"></i> <span> View size(H:W)</span></label>
