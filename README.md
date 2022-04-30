@@ -28,7 +28,7 @@ The nodes are tested with `Node.js v12.0.0` and `Node-RED v1.3.7`.
 
 ## Connect to semilimes
 Setup connection to semilimes server in Node-RED flow.
-![Connect to semilimes flow](resources/images/connect_to_semilimes_flow.jpg)
+![Connect to semilimes flow](resources/images/connect_to_semilimes_flow.png)
 
 1. Add a `listener` node then config its `Connector` property to create a `connector` configuration.
 ![Property editor of listener node](resources/images/add_listener_node.jpg)
@@ -43,7 +43,7 @@ Sample flow to connect to semilimes, send and receive messages.
 [Connect to semilimes flow](examples/connect%20to%20semilimes%20flow.json)
 
 # Examples
-- [Sample flow](examples/send HTML message flow.json) to send [HTML Message](docs/HtmlMessage.md) to semilimes.
+- [Sample flows](examples/)
 
 # License
 Apache License
