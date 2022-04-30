@@ -36,10 +36,10 @@ Setup connection to semilimes server in Node-RED flow.
 You now can both send and receive messages with semilimes using the `listener` and `sender` nodes.
 
 Sample flow to connect to semilimes, send and receive messages.
-![Connect to semilimes flow](examples/connect%20to%20semilimes%20flow.json)
+[Connect to semilimes flow](https://github.com/semimob/node-red-connector/blob/main/examples/connect%20to%20semilimes%20flow.json)
 
 # Examples
-- ![Sample flows](examples/)
+- [Sample flows](https://github.com/semimob/node-red-connector/blob/main/examples)
 
 # License
 Apache License
