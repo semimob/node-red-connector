@@ -43,7 +43,7 @@ Sample flow to connect to semilimes, send and receive messages.
 [Connect to semilimes flow](examples/connect%20to%20semilimes%20flow.json)
 
 # Examples
-- [Sample flow](examples/send%20HTML%20message%20flow.json) to send [HTML Message](HtmlMessage.md) to semilimes.
+- [Sample flow](examples/send HTML message flow.json) to send [HTML Message](docs/HtmlMessage.md) to semilimes.
 
 # License
 Apache License
