@@ -3,7 +3,7 @@
 
 This package of Node-RED nodes to extends your semilimes account with your programming ability, such as auto reply, booking flow or even message-base interface of your exsting system to expose to semilimes Messenger.
 
-[Documentation](readme.md)
+[Documentation](https://github.com/semimob/node-red-connector/readme.md)
 
 ## Installation
 [![NPM](https://nodei.co/npm/node-red-contrib-semilimes.png?downloads=true)](https://nodei.co/npm/node-red-contrib-semilimes/)
