@@ -1,0 +1,167 @@
+[
+    {
+        "id": "8c14ef08bed13b09",
+        "type": "tab",
+        "label": "user-web proxy",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "7c1f41f59247f0b9",
+        "type": "sme-httprequest",
+        "z": "8c14ef08bed13b09",
+        "baseUrl": "https://webrtcforthecurious.com/",
+        "x": 380,
+        "y": 280,
+        "wires": [
+            [
+                "9edbe89a2dfbceb0"
+            ]
+        ]
+    },
+    {
+        "id": "7a21af457da99529",
+        "type": "sme-httpresponse",
+        "z": "8c14ef08bed13b09",
+        "x": 710,
+        "y": 280,
+        "wires": [
+            [
+                "1cd8bb025d911f37"
+            ]
+        ]
+    },
+    {
+        "id": "e5fb8bae75628353",
+        "type": "sme-listener",
+        "z": "8c14ef08bed13b09",
+        "connector": "d41b83de71e38c79",
+        "x": 110,
+        "y": 280,
+        "wires": [
+            [
+                "7c1f41f59247f0b9"
+            ]
+        ]
+    },
+    {
+        "id": "9edbe89a2dfbceb0",
+        "type": "http request",
+        "z": "8c14ef08bed13b09",
+        "name": "",
+        "method": "GET",
+        "ret": "bin",
+        "paytoqs": "ignore",
+        "url": "",
+        "tls": "2eac8acd0d5a7b66",
+        "persist": false,
+        "proxy": "",
+        "authType": "",
+        "senderr": false,
+        "x": 570,
+        "y": 200,
+        "wires": [
+            [
+                "7a21af457da99529"
+            ]
+        ]
+    },
+    {
+        "id": "1cd8bb025d911f37",
+        "type": "sme-sender",
+        "z": "8c14ef08bed13b09",
+        "connector": "d41b83de71e38c79",
+        "async": "1",
+        "x": 870,
+        "y": 380,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "6b9079db03961c01",
+        "type": "comment",
+        "z": "8c14ef08bed13b09",
+        "name": "Configure 'Connector' property of the 'semilimes listener' node to setup connection to semilimes.",
+        "info": "",
+        "x": 350,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "7b4238b8b64bdec0",
+        "type": "comment",
+        "z": "8c14ef08bed13b09",
+        "name": "This flow send a message containing a web view.",
+        "info": "",
+        "x": 200,
+        "y": 100,
+        "wires": []
+    },
+    {
+        "id": "0a725913b0efe6d2",
+        "type": "sme-webviewmessage",
+        "z": "8c14ef08bed13b09",
+        "reference": "",
+        "url": "",
+        "urlType": "str",
+        "isUserWeb": "1",
+        "enableFullScreen": "1",
+        "viewSize": "1:2",
+        "x": 330,
+        "y": 380,
+        "wires": [
+            [
+                "1cd8bb025d911f37"
+            ]
+        ]
+    },
+    {
+        "id": "433a2ea323e0b6ae",
+        "type": "inject",
+        "z": "8c14ef08bed13b09",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 100,
+        "y": 380,
+        "wires": [
+            [
+                "0a725913b0efe6d2"
+            ]
+        ]
+    },
+    {
+        "id": "d41b83de71e38c79",
+        "type": "sme-connector"
+    },
+    {
+        "id": "2eac8acd0d5a7b66",
+        "type": "tls-config",
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": false,
+        "alpnprotocol": ""
+    }
+]
