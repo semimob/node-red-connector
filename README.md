@@ -3,7 +3,7 @@
 
 This package of Node-RED nodes to extends your semilimes account with your programming ability, such as auto reply, booking flow or even message-base interface of your exsting system to expose to semilimes Messenger.
 
-[Documentation](readme.md)
+[Documentation](https://github.com/semimob/node-red-connector/)
 
 ## Installation
 [![NPM](https://nodei.co/npm/node-red-contrib-semilimes.png?downloads=true)](https://nodei.co/npm/node-red-contrib-semilimes/)
@@ -36,10 +36,10 @@ Setup connection to semilimes server in Node-RED flow.
 You now can both send and receive messages with semilimes using the `listener` and `sender` nodes.
 
 Sample flow to connect to semilimes, send and receive messages.
-[Connect to semilimes flow](examples/connect%20to%20semilimes%20flow.json)
+![Connect to semilimes flow](examples/connect%20to%20semilimes%20flow.json)
 
 # Examples
-- [Sample flows](examples/)
+- ![Sample flows](examples/)
 
 # License
 Apache License
