@@ -9,7 +9,14 @@
         },
         icon: "font-awesome/fa-cog",
         label: function () {
-            return (this.credentials && this.credentials.server) || "semilimes connector";
+            if (this.credentials) {
+                if (this.credentials.server)
+                    return this.credentials.appName ? ('[' + this.credentials.appName + '] ' + this.credentials.server) : this.credentials.server;
+                if (this.credentials.appName)
+                    return '[' + this.credentials.appName + '] connector';
+            }
+
+            return 'semilimes connector';
         },
         labelStyle: function () {
             return (this.credentials && this.credentials.server) ? "node_label_italic" : "";

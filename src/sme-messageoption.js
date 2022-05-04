@@ -8,25 +8,26 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
 
         this.messageMode = config.messageMode;
-        this.autoBucket = config.autoBucket == "1";
 
         var node = this;
-
+        
         node.on('input', function (msg, send, done) {
             send = send || function () { node.send.apply(node, arguments) };
 
-            var core = new Core();
-            var smeHelper = new core.SmeHelper();
-            var smeSendingBox = smeHelper.getSendingBox();
+            if (node.messageMode) {
+                var core = new Core();
+                var smeHelper = new core.SmeHelper();
+                var smeSendingBox = smeHelper.getSendingBox(msg);
 
-            if (smeSendingBox) {
-                smeSendingBox.forEach(smeMsg => {
-                    var deliveryOption = smeMsg.DeliveryOption;
-                    if (deliveryOption == null)
-                        deliveryOption = smeMsg.DeliveryOption = {};
+                if (smeSendingBox) {
+                    smeSendingBox.forEach(smeMsg => {
+                        var deliveryOption = smeMsg.DeliveryOption;
+                        if (deliveryOption == null)
+                            deliveryOption = smeMsg.DeliveryOption = {};
 
-                    deliveryOption.Mode = node.messageMode;
-                });
+                        deliveryOption.Mode = node.messageMode;
+                    });
+                }
             }
 
             send(msg, false);
