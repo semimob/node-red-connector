@@ -19,7 +19,7 @@ module.exports = function (RED) {
             var core = new Core();
             var smeHelper = new core.SmeHelper();
             var smeSendingBox = smeHelper.getSendingBox(msg);
-            console.log('Send async count: ', smeSendingBox.length);
+            node.log('Send async count: ', smeSendingBox.length);
             if (smeSendingBox) {
                 if (node.async) {
                     //  Send message asynchronously
@@ -31,7 +31,7 @@ module.exports = function (RED) {
                 else {
                     //  Send message synchronously
                     smeSendingBox.forEach((smeMsg, index) => {
-                        var promise = smeConnector.sendMessage(smeMsg);
+                        var promise = smeConnector.sendMessage(smeMsg, false);
 
                         //  Wait for last message sent.
                         if (index == smeSendingBox.length - 1) {

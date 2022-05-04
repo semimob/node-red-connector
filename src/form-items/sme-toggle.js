@@ -17,7 +17,7 @@ module.exports = function (RED) {
 
             var core = new Core();
             var smeHelper = new core.SmeHelper();
-            var smeFormMsg = smeHelper.getOrAddFormMsg(msg);
+            var smeFormMsg = smeHelper.getOrAddSendingFormMsg(msg);
 
             smeFormMsg.FormItems.push({
                 FormTypeID: 'c23b3dc6-fa62-45fb-850b-3b2196fb0337',

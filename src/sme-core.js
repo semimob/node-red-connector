@@ -323,7 +323,7 @@ module.exports = function (RED) {
                 });
 
                 req.on('error', (e) => {
-                    console.error('Call API rejected: ', e);
+                    console.debug('Call API rejected: ', e);
                     reject(e);
                 });
 
