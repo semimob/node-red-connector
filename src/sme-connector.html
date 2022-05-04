@@ -94,12 +94,13 @@
 <script type="text/html" data-template-name="sme-connector">
     <div class="form-row">
         <label for="node-config-input-server"><i class="fa fa-tag"></i> Server</label>
-        <input type="text" id="node-config-input-server" placeholder="Please blank for default.">
+        <input type="text" id="node-config-input-server" placeholder="Please blank to connect default server.">
     </div>
     <div class="form-row">
         <label for="node-config-input-appName"><i class="fa fa-tag"></i> App name</label>
         <input type="text" id="node-config-input-appName">
     </div>
+    <div>App name should be unique which will be used to create a sub-account under the connected user.</div>
     <div class="form-row">
         <label for="node-config-input-reservedCode"><i class="fa fa-tag"></i> Reserved code</label>
         <input type="text" id="node-config-input-reservedCode">
@@ -109,7 +110,7 @@
     <button id="connectButton" type="button" class="red-ui-button" onclick="connectToSemilimes()">Connect to semilimes</button>
 
     <div id="tokenQRCodeContainer">
-        <p><br />Scan this QR Code with semilimes Messenger to connect</br><font color="red">in 60 seconds.</font></p>
+        <p><br />Scan this QR Code with semilimes Messenger to setup account for this Node-RED instance.<br /><font color="red">in 60 seconds. And remember to save the setup after that.</font></p>
         <img id="tokenQRCodeImg" src=""></img>
     </div>
 </script>
