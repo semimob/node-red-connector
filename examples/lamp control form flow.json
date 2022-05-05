@@ -1,0 +1,118 @@
+[
+    {
+        "id": "60aa84f35b43b2ca",
+        "type": "tab",
+        "label": "connect to semilimes",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "29b59eecd2a8378a",
+        "type": "sme-listener",
+        "z": "60aa84f35b43b2ca",
+        "connector": "d41b83de71e38c79",
+        "x": 210,
+        "y": 200,
+        "wires": [
+            [
+                "6aab569991c036b8"
+            ]
+        ]
+    },
+    {
+        "id": "6aab569991c036b8",
+        "type": "debug",
+        "z": "60aa84f35b43b2ca",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 770,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "499e3b0ca68626c7",
+        "type": "comment",
+        "z": "60aa84f35b43b2ca",
+        "name": "Configure 'Connector' property of the 'semilimes listener' node to setup connection to semilimes.",
+        "info": "",
+        "x": 450,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "1ff574b03a43889d",
+        "type": "comment",
+        "z": "60aa84f35b43b2ca",
+        "name": "This flow can send and receive messages with semilimes.",
+        "info": "",
+        "x": 330,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "983767d534ed87b2",
+        "type": "inject",
+        "z": "60aa84f35b43b2ca",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 180,
+        "y": 260,
+        "wires": [
+            [
+                "d510e17359adbf91"
+            ]
+        ]
+    },
+    {
+        "id": "d510e17359adbf91",
+        "type": "sme-textmessage",
+        "z": "60aa84f35b43b2ca",
+        "reference": "",
+        "text": "This is a text message.",
+        "textType": "str",
+        "x": 450,
+        "y": 260,
+        "wires": [
+            [
+                "a6ab47cb0de6aa5f"
+            ]
+        ]
+    },
+    {
+        "id": "a6ab47cb0de6aa5f",
+        "type": "sme-sender",
+        "z": "60aa84f35b43b2ca",
+        "connector": "d41b83de71e38c79",
+        "async": "1",
+        "x": 750,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d41b83de71e38c79",
+        "type": "sme-connector",
+        "credentials": {}
+    }
+]

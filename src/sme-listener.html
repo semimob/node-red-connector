@@ -15,11 +15,17 @@
 </script>
 
 <script type="text/html" data-template-name="sme-listener">
+    <p>Communication with semilimes server is by messages. This node is to listen for messages from semilimes. You can create many instances, but one is enough.</p>
+    <br />
     <div class="form-row">
         <label for="node-input-connector"><i class="fa fa-cog"></i> Connector</label>
         <input type="text" id="node-input-connector" placeholder="semilimes connector">
     </div>
-    <div>Connector should be sharely used for other nodes.</div>
+    <p style="font-size: smaller;">Connector could be sharely used for other nodes.</p>
+    <br />
+    <br />
+    <h4>Outputs</h4>
+    <p><code>msg.payload</code> is received message from semilimes. It is a JSON-parsed object.</p>
 </script>
 
 <script type="text/html" data-help-name="sme-listener">
@@ -40,7 +46,7 @@
         </dt>
     </dl>
     <h3>Details</h3>
-    <p><code>msg.payload</code> is used to store received message from semilimes. It is an <code>sme-message</code> object which was JSON-parsed.</p>
+    <p><code>msg.payload</code> is received message from semilimes. It is a JSON-parsed object.</p>
     <h3>References</h3>
     <ul>
         <li><a>Message Formats</a> - full description of <code>sme-message</code>(s) and their properties.</li>

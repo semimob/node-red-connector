@@ -45,7 +45,7 @@
             return this.objectName ? "node_label_italic" : "";
         },
         oneditprepare: function () {
-            $("#node-input-objectTypeCustomValue").typedInput({
+            $("#node-input-objectTypeCustom").typedInput({
                 type: "str",
                 types: ["str", "msg", "flow", "global"],
                 typeField: "#node-input-objectTypeCustomType"
@@ -138,10 +138,13 @@
 </script>
 
 <script type="text/html" data-template-name="sme-bucketcreator">
+    <p>In semilimes, messages are contained in buckets of many types, including p2p chat bucket, group chat bucket, channel bucket, profile bucket, moment bucket, template bucket, etc.</p>
+    <p>Use this node to describe bucket and send it to semilimes by connecting it to a <code>sender</code> node to create a bucket.</p>
+    <br />
     <div class="form-row">
         <label for="node-input-objectType"><i class="fa fa-tag"></i> <span> Type</span></label>
         <select id="node-input-objectType" onchange="updateBucketTypeUI();">
-            <option value="Custom"></option>
+            <option value="Custom">--Custom type--</option>
             <option value="Bucket">Bucket</option>
             <option value="Moment">Moment</option>
             <option value="Profile">Profile</option>
@@ -153,7 +156,7 @@
     </div>
     <div class="form-row" id="node-input-objectTypeCustomPanel">
         <label for="node-input-objectTypeCustom"></label>
-        <input type="text" id="node-input-objectTypeCustom">
+        <input type="text" id="node-input-objectTypeCustom" placeholder="Custom type">
         <input type="hidden" id="node-input-objectTypeCustomType">
     </div>
     <div class="form-row">

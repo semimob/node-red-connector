@@ -9,10 +9,10 @@ module.exports = function (RED) {
 
         this.name = config.name;
         this.title = config.title;
-        this.min = config.min;
-        this.max = config.max;
-        this.step = config.step;
-        this.required = config.required;
+        this.min = parseInt(config.min);
+        this.max = parseInt(config.max);
+        this.step = parseInt(config.step);
+        this.required = config.required == "1";
 
         var node = this;
 

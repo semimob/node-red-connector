@@ -26,15 +26,19 @@
 </script>
 
 <script type="text/html" data-template-name="sme-uploader">
+    <p>Use <code>read file</code> node to create input for this node to upload to semilimes server. It returns an ID of the uploaded file which can be used to create file/photo message.</p>
+    <br />
     <div class="form-row">
         <label for="node-input-connector"><i class="fa fa-cog"></i> Connector</label>
         <input type="text" id="node-input-connector" placeholder="semilimes connector">
     </div>
+    <p style="font-size: smaller;">Connector could be sharely used for other nodes.</p>
     <div class="form-row">
         <label for="node-input-content"><i class="fa fa-tag"></i> Content</label>
         <input type="text" id="node-input-content" placeholder="File content in UTF8 or Base64 encoded.">
         <input type="hidden" id="node-input-contentType">
     </div>
+    <p style="font-size: smaller;">File content should be UTF8 or Base64 encoding.</p>
 </script>
 
 <script type="text/html" data-help-name="sme-uploader">

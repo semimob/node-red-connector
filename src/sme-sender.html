@@ -18,11 +18,13 @@
 </script>
 
 <script type="text/html" data-template-name="sme-sender">
+    <p>Communication with semilimes server is by messages. This node is to send messages to semilimes. You can create many instances, but one is enough.</p>
+    <br />
     <div class="form-row">
         <label for="node-input-connector"><i class="fa fa-cog"></i> Connector</label>
         <input type="text" id="node-input-connector" placeholder="semilimes connector">
     </div>
-    <div>Connector should be sharely used for other nodes.</div>
+    <p style="font-size: smaller;">Connector could be sharely used for other nodes.</p>
     <div class="form-row">
         <label for="node-input-async"><i class="fa fa-spinner"></i> <span> Send</span></label>
         <select id="node-input-async">
@@ -30,6 +32,7 @@
             <option value="0">Synchronously</option>
         </select>
     </div>
+    <p style="font-size: smaller;">Recommend to use asynchronuously to avoid blocking your Node-RED flow execution.</p>
 </script>
 
 <script type="text/html" data-help-name="sme-sender">
