@@ -1,64 +1,46 @@
 [
     {
-        "id": "60aa84f35b43b2ca",
+        "id": "fe4e1d5d3b1ca6d4",
         "type": "tab",
-        "label": "connect to semilimes",
+        "label": "lamp control form",
         "disabled": false,
         "info": "",
         "env": []
     },
     {
-        "id": "29b59eecd2a8378a",
-        "type": "sme-listener",
-        "z": "60aa84f35b43b2ca",
-        "connector": "d41b83de71e38c79",
-        "x": 210,
-        "y": 200,
+        "id": "c63675298ccd8f31",
+        "type": "sme-formsetter",
+        "z": "fe4e1d5d3b1ca6d4",
+        "reference": "Lamp-Panel",
+        "value": "payload",
+        "valueType": "msg",
+        "x": 490,
+        "y": 420,
         "wires": [
             [
-                "6aab569991c036b8"
+                "03671c28f0a674cb"
             ]
         ]
     },
     {
-        "id": "6aab569991c036b8",
-        "type": "debug",
-        "z": "60aa84f35b43b2ca",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "false",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 770,
-        "y": 200,
-        "wires": []
-    },
-    {
-        "id": "499e3b0ca68626c7",
-        "type": "comment",
-        "z": "60aa84f35b43b2ca",
-        "name": "Configure 'Connector' property of the 'semilimes listener' node to setup connection to semilimes.",
-        "info": "",
+        "id": "a918d4b71331448c",
+        "type": "sme-form",
+        "z": "fe4e1d5d3b1ca6d4",
+        "reference": "Lamp-Panel",
+        "formStatus": "1",
         "x": 450,
-        "y": 80,
-        "wires": []
+        "y": 320,
+        "wires": [
+            [
+                "03671c28f0a674cb"
+            ]
+        ]
     },
     {
-        "id": "1ff574b03a43889d",
-        "type": "comment",
-        "z": "60aa84f35b43b2ca",
-        "name": "This flow can send and receive messages with semilimes.",
-        "info": "",
-        "x": 330,
-        "y": 120,
-        "wires": []
-    },
-    {
-        "id": "983767d534ed87b2",
+        "id": "f936d59b8f7ed7d9",
         "type": "inject",
-        "z": "60aa84f35b43b2ca",
+        "z": "fe4e1d5d3b1ca6d4",
+        "name": "",
         "props": [
             {
                 "p": "payload"
@@ -75,44 +57,160 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 180,
-        "y": 260,
+        "x": 120,
+        "y": 200,
         "wires": [
             [
-                "d510e17359adbf91"
+                "3af795035d65c39d"
             ]
         ]
     },
     {
-        "id": "d510e17359adbf91",
-        "type": "sme-textmessage",
-        "z": "60aa84f35b43b2ca",
-        "reference": "",
-        "text": "This is a text message.",
-        "textType": "str",
-        "x": 450,
-        "y": 260,
-        "wires": [
-            [
-                "a6ab47cb0de6aa5f"
-            ]
-        ]
-    },
-    {
-        "id": "a6ab47cb0de6aa5f",
+        "id": "a02f0c60176f62f8",
         "type": "sme-sender",
-        "z": "60aa84f35b43b2ca",
+        "z": "fe4e1d5d3b1ca6d4",
         "connector": "d41b83de71e38c79",
         "async": "1",
-        "x": 750,
+        "x": 890,
         "y": 260,
         "wires": [
             []
         ]
     },
     {
+        "id": "aa30c89148af3746",
+        "type": "comment",
+        "z": "fe4e1d5d3b1ca6d4",
+        "name": "Configure 'Connector' property of the 'semilimes listener' node to setup connection to semilimes.",
+        "info": "",
+        "x": 370,
+        "y": 40,
+        "wires": []
+    },
+    {
+        "id": "7da38a0a1ece0d94",
+        "type": "comment",
+        "z": "fe4e1d5d3b1ca6d4",
+        "name": "This flow show how to send a stateful-form message with a toggle and a slider to control a lamp with dimmer.",
+        "info": "",
+        "x": 410,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "6c03ebc009e44784",
+        "type": "sme-toggle",
+        "z": "fe4e1d5d3b1ca6d4",
+        "name": "Switch",
+        "title": "",
+        "x": 410,
+        "y": 240,
+        "wires": [
+            [
+                "ad3f954241a91108"
+            ]
+        ]
+    },
+    {
+        "id": "5704cbf053bb031c",
+        "type": "sme-listener",
+        "z": "fe4e1d5d3b1ca6d4",
+        "connector": "d41b83de71e38c79",
+        "x": 130,
+        "y": 520,
+        "wires": [
+            [
+                "725c492074f97f1f"
+            ]
+        ]
+    },
+    {
+        "id": "725c492074f97f1f",
+        "type": "sme-formsubmission",
+        "z": "fe4e1d5d3b1ca6d4",
+        "reference": "Lamp-Panel",
+        "storage": "payload",
+        "storageType": "msg",
+        "x": 390,
+        "y": 520,
+        "wires": [
+            [
+                "c63675298ccd8f31"
+            ]
+        ]
+    },
+    {
+        "id": "d35215fd96c46121",
+        "type": "comment",
+        "z": "fe4e1d5d3b1ca6d4",
+        "name": "User submit the Lamp-Panel form in Messenger to swtich and change the dimmer. => Update the submited value to the form to consolidate the form status.",
+        "info": "",
+        "x": 550,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "406428c188914d8d",
+        "type": "comment",
+        "z": "fe4e1d5d3b1ca6d4",
+        "name": "Send this control Lamp-Panel form to Messenger for usage.",
+        "info": "",
+        "x": 250,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "3af795035d65c39d",
+        "type": "sme-label",
+        "z": "fe4e1d5d3b1ca6d4",
+        "name": "",
+        "text": "Lamp control panel.",
+        "x": 450,
+        "y": 200,
+        "wires": [
+            [
+                "6c03ebc009e44784"
+            ]
+        ]
+    },
+    {
+        "id": "ad3f954241a91108",
+        "type": "sme-slider",
+        "z": "fe4e1d5d3b1ca6d4",
+        "name": "Dimmer",
+        "title": "",
+        "min": "0",
+        "max": "100",
+        "step": "5",
+        "required": "0",
+        "x": 420,
+        "y": 280,
+        "wires": [
+            [
+                "a918d4b71331448c"
+            ]
+        ]
+    },
+    {
+        "id": "03671c28f0a674cb",
+        "type": "sme-bucketselector",
+        "z": "fe4e1d5d3b1ca6d4",
+        "bucketType": "NamedBucket",
+        "bucketName": "Home Automation",
+        "bucketNameType": "str",
+        "bucketRefenence": "",
+        "bucketRefenenceType": "str",
+        "autoBucket": "1",
+        "x": 770,
+        "y": 360,
+        "wires": [
+            [
+                "a02f0c60176f62f8"
+            ]
+        ]
+    },
+    {
         "id": "d41b83de71e38c79",
-        "type": "sme-connector",
-        "credentials": {}
+        "type": "sme-connector"
     }
 ]
