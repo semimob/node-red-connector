@@ -27,10 +27,10 @@ Setup connection to semilimes server in Node-RED flow.
 ![Connect to semilimes flow](resources/images/connect_to_semilimes_flow.png)
 
 1. Add a `listener` node then config its `Connector` property to create a `connector` configuration.
-![Property editor of listener node](resources/images/add_listener_node.jpg)
+![Property editor of listener node](resources/images/add_listener_node.png)
 
 2. Configure the `connector` node and connect it to semilimes.
-![Config connector node](resources/images/connect_to_semilimes.jpg)
+![Config connector node](resources/images/connector_configuration.png)
 
 3. Add a `sender` node and configure its `Connector` property to the same `connector` configuration.
 You now can both send and receive messages with semilimes using the `listener` and `sender` nodes.

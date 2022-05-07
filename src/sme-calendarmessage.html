@@ -26,10 +26,16 @@
 </script>
 
 <script type="text/html" data-template-name="sme-calendarmessage">
+    <div style="max-width:500px;">Communication with semilimes server is by messages. Use this node to create a calendar message to present many time ranges in calendar view.</div>
+    <br />
+
     <div class="form-row">
         <label for="node-input-reference"><i class="fa fa-tag"></i> Reference</label>
         <input type="text" id="node-input-reference" placeholder="Reference to identify the message for programming.">
     </div>
+    <div style="font-size: smaller;max-width:500px;">Specify a reference for later updating and deleting this message.</div>
+    <br />
+
     <div class="form-row">
         <label for="node-input-items"><i class="fa fa-tag"></i> Items</label>
         <input type="text" id="node-input-items" placeholder="Array of selected days.">
