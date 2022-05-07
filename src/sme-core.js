@@ -137,11 +137,15 @@ module.exports = function (RED) {
         }
 
         function isTrue(obj) {
-            return obj && ['1', 'TRUE', 'YES'].indexOf(('' + obj).toUpperCase()) >= 0;
+            if (obj == null)
+                return false;
+            if (isNaN(obj))
+                return ['TRUE', 'YES'].indexOf(('' + obj).toUpperCase()) >= 0;
+            return obj > 0;
         }
 
         function isFalse(obj) {
-            return obj == null || ['', '0', 'FALSE', 'NO'].indexOf(('' + obj).toUpperCase()) >= 0;
+            return !isTrue(obj);
         }
 
         //  Export

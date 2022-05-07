@@ -64,14 +64,14 @@
         
         switch (bucketType) {
             case 'NamedBucket': {
-                $('#node-input-bucketNamePanel').show();
                 $('#node-input-bucketReferencePanel').hide();
+                $('#node-input-bucketNamePanel').show();
                 $('#node-input-autoBucketPanel').show();
                 break;
             }
             case 'ReferencedBucket': {
-                $('#node-input-bucketNamePanel').hide();
                 $('#node-input-bucketReferencePanel').show();
+                $('#node-input-bucketNamePanel').show();
                 $('#node-input-autoBucketPanel').show();
                 break;
             }
@@ -86,19 +86,19 @@
 </script>
 
 <script type="text/html" data-template-name="sme-bucketselector">
-    <p>In semilimes, messages are contained in buckets of many types, including p2p chat bucket, group chat bucket, channel bucket, profile bucket, moment bucket, template bucket, etc.</p>
-    <p>Use this node to select bucket for the input messages.</p>
+    <div style="max-width:500px;">In semilimes, messages are contained in buckets of many types, including personal chat bucket, group chat bucket, channel bucket, profile bucket, moment bucket, template bucket, etc.</div>
+    <div style="max-width:500px;">Use this node to select bucket for the input messages.</div>
     <br />
     <div class="form-row">
         <label for="node-input-bucketType"><i class="fa fa-cog"></i> <span> Bucket</span></label>
         <select id="node-input-bucketType" onchange="updateUI()">
             <option value="NamedBucket">--Named bucket---</option>
             <option value="ReferencedBucket">--Referenced bucket---</option>
-            <option value="Reply">Reply back to bucket</option>
-            <option value="Sender">Sender</option>
-            <option value="Submiter">Form submitter</option>
-            <option value="UserProfile">Publish to Profile</option>
-            <option value="UserMoment">Publish to Moment</option>
+            <option value="Reply">Bucket of the received message</option>
+            <option value="Sender">Personal chat with the sender</option>
+            <option value="Submiter">Personal chat with the form's submitter</option>
+            <option value="UserProfile">Create new profile</option>
+            <option value="UserMoment">Create new moment</option>
         </select>
     </div>
     <div class="form-row" id="node-input-bucketReferencePanel">
@@ -106,6 +106,7 @@
         <input type="text" id="node-input-bucketReference" placeholder="Bucket reference">
         <input type="hidden" id="node-input-objectReferenceType">
     </div>
+
     <div class="form-row" id="node-input-bucketNamePanel">
         <label for="node-input-bucketName"></label>
         <input type="text" id="node-input-bucketName" placeholder="Bucket name">

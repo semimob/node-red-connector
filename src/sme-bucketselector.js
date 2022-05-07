@@ -57,21 +57,26 @@ module.exports = function (RED) {
                             deliveryOption.PublishToProfile = true;
                             break;
                         }
-                        case 'NamedBucket': {
-                            var bucketName = smeHelper.getNodeConfigValue(node, msg, node.bucketNameType, node.bucketName);
-                            if (bucketName) {
-                                var toObject = smeHelper.getMsgDeliveryOptionToObject(smeMsg);
-                                toObject.Name = bucketName;
-                                if (node.autoBucket)
-                                    toObject.AutoCreateObject = true;
-                            }
-                            break;
-                        }
                         case 'ReferencedBucket': {
                             var bucketReference = smeHelper.getNodeConfigValue(node, msg, node.bucketReferenceType, node.bucketReference);
                             if (bucketReference) {
                                 var toObject = smeHelper.getMsgDeliveryOptionToObject(smeMsg);
                                 toObject.Reference = bucketReference;
+
+                                var bucketName = smeHelper.getNodeConfigValue(node, msg, node.bucketNameType, node.bucketName);
+                                if (bucketName) {
+                                    toObject.Name = bucketName;
+                                    if (node.autoBucket)
+                                        toObject.AutoCreateObject = true;
+                                }
+                            }
+                            break;
+                        }
+                        case 'NamedBucket': {
+                            var bucketName = smeHelper.getNodeConfigValue(node, msg, node.bucketNameType, node.bucketName);
+                            if (bucketName) {
+                                var toObject = smeHelper.getMsgDeliveryOptionToObject(smeMsg);
+                                toObject.Name = bucketName;
                                 if (node.autoBucket)
                                     toObject.AutoCreateObject = true;
                             }

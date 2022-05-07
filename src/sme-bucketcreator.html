@@ -138,9 +138,10 @@
 </script>
 
 <script type="text/html" data-template-name="sme-bucketcreator">
-    <p>In semilimes, messages are contained in buckets of many types, including p2p chat bucket, group chat bucket, channel bucket, profile bucket, moment bucket, template bucket, etc.</p>
-    <p>Use this node to describe bucket and send it to semilimes by connecting it to a <code>sender</code> node to create a bucket.</p>
+    <div style="max-width:500px;">In semilimes, messages are contained in buckets of many types, including personal chat bucket, group chat bucket, channel bucket, profile bucket, moment bucket, template bucket, etc.</div>
+    <div style="max-width:500px;">Use this node to describe and send to semilimes by a <code>sender</code> node to create a bucket.</div>
     <br />
+
     <div class="form-row">
         <label for="node-input-objectType"><i class="fa fa-tag"></i> <span> Type</span></label>
         <select id="node-input-objectType" onchange="updateBucketTypeUI();">
@@ -154,46 +155,65 @@
             <option value="BucketTemplate">Bucket Template</option>
         </select>
     </div>
+
     <div class="form-row" id="node-input-objectTypeCustomPanel">
         <label for="node-input-objectTypeCustom"></label>
-        <input type="text" id="node-input-objectTypeCustom" placeholder="Custom type">
-        <input type="hidden" id="node-input-objectTypeCustomType">
+        <input type="text" id="node-input-objectTypeCustom" placeholder="Custom type" />
+        <input type="hidden" id="node-input-objectTypeCustomType" />
     </div>
+
     <div class="form-row">
         <label for="node-input-objectReference"><i class="fa fa-tag"></i> Reference</label>
-        <input type="text" id="node-input-objectReference">
-        <input type="hidden" id="node-input-objectReferenceType">
+        <input type="text" id="node-input-objectReference" />
+        <input type="hidden" id="node-input-objectReferenceType" />
     </div>
+    <div style="font-size: smaller;max-width:500px;">Specify a unique value to refer to this bucket later.</div>
+    <br />
+
     <div class="form-row">
         <label for="node-input-objectName"><i class="fa fa-tag"></i> Name</label>
         <input type="text" id="node-input-objectName">
         <input type="hidden" id="node-input-objectNameType">
     </div>
+
     <div class="form-row">
         <label for="node-input-objectDesc"><i class="fa fa-tag"></i> Description</label>
         <input type="text" id="node-input-objectDesc">
         <input type="hidden" id="node-input-objectDescType">
     </div>
+
     <div class="form-row">
         <label for="node-input-objectAvatar"><i class="fa fa-tag"></i> Avatar</label>
         <input type="text" id="node-input-objectAvatar" placeholder="Avatar File ID">
         <input type="hidden" id="node-input-objectAvatarType">
     </div>
+    <div style="font-size: smaller;max-width:500px;">Specify FileID of an existing photo or upload a new photo with <code>uploader</code> node.</div>
+    <br />
+
     <div class="form-row">
         <label for="node-input-objectVisible"><i class="fa fa-tag"></i> Visible</label>
         <input type="text" id="node-input-objectVisible">
         <input type="hidden" id="node-input-objectVisibleType">
     </div>
+    <div style="font-size: smaller;max-width:500px;">Make the bucket visible to other users and mark it as searchable. Available values: true/false, 1, 0, yes, no.</div>
+    <br />
+
     <div class="form-row">
         <label for="node-input-objectLocked"><i class="fa fa-tag"></i> Lock content</label>
         <input type="text" id="node-input-objectLocked">
         <input type="hidden" id="node-input-objectLockedType">
     </div>
+    <div style="font-size: smaller;max-width:500px;">Only granted users can see the bucket content. Available values: true/false, 1, 0, yes, no.</div>
+    <br />
+
     <div class="form-row">
         <label for="node-input-objectReaction"><i class="fa fa-tag"></i> Enable reaction</label>
         <input type="text" id="node-input-objectReaction">
         <input type="hidden" id="node-input-objectReactionType">
     </div>
+    <div style="font-size: smaller;max-width:500px;">Allow other users to react(comment, like, dislike) the bucket. Available values: true/false, 1, 0, yes, no.</div>
+    <br />
+
     <div class="form-row">
         <label for="node-input-objectTagType"><i class="fa fa-tag"></i> <span> Tag</span></label>
         <select id="node-input-objectTagType" onchange="updateBucketTagUI();">

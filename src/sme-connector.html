@@ -59,9 +59,9 @@
     }
 	
     function connectToSemilimes() {
-        var name = $('#node-config-input-appName').val();
-        if (!name) {
-            alert('Please provide \'App name\'');
+        var appName = $('#node-config-input-appName').val();
+        if (!appName) {
+            alert('Please provide \'Account name\'');
             return;
         }
 
@@ -76,7 +76,7 @@
         displayRegistrationQrCode(null);
 
         // Call server to register app.
-        var generateTokenUrl = 'https://' + server + '/CloudServer/api/E3ABADBC-1919-4123-8314-48C257724064?format=json&name=' + encodeURI(name || '') + '&applicationID=' + encodeURI(applicationID || '') + '&reservedCode=' + encodeURI(reservedCode || '');
+        var generateTokenUrl = 'https://' + server + '/CloudServer/api/E3ABADBC-1919-4123-8314-48C257724064?format=json&name=' + encodeURI(appName || '') + '&applicationID=' + encodeURI(applicationID || '') + '&reservedCode=' + encodeURI(reservedCode || '');
         $.getJSON(generateTokenUrl, function (value) {
             if (value.Success) {
                 updateApplicationInfo(value);
@@ -92,26 +92,36 @@
 </script>
 
 <script type="text/html" data-template-name="sme-connector">
+    <div style="max-width:500px;">Communication with semilimes server is by messages. <code>connector</code> node is user connection to semilimes server. One <code>connector</code> global instance should be sharely used for flows. But you can create instances for different users.</div>
+    <br />
+
     <div class="form-row">
         <label for="node-config-input-server"><i class="fa fa-tag"></i> Server</label>
         <input type="text" id="node-config-input-server" placeholder="Please blank to connect default server.">
     </div>
+    <div style="font-size: smaller;max-width:500px;">You can specify development server to check your flow first then switch back to the default production server.</div>
+    <br />
+
     <div class="form-row">
-        <label for="node-config-input-appName"><i class="fa fa-tag"></i> App name</label>
-        <input type="text" id="node-config-input-appName">
+        <label for="node-config-input-appName"><i class="fa fa-tag"></i> Account name</label>
+        <input type="text" id="node-config-input-appName" />
     </div>
-    <div>App name should be unique which will be used to create a sub-account under the connected user.</div>
+    <div style="font-size: smaller;max-width:500px;">Choose a name to register a new semilimes account or to use an existing named account.</div>
+    <br />
+
     <div class="form-row">
         <label for="node-config-input-reservedCode"><i class="fa fa-tag"></i> Reserved code</label>
-        <input type="text" id="node-config-input-reservedCode">
+        <input type="text" id="node-config-input-reservedCode" />
     </div>
+    <div style="font-size: smaller;max-width:500px;">Optional semilimes's reserved code.</div>
+    <br />
 
-    <input type="hidden" id="node-config-input-applicationID">
-    <button id="connectButton" type="button" class="red-ui-button" onclick="connectToSemilimes()">Connect to semilimes</button>
+    <input type="hidden" id="node-config-input-applicationID" />
+    <button id="connectButton" type="button" class="red-ui-button" onclick="connectToSemilimes()">Get Registration QR Code</button>
 
     <div id="tokenQRCodeContainer">
-        <p><br />Scan this QR Code with semilimes Messenger to setup account for this Node-RED instance.<br /><font color="red">in 60 seconds. And remember to save the setup after that.</font></p>
-        <img id="tokenQRCodeImg" src=""></img>
+        <p><br />Scan this QR Code with semilimes Messenger to setup account for this Node-RED instance.<br /><font color="red">in 60 seconds. And remember to save this setup.</font></p>
+        <img id="tokenQRCodeImg" src="" />
     </div>
 </script>
 
