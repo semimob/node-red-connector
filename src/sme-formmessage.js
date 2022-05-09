@@ -8,7 +8,8 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
 
         this.reference = config.reference;
-        this.formStatus = config.formStatus == "1";
+        this.formStatus = config.formStatus == '1';
+        this.submitButtonText = config.submitButtonText;
 
         var node = this;
 
@@ -25,6 +26,8 @@ module.exports = function (RED) {
             smeFormMsg.Reference = node.reference;
             smeFormMsg.FormStatus = node.formStatus ? 1 : 0;
             smeFormMsg.FormItems = smeFormMsg.FormItems || [];
+            smeFormMsg.DisabledSubmitButton = node.submitButtonText ? false : true;
+            smeFormMsg.FormSubmitButtonLabel = node.submitButtonText;
             
             send(msg, false);
 

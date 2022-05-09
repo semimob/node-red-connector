@@ -11,9 +11,9 @@
         outputs: 1,
         align: 'left',
         icon: "font-awesome/fa-filter",
-        paletteLabel: 'form response filter',
+        paletteLabel: 'form submission catcher',
         label: function () {
-            return this.reference ? ('filter response of: ' + this.reference) : 'all form responses';
+            return this.reference ? ('catch submission of: ' + this.reference) : 'catch submissions of all forms';
         },
         labelStyle: function () {
             return this.reference ? "node_label_italic" : "";
@@ -29,17 +29,22 @@
 </script>
 
 <script type="text/html" data-template-name="sme-formsubmission">
+    <div style="max-width:500px;">When users submit forms, the submissions can be catched by this node and store the submission for later usage.</div>
+    <br />
     <div class="form-row">
         <label for="node-input-reference"><i class="fa fa-tag"></i> Reference</label>
         <input type="text" id="node-input-reference" placeholder="Reference of the form.">
     </div>
+    <div style="font-size: smaller;max-width:500px;">Catch submission of a reference-specified form.</div>
+    <br />
+
     <div class="form-row">
-        <label for="node-input-storage"><i class="fa fa-tag"></i> Set submitted values to</label>
+        <label for="node-input-storage"><i class="fa fa-tag"></i> Store submitted values in</label>
         <input type="text" id="node-input-storage">
         <input type="hidden" id="node-input-storageType">
     </div>
 </script>
 
 <script type="text/html" data-help-name="sme-formsubmission">
-    <p>Filter submissions of a specified form.</p>
+    <p>Catch submissions of forms and store the submission for later usage.</p>
 </script>

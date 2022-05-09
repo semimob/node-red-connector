@@ -4,7 +4,8 @@
         color: '#E2D96E',
         defaults: {
             reference: { value: "" },
-            formStatus: { value: "0" }
+            formStatus: { value: "0" },
+            submitButtonText: { value: "Submit" },
         },
         inputs: 1,
         outputs: 1,
@@ -25,6 +26,9 @@
         <label for="node-input-reference"><i class="fa fa-tag"></i> Reference</label>
         <input type="text" id="node-input-reference" placeholder="Reference to identify the message for programming.">
     </div>
+    <div style="font-size: smaller;max-width:500px;">The reference is used for catching the form's submissions, changing the form's values, updating and also deleting the form message.</div>
+    <br />
+
     <div class="form-row">
         <label for="node-input-formStatus"><i class="fa fa-cog"></i> <span> Form State</span></label>
         <select id="node-input-formStatus">
@@ -32,6 +36,16 @@
             <option value="0">Disabled</option>
         </select>
     </div>
+    <div style="font-size: smaller;max-width:500px;">Enable form state to remember the form's submitted values. Otherwise, the form is reset on submission.</div>
+    <br />
+
+    <div class="form-row">
+        <label for="node-input-submitButtonText"><i class="fa fa-cog"></i> <span> Submit Button</span></label>
+        <input type="text" id="node-input-submitButtonText" placeholder="Label of the submit button.">
+    </div>
+    <div style="font-size: smaller;max-width:500px;">Removing the Submit Button to make the form submitted whenever it is changed by users.</div>
+    <br />
+
 </script>
 
 <script type="text/html" data-help-name="sme-form">
