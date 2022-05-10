@@ -23,7 +23,7 @@ module.exports = function (RED) {
                 var smeHttpRequest = smeReceivedMsg.HttpRequest;
                 if (smeHttpRequest) {
                     msg.method = smeHttpRequest.Method;
-                    msg.url = (node.baseUrl || '') + smeHttpRequest.Path;
+                    msg.url = (node.baseUrl || '') + (smeHttpRequest.Path || '');
                     msg.headers = smeHttpRequest.Headers && smeHttpRequest.Headers.map(x => (x.Name && (x.Name + ':')) + (x.Value || ''));
                     msg.cookies = smeHttpRequest.Cookies;
                     msg.payload = {};

@@ -6,6 +6,8 @@
             connector: { type: 'sme-connector', required: true },
             content: { value: 'payload', required: true },
             contentType: { value: 'msg' },
+            fileName: { value: '' },
+            fileNameType: { value: 'str' },
         },
         inputs: 1,
         outputs: 1,
@@ -16,6 +18,12 @@
             return 'uploader';
         },
         oneditprepare: function () {
+            $("#node-input-fileName").typedInput({
+                type: "str",
+                types: ["str", "msg", "flow", "global"],
+                typeField: "#node-input-fileNameType"
+            });
+
             $("#node-input-content").typedInput({
                 type: "msg",
                 types: ["str", "msg", "flow", "global"],
@@ -26,7 +34,8 @@
 </script>
 
 <script type="text/html" data-template-name="sme-uploader">
-    <div style="max-width:500px;">Use <code>read file</code> node to create input for this node to upload to semilimes server. It returns an ID of the uploaded file which can be used for sending file/photo message.</div>
+    <div style="max-width:500px;">This node is to upload files/photos to semilimes and returns an ID of the uploaded file which is used for sending file/photo messages.</div>
+    <div style="max-width:500px;">- Use <code>read file</code> node to create input from a local file.<br />- Use <code>http request</code> to create input from a web file.</div>
     <br />
     <div class="form-row">
         <label for="node-input-connector"><i class="fa fa-cog"></i> Connector</label>
@@ -34,6 +43,15 @@
     </div>
     <div style="font-size: smaller;max-width:500px;">Connector could be sharely used for other nodes.</div>
     <br />
+
+    <div class="form-row">
+        <label for="node-input-fileName"><i class="fa fa-tag"></i> File name</label>
+        <input type="text" id="node-input-fileName" placeholder="File name.">
+        <input type="hidden" id="node-input-fileNameType">
+    </div>
+    <div style="font-size: smaller;max-width:500px;">File name is used to create file/photo messages.</div>
+    <br />
+
     <div class="form-row">
         <label for="node-input-content"><i class="fa fa-tag"></i> Content</label>
         <input type="text" id="node-input-content" placeholder="File content in UTF8 or Base64 encoded.">

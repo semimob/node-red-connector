@@ -10,6 +10,8 @@ module.exports = function (RED) {
 
         this.content = config.content;
         this.contentType = config.contentType;
+        this.fileName = config.fileName;
+        this.fileNameType = config.fileNameType;
 
         var node = this;
 
@@ -24,11 +26,11 @@ module.exports = function (RED) {
             var smeHelper = new core.SmeHelper();
 
             var fileContent = smeHelper.getNodeConfigValue(node, msg, node.contentType, node.content);
+            var fileName = smeHelper.getNodeConfigValue(node, msg, node.fileNameType, node.fileName);
 
-            var apiData = {};
-
-            if (msg.payload) {
-                apiData.FileName = msg.filename;
+            if (fileContent && fileName) {
+                var apiData = {};
+                apiData.FileName = fileName;
 
                 if (Buffer.isBuffer(fileContent)) {
                     apiData.Content = fileContent.toString('base64');
@@ -42,10 +44,10 @@ module.exports = function (RED) {
                 }
                 else {
                     node.status({ fill: "red", shape: "ring", text: "Message payload must be Binary or UTF8!" });
+                    done && done();
+                    return;
                 }
-            }
-
-            if (apiData.Content) {
+            
                 var promise = smeConnector.callApi('147056DF-B5EE-4D6C-9B35-737644372F48', apiData);
 
                 promise.then(
