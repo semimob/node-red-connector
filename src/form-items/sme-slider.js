@@ -32,7 +32,8 @@ module.exports = function (RED) {
                     DivisionStep: this.step || 5
                 },
                 FormRequired: smeFormMsg.FormItems.length == 0 || (node.required == 1),
-                Reference: node.name
+                Reference: node.name,
+                AutoSubmit: smeFormMsg.DisabledSubmitButton == true,
             });
             
             send(msg, false);

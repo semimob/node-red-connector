@@ -25,7 +25,8 @@ module.exports = function (RED) {
                     Title: node.title,
                 },
                 FormRequired: false,
-                Reference: node.name
+                Reference: node.name,
+                AutoSubmit: smeFormMsg.DisabledSubmitButton == true,
             });
 
             send(msg, false);

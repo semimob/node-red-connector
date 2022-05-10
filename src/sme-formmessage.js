@@ -28,6 +28,10 @@ module.exports = function (RED) {
             smeFormMsg.FormItems = smeFormMsg.FormItems || [];
             smeFormMsg.DisabledSubmitButton = node.submitButtonText ? false : true;
             smeFormMsg.FormSubmitButtonLabel = node.submitButtonText;
+
+            smeFormMsg.FormItems.forEach(formItem => {
+                formItem.AutoSubmit = smeFormMsg.DisabledSubmitButton == true;
+            });
             
             send(msg, false);
 
