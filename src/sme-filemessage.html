@@ -26,15 +26,27 @@
 </script>
 
 <script type="text/html" data-template-name="sme-filemessage">
+    <div style="max-width:500px;">
+        Communication with semilimes server is by messages. Use this node to create a message containing files/photos from file IDs.
+        <br />You can upload new file and use returned file ID or getting existing file IDs by <code>semilimes API</code>
+    </div>
+    <br />
+
     <div class="form-row">
         <label for="node-input-reference"><i class="fa fa-tag"></i> Reference</label>
-        <input type="text" id="node-input-reference" placeholder="Reference to identify the message for programming.">
+        <input type="text" id="node-input-reference">
     </div>
+    <div style="font-size: smaller;max-width:500px;">Specify a reference for later updating and deleting this message.</div>
+    <br />
+
     <div class="form-row">
         <label for="node-input-files"><i class="fa fa-tag"></i> Files</label>
         <input type="text" id="node-input-files">
         <input type="hidden" id="node-input-filesType">
     </div>
+    <div style="font-size: smaller;max-width:500px;">Array of objects, each of them must have 'FileID' attribute set to a semilimes file ID.</div>
+    <br />
+
 </script>
 
 <script type="text/html" data-help-name="sme-filemessage">

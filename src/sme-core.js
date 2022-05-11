@@ -312,17 +312,22 @@ module.exports = function (RED) {
 
                 var req = https.request(options, (res) => {
                     res.on('data', (d) => {
-                        //console.log('Call API response: ', d);
-                        try {
-                            var jsonData = d && JSON.parse(d);
-                            if (jsonData) {
-                                //console.log('Call API resolved: ', jsonData);
-                                resolve(jsonData);
+                        if (typeof (d) == 'string' && d.startsWith('{')) {
+                            try {
+                                var jsonData = JSON.parse(d);
+                                if (jsonData) {
+                                    //console.log('Call API resolved a JSON: ', jsonData);
+                                    resolve(jsonData);
+                                    return;
+                                }
+                            }
+                            catch (ex) {
+                                console.debug('Error parasing API JSON result: ', ex);
                             }
                         }
-                        catch (ex) {
-                            console.debug('Error parasing API result: ', d, ex);
-                        }
+
+                        //console.log('Call API resolved: ', d);
+                        resolve(d);
                     });
                 });
 

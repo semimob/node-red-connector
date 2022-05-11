@@ -54,14 +54,14 @@
 
     <div class="form-row">
         <label for="node-input-content"><i class="fa fa-tag"></i> Content</label>
-        <input type="text" id="node-input-content" placeholder="File content in UTF8 or Base64 encoded.">
+        <input type="text" id="node-input-content" placeholder="File content in UTF8 text or Binary.">
         <input type="hidden" id="node-input-contentType">
     </div>
-    <div style="font-size: smaller;max-width:500px;">File content should be UTF8 or Base64 encoding.</div>
+    <div style="font-size: smaller;max-width:500px;">File content should be UTF8 or Binary.</div>
     <br />
     <br />
     <h4>Outputs</h4>
-    <p><code>msg.payload</code> is the uploaded file information object with <code>FileID</code>, <code>File</code> which can be used te.</p>
+    <p><code>msg.payload</code> is the uploaded file information object with <code>FileID</code>, <code>File</code> which can be used for creating file/photo messages.</p>
 </script>
 
 <script type="text/html" data-help-name="sme-uploader">

@@ -1,5 +1,6 @@
 "use strict";
 
+const { CONNECTING } = require('ws');
 const Core = require('./sme-core.js');
 
 module.exports = function (RED) {
@@ -67,9 +68,11 @@ module.exports = function (RED) {
                     }
                     else if (typeof (msg.payload) == 'string') {
                         var contentType = msg.headers && msg.headers["content-type"];
-                        smeHttpResponse.Content = isTextContentType(contentType) ? msg.payload : Buffer.from(msg.payload).toString('base64');
+                        var isTextContent = isTextContentType(contentType);
 
-                        if (isTextContentType(contentType) == false)
+                        smeHttpResponse.Content = isTextContent ? msg.payload : Buffer.from(msg.payload).toString('base64');
+
+                        if (isTextContent == false)
                             node.status({ fill: "red", shape: "ring", text: "Connected HTTP Request node should return binary!" });
                     }
                     else {
