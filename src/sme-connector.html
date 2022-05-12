@@ -40,8 +40,8 @@
         if (registrationID) {
             var server = $('#node-config-input-server').val() || 'cloud.semilimes.net';
 
-            var qrApplicaionRegistrationObjectTypeID = 'DDCA371F-1A13-42CF-9C5D-F41ABB36C66F';    //  This should be changed to a new type.
-            var qrContent = 'https://' + server + '/CloudServer/qr/' + registrationID + '/' + qrApplicaionRegistrationObjectTypeID;
+            var qrApplicationRegistrationObjectTypeID = 'DDCA371F-1A13-42CF-9C5D-F41ABB36C66F';    //  This should be changed to a new type.
+            var qrContent = 'https://' + server + '/CloudServer/qr/' + registrationID + '/' + qrApplicationRegistrationObjectTypeID;
             var qrCodeImageUrl = 'https://' + server + '/CloudServer/api/FF0DB915-A2C3-455A-ABBD-973CD6287FBB?text=' + encodeURI(qrContent);
             console.log(qrCodeImageUrl);
             $('#tokenQRCodeImg').attr('src', qrCodeImageUrl);
