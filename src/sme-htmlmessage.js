@@ -9,13 +9,16 @@ module.exports = function (RED) {
 
         this.reference = config.reference;
         this.html = config.html;
+        this.htmlType = config.htmlType;
 
         var node = this;
 
         node.on('input', function (msg, send, done) {
             send = send || function () { node.send.apply(node, arguments) };
 
-            var html = node.html || msg.Html;
+            var core = new Core();
+            var smeHelper = new core.SmeHelper();
+            var html = smeHelper.getNodeConfigValue(node, msg, node.htmlType, node.html);
             if (html) {
                 var smeMsg = {
                     Type: 'chat',
@@ -24,8 +27,6 @@ module.exports = function (RED) {
                     Html: html,
                 };
 
-                var core = new Core();
-                var smeHelper = new core.SmeHelper();
                 var smeFormMsg = smeHelper.addSendingMsg(msg, smeMsg);
             }
 

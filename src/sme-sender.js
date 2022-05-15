@@ -19,16 +19,22 @@ module.exports = function (RED) {
             var core = new Core();
             var smeHelper = new core.SmeHelper();
             var smeSendingBox = smeHelper.getSendingBox(msg);
-            node.log('Send async count: ', smeSendingBox.length);
-            if (smeSendingBox) {
+            if (smeSendingBox && smeSendingBox.length > 0) {
                 if (node.async) {
                     //  Send message asynchronously
+                    node.log('Sending async count: ', smeSendingBox.length);
+
                     smeSendingBox.forEach(smeMsg => {
                         smeConnector.postMessage(smeMsg);
                     });
                     smeHelper.clearSendingBox(msg);
+                    send(msg, false);
+                    done && done();
                 }
                 else {
+                    //  Send message synchronously
+                    node.log('Sending sync count: ', smeSendingBox.length);
+
                     //  Send message synchronously
                     smeSendingBox.forEach((smeMsg, index) => {
                         var promise = smeConnector.sendMessage(smeMsg, false);
@@ -52,9 +58,8 @@ module.exports = function (RED) {
                     });
                 }
             }
-
-            if (node.async || smeSendingBox.length == 0) {
-                send(msg, false);
+            else {
+                node.debug('Sending box is empty!');
                 done && done();
             }            
         });

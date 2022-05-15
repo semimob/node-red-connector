@@ -4,12 +4,14 @@
         color: '#E2D96E',
         defaults: {
             reference: { value: "" },
-            html: { value: "" },
+            html: { value: "<B>This is an bold font HTML text.</B>" },
+            htmlType: { value: "str" }
         },
         inputs: 1,
         outputs: 1,
         align: 'left',
         icon: "font-awesome/fa-comment-o",
+        paletteLabel: 'HTML message',
         label: function () {
             if (this.html) {
                 var message = this.html;
@@ -25,18 +27,38 @@
         labelStyle: function () {
             return this.html ? "node_label_italic" : "";
         },
-        paletteLabel: 'HTML message'
+        oneditprepare: function () {
+            $("#node-input-html").typedInput({
+                type: "str",
+                types: ["str", "msg", "flow", "global"],
+                typeField: "#node-input-htmlType"
+            });
+        }
     });
 </script>
 
 <script type="text/html" data-template-name="sme-htmlmessage">
+    <div style="max-width:500px;">Communication with semilimes server is by messages. Use this node to create message to display HTML content. It support common HTML tags and general CSS attributes.</div>
+    <br />
+
     <div class="form-row">
         <label for="node-input-reference"><i class="fa fa-tag"></i> Reference</label>
         <input type="text" id="node-input-reference" placeholder="Reference to identify the message for programming.">
     </div>
     <div class="form-row">
         <label for="node-input-html"><i class="fa fa-tag"></i> HTML</label>
-        <input type="text" id="node-input-html" placeholder="msg.payload">
+        <input type="text" id="node-input-html">
+        <input type="hidden" id="node-input-htmlType">
+    </div>
+    <br />
+    <br />
+    <div style="font-size: smaller;">
+        <h3>Currently Supported HTML Tags:</h3>
+        <table><tbody><tr><td><code>a</code></td><td><code>abbr</code></td><td><code>acronym</code></td><td><code>address</code></td><td><code>article</code></td><td><code>aside</code></td><td><code>audio</code></td><td><code>b</code></td><td><code>bdi</code></td><td><code>bdo</code></td><td><code>big</code></td></tr><tr><td><code>blockquote</code></td><td><code>body</code></td><td><code>br</code></td><td><code>caption</code></td><td><code>cite</code></td><td><code>code</code></td><td><code>data</code></td><td><code>dd</code></td><td><code>del</code></td><td><code>details</code></td><td><code>dfn</code></td></tr><tr><td><code>div</code></td><td><code>dl</code></td><td><code>dt</code></td><td><code>em</code></td><td><code>figcaption</code></td><td><code>figure</code></td><td><code>footer</code></td><td><code>font</code></td><td><code>h1</code></td><td><code>h2</code></td><td><code>h3</code></td></tr><tr><td><code>h4</code></td><td><code>h5</code></td><td><code>h6</code></td><td><code>header</code></td><td><code>hr</code></td><td><code>i</code></td><td><code>iframe</code></td><td><code>img</code></td><td><code>ins</code></td><td><code>kbd</code></td><td><code>li</code></td></tr><tr><td><code>main</code></td><td><code>mark</code></td><td><code>nav</code></td><td><code>noscript</code></td><td><code>ol</code></td><td><code>p</code></td><td><code>pre</code></td><td><code>q</code></td><td><code>rp</code></td><td><code>rt</code></td><td><code>ruby</code></td></tr><tr><td><code>s</code></td><td><code>samp</code></td><td><code>section</code></td><td><code>small</code></td><td><code>span</code></td><td><code>strike</code></td><td><code>strong</code></td><td><code>sub</code></td><td><code>sup</code></td><td><code>summary</code></td><td><code>svg</code></td></tr><tr><td><code>table</code></td><td><code>tbody</code></td><td><code>td</code></td><td><code>template</code></td><td><code>tfoot</code></td><td><code>th</code></td><td><code>thead</code></td><td><code>time</code></td><td><code>tr</code></td><td><code>tt</code></td><td><code>u</code></td></tr><tr><td><code>ul</code></td><td><code>var</code></td><td><code>video</code></td><td><code>math</code>:</td><td><code>mrow</code></td><td><code>msup</code></td><td><code>msub</code></td><td><code>mover</code></td><td><code>munder</code></td><td><code>msubsup</code></td><td><code>moverunder</code></td></tr><tr><td><code>mfrac</code></td><td><code>mlongdiv</code></td><td><code>msqrt</code></td><td><code>mroot</code></td><td><code>mi</code></td><td><code>mn</code></td><td><code>mo</code></td><td></td><td></td><td></td><td></td></tr></tbody></table>
+        <h3>Currently Supported CSS Attributes:</h3>
+        <table><tbody><tr><td><code>background-color</code></td><td><code>color</code></td><td><code>direction</code></td><td><code>display</code></td><td><code>font-family</code></td><td><code>font-feature-settings</code></td><td><code>font-size</code></td></tr><tr><td><code>font-style</code></td><td><code>font-weight</code></td><td><code>height</code></td><td><code>letter-spacing</code></td><td><code>line-height</code></td><td><code>list-style-type</code></td><td><code>list-style-position</code></td></tr><tr><td><code>padding</code></td><td><code>margin</code></td><td><code>text-align</code></td><td><code>text-decoration</code></td><td><code>text-decoration-color</code></td><td><code>text-decoration-style</code></td><td><code>text-decoration-thickness</code></td></tr><tr><td><code>text-shadow</code></td><td><code>vertical-align</code></td><td><code>white-space</code></td><td><code>width</code></td><td><code>word-spacing</code></td><td></td><td></td></tr></tbody></table>
+        <h3>Currently Supported Inline CSS Attributes:</h3>
+        <table><tbody><tr><td><code>background-color</code></td><td><code>border</code> (including specific directions)</td><td><code>color</code></td><td><code>direction</code></td><td><code>display</code></td><td><code>font-family</code></td><td><code>font-feature-settings</code></td></tr><tr><td><code>font-size</code></td><td><code>font-style</code></td><td><code>font-weight</code></td><td><code>line-height</code></td><td><code>list-style-type</code></td><td><code>list-style-position</code></td><td><code>padding</code>  (including specific directions)</td></tr><tr><td><code>margin</code> (including specific directions)</td><td><code>text-align</code></td><td><code>text-decoration</code></td><td><code>text-decoration-color</code></td><td><code>text-decoration-style</code></td><td><code>text-shadow</code></td><td></td></tr></tbody></table>
     </div>
 </script>
 
