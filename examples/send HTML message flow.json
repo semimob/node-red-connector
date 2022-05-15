@@ -91,6 +91,7 @@
         "z": "b3cdbce7fd685999",
         "reference": "",
         "html": "<H3><font color=\"blue\"><B>This is an HTML message.</B></font><H3>",
+        "htmlType": "str",
         "x": 470,
         "y": 300,
         "wires": [
@@ -113,7 +114,6 @@
     },
     {
         "id": "d41b83de71e38c79",
-        "type": "sme-connector",
-        "credentials": {}
+        "type": "sme-connector"
     }
 ]

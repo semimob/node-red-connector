@@ -21,13 +21,14 @@
         "id": "0e3ef629c89fc04f",
         "type": "sme-form",
         "z": "4c24277b1c71d0d4",
-        "reference": "",
+        "reference": "MyForm",
         "formStatus": "0",
+        "submitButtonText": "Submit",
         "x": 460,
         "y": 940,
         "wires": [
             [
-                "a4f098a3d70503c7"
+                "8b2ec883fbfd752b"
             ]
         ]
     },
@@ -640,7 +641,7 @@
         "z": "4c24277b1c71d0d4",
         "connector": "d41b83de71e38c79",
         "x": 170,
-        "y": 1060,
+        "y": 1020,
         "wires": [
             [
                 "c2964fe9e06aa375"
@@ -651,11 +652,11 @@
         "id": "c2964fe9e06aa375",
         "type": "sme-formsubmission",
         "z": "4c24277b1c71d0d4",
-        "reference": "",
+        "reference": "MyForm",
         "storage": "payload",
         "storageType": "msg",
-        "x": 440,
-        "y": 1060,
+        "x": 460,
+        "y": 1020,
         "wires": [
             [
                 "b8394cfc5fd1143f"
@@ -675,8 +676,8 @@
         "targetType": "full",
         "statusVal": "",
         "statusType": "auto",
-        "x": 670,
-        "y": 1060,
+        "x": 710,
+        "y": 1020,
         "wires": []
     },
     {
@@ -685,10 +686,23 @@
         "z": "4c24277b1c71d0d4",
         "connector": "d41b83de71e38c79",
         "async": "1",
-        "x": 750,
+        "x": 950,
         "y": 940,
         "wires": [
             []
+        ]
+    },
+    {
+        "id": "8b2ec883fbfd752b",
+        "type": "sme-messageoption",
+        "z": "4c24277b1c71d0d4",
+        "messageMode": "ReplaceByReference",
+        "x": 690,
+        "y": 940,
+        "wires": [
+            [
+                "a4f098a3d70503c7"
+            ]
         ]
     },
     {

@@ -2,7 +2,7 @@
     {
         "id": "148ca400d93918ab",
         "type": "tab",
-        "label": "set values to form",
+        "label": "set form values",
         "disabled": false,
         "info": "",
         "env": []
@@ -11,7 +11,7 @@
         "id": "fec16eb7b230d795",
         "type": "sme-formsetter",
         "z": "148ca400d93918ab",
-        "reference": "Abc-form",
+        "reference": "AbcForm",
         "value": "payload",
         "valueType": "msg",
         "x": 520,
@@ -134,7 +134,7 @@
         "id": "81e8966654f4c4af",
         "type": "sme-form",
         "z": "148ca400d93918ab",
-        "reference": "Abc-form",
+        "reference": "AbcForm",
         "formStatus": "1",
         "x": 520,
         "y": 160,
@@ -225,6 +225,49 @@
         "x": 300,
         "y": 80,
         "wires": []
+    },
+    {
+        "id": "4e343c6ab90387f7",
+        "type": "sme-toggle",
+        "z": "148ca400d93918ab",
+        "name": "lamp",
+        "title": "Title",
+        "x": 290,
+        "y": 200,
+        "wires": [
+            [
+                "81e8966654f4c4af"
+            ]
+        ]
+    },
+    {
+        "id": "439f213b84bd7ef5",
+        "type": "inject",
+        "z": "148ca400d93918ab",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 200,
+        "wires": [
+            [
+                "4e343c6ab90387f7"
+            ]
+        ]
     },
     {
         "id": "d41b83de71e38c79",
