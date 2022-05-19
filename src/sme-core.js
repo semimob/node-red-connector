@@ -298,10 +298,12 @@ module.exports = function (RED) {
             return new Promise((resolve, reject) => {
                 var postData = data && JSON.stringify(data);
 
+                var baseUrl = new URL(serverApiURL);
+
                 var options = {
-                    hostname: 'localhost',
+                    hostname: baseUrl.hostname,
                     port: 443,
-                    path: `${serverApiURL}${methodID}?format=json`,
+                    path: `${baseUrl.pathname}${methodID}?format=json`,
                     method: 'POST',
                     rejectUnauthorized: false,
                     headers: {
@@ -312,11 +314,15 @@ module.exports = function (RED) {
 
                 var req = https.request(options, (res) => {
                     res.on('data', (d) => {
+                        if (Buffer.isBuffer(d)) {
+                            d = d.toString();
+                        }
+
                         if (typeof (d) == 'string' && d.startsWith('{')) {
                             try {
                                 var jsonData = JSON.parse(d);
                                 if (jsonData) {
-                                    //console.log('Call API resolved a JSON: ', jsonData);
+                                    console.log('Call API resolved a JSON: ', jsonData);
                                     resolve(jsonData);
                                     return;
                                 }
@@ -326,7 +332,7 @@ module.exports = function (RED) {
                             }
                         }
 
-                        //console.log('Call API resolved: ', d);
+                        console.log('Call API resolved: ', d);
                         resolve(d);
                     });
                 });

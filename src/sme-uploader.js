@@ -47,7 +47,7 @@ module.exports = function (RED) {
                     done && done();
                     return;
                 }
-            
+
                 var promise = smeConnector.callApi('147056DF-B5EE-4D6C-9B35-737644372F48', apiData);
 
                 promise.then(
@@ -58,20 +58,21 @@ module.exports = function (RED) {
 
                         if (uploadedFile != null) {
                             msg.payload = uploadedFile;
+                            send(msg, false);
+                        }
+                        else {
+                            node.error('Upload error: ', value);
                         }
 
-                        send(msg, false);
                         done && done(value);
                     },
                     reason => {
                         msg.error = reason;
-                        send(msg, false);
                         done && done(reason);
                     }
                 );
             }
             else {
-                send(msg, false);
                 done && done();
             }
         });

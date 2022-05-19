@@ -1,6 +1,9 @@
 <script type="text/javascript">
     RED.nodes.registerType('sme-connector', {
         category: 'config',
+        defaults: {
+            name: { value: "" }
+        },
         credentials: {
             reservedCode: { type: "text" },
             server: { type: "text" },
@@ -9,6 +12,9 @@
         },
         icon: "font-awesome/fa-cog",
         label: function () {
+            if (this.name)
+                return this.name;
+
             if (this.credentials) {
                 if (this.credentials.server)
                     return this.credentials.appName ? ('[' + this.credentials.appName + '] ' + this.credentials.server) : this.credentials.server;
@@ -96,6 +102,11 @@
     <br />
 
     <div class="form-row">
+        <label for="node-config-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-config-input-name" />
+    </div>
+
+    <div class="form-row">
         <label for="node-config-input-server"><i class="fa fa-tag"></i> Server</label>
         <input type="text" id="node-config-input-server" placeholder="Please blank to connect default server.">
     </div>
@@ -106,7 +117,7 @@
         <label for="node-config-input-appName"><i class="fa fa-tag"></i> Account name</label>
         <input type="text" id="node-config-input-appName" />
     </div>
-    <div style="font-size: smaller;max-width:500px;">Specify name to create a new semilimes account or use an existing account.</div>
+    <div style="font-size: smaller;max-width:500px;">Use an existing sub account or create new one.</div>
     <br />
 
     <div class="form-row">
@@ -117,16 +128,16 @@
     <br />
 
     <input type="hidden" id="node-config-input-applicationID" />
-    <button id="connectButton" type="button" class="red-ui-button" onclick="connectToSemilimes()">Get Registration QR Code</button>
+    <button id="connectButton" type="button" class="red-ui-button" onclick="connectToSemilimes()">Get Connection QR Code</button>
 
     <div id="tokenQRCodeContainer">
-        <p><br />Scan this QR Code with semilimes Messenger to setup account for this Node-RED instance.<br /><font color="red">in 60 seconds. And remember to save this setup.</font></p>
+        <p><br />Scan this QR Code with semilimes Messenger to setup connection for this Node-RED instance.<br /><font color="red">in 60 seconds. And remember to save this setup.</font></p>
         <img id="tokenQRCodeImg" src="" />
     </div>
 </script>
 
 <script type="text/html" data-help-name="sme-connector">
-    <p>Connect to semilimes server.</p>
+    <p>Setup connection to semilimes.</p>
     <h3>Inputs</h3>
     <dl class="message-properties">
         <dt class="optional">Server <span class="property-type">sme-server</span></dt>
