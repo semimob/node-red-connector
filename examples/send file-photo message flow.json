@@ -1,0 +1,212 @@
+[
+    {
+        "id": "742642d58aade75c",
+        "type": "tab",
+        "label": "Send file/photo message.",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "7c3e36e97ed5b0b5",
+        "type": "inject",
+        "z": "742642d58aade75c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 200,
+        "wires": [
+            [
+                "6400b3d14a0cd6cb"
+            ]
+        ]
+    },
+    {
+        "id": "b04e2ea8581f7179",
+        "type": "sme-uploader",
+        "z": "742642d58aade75c",
+        "connector": "019e60ac9d193351",
+        "content": "payload",
+        "contentType": "msg",
+        "fileName": "photo-form-RED.jpg",
+        "fileNameType": "str",
+        "x": 460,
+        "y": 260,
+        "wires": [
+            [
+                "661c3a9c95de9fea"
+            ]
+        ]
+    },
+    {
+        "id": "aacedb26f053b6c0",
+        "type": "sme-sender",
+        "z": "742642d58aade75c",
+        "connector": "019e60ac9d193351",
+        "async": "1",
+        "x": 850,
+        "y": 260,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "66421909242ec5f8",
+        "type": "comment",
+        "z": "742642d58aade75c",
+        "name": "Configure 'Connector' property of the 'semilimes listener' node to setup connection to semilimes.",
+        "info": "",
+        "x": 370,
+        "y": 41.000000953674316,
+        "wires": []
+    },
+    {
+        "id": "590f6073895b9a64",
+        "type": "comment",
+        "z": "742642d58aade75c",
+        "name": "This flow get a file, upload it to semilimes then send the uploaded file in a photo message.",
+        "info": "",
+        "x": 350,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "3c122d4dcfe1ec25",
+        "type": "comment",
+        "z": "742642d58aade75c",
+        "name": "Send web photo to semilimes.",
+        "info": "",
+        "x": 160,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "661c3a9c95de9fea",
+        "type": "sme-filemessage",
+        "z": "742642d58aade75c",
+        "reference": "",
+        "files": "payload",
+        "filesType": "msg",
+        "x": 630,
+        "y": 260,
+        "wires": [
+            [
+                "aacedb26f053b6c0"
+            ]
+        ]
+    },
+  {
+    "id": "6400b3d14a0cd6cb",
+    "type": "http request",
+    "z": "742642d58aade75c",
+    "name": "",
+    "method": "GET",
+    "ret": "bin",
+    "paytoqs": "ignore",
+    "url": "https://nodered.org/images/nr-image-2.png",
+    "tls": "2eac8acd0d5a7b66",
+    "persist": false,
+    "proxy": "",
+    "authType": "",
+    "senderr": false,
+    "x": 290,
+    "y": 200,
+    "wires": [
+      [
+        "b04e2ea8581f7179"
+      ]
+    ]
+  },
+    {
+        "id": "eed072f3fcd62446",
+        "type": "file in",
+        "z": "742642d58aade75c",
+        "name": "",
+        "filename": "Z:\\Temp\\Favicon\\mstile-150x150.png",
+        "format": "",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 370,
+        "y": 380,
+        "wires": [
+            [
+                "b04e2ea8581f7179"
+            ]
+        ]
+    },
+    {
+        "id": "0f05e59cd3d38fe2",
+        "type": "inject",
+        "z": "742642d58aade75c",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 120,
+        "y": 380,
+        "wires": [
+            [
+                "eed072f3fcd62446"
+            ]
+        ]
+    },
+    {
+        "id": "0e19f01b339d487e",
+        "type": "comment",
+        "z": "742642d58aade75c",
+        "name": "Send a local file to semilimes. Try with your own local files.",
+        "info": "",
+        "x": 260,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "019e60ac9d193351",
+        "type": "sme-connector",
+        "name": "Production"
+    },
+    {
+        "id": "2eac8acd0d5a7b66",
+        "type": "tls-config",
+        "name": "",
+        "cert": "",
+        "key": "",
+        "ca": "",
+        "certname": "",
+        "keyname": "",
+        "caname": "",
+        "servername": "",
+        "verifyservercert": false,
+        "alpnprotocol": ""
+    }
+]
