@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-semilimes",
-  "version": "1.0.22",
+  "version": "1.0.23",
   "description": "Node-RED semilimes",
   "author": "Phuc Nguyen",
   "license": "Apache 2.0",
@@ -43,6 +43,7 @@
       "sme-messagedeleter": "src/sme-messagedeleter.js",
       "sme-label": "src/form-items/sme-label.js",
       "sme-textbox": "src/form-items/sme-textbox.js",
+      "sme-buttonlist": "src/form-items/sme-buttonlist.js",
       "sme-singlechoice": "src/form-items/sme-singlechoice.js",
       "sme-multichoice": "src/form-items/sme-multichoice.js",
       "sme-switch": "src/form-items/sme-toggle.js",

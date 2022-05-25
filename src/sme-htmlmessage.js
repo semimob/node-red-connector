@@ -27,7 +27,7 @@ module.exports = function (RED) {
                     Html: html,
                 };
 
-                var smeFormMsg = smeHelper.addSendingMsg(msg, smeMsg);
+                smeHelper.addSendingMsg(msg, smeMsg);
             }
 
             send(msg, false);

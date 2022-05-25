@@ -22,10 +22,10 @@
         "type": "sme-form",
         "z": "4c24277b1c71d0d4",
         "reference": "MyForm",
-        "formStatus": "0",
+        "formStatus": "1",
         "submitButtonText": "Submit",
-        "x": 460,
-        "y": 940,
+        "x": 940,
+        "y": 720,
         "wires": [
             [
                 "8b2ec883fbfd752b"
@@ -63,8 +63,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 160,
-        "y": 220,
+        "x": 680,
+        "y": 200,
         "wires": [
             [
                 "22360ea23dd539f6"
@@ -84,8 +84,8 @@
         "choice5": "",
         "choice6": "",
         "required": "0",
-        "x": 380,
-        "y": 220,
+        "x": 900,
+        "y": 200,
         "wires": [
             [
                 "02be98875c8a9e70"
@@ -105,8 +105,8 @@
         "choice5": "",
         "choice6": "",
         "required": "0",
-        "x": 370,
-        "y": 280,
+        "x": 890,
+        "y": 240,
         "wires": [
             [
                 "1db34413316f2ac6"
@@ -134,8 +134,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 160,
-        "y": 280,
+        "x": 680,
+        "y": 240,
         "wires": [
             [
                 "02be98875c8a9e70"
@@ -148,8 +148,10 @@
         "z": "4c24277b1c71d0d4",
         "name": "Sex",
         "title": "Sex",
-        "x": 370,
-        "y": 400,
+        "value": "true",
+        "valueType": "bool",
+        "x": 890,
+        "y": 320,
         "wires": [
             [
                 "be03f40aa6f567ac"
@@ -177,8 +179,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 160,
-        "y": 400,
+        "x": 680,
+        "y": 320,
         "wires": [
             [
                 "07a9e7ac4689a13f"
@@ -193,8 +195,8 @@
         "title": "This comment will be updated.",
         "value": "",
         "required": "0",
-        "x": 390,
-        "y": 340,
+        "x": 910,
+        "y": 280,
         "wires": [
             [
                 "07a9e7ac4689a13f"
@@ -222,8 +224,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 160,
-        "y": 340,
+        "x": 680,
+        "y": 280,
         "wires": [
             [
                 "1db34413316f2ac6"
@@ -236,11 +238,13 @@
         "z": "4c24277b1c71d0d4",
         "name": "Age",
         "title": "Age",
-        "min": "",
-        "max": "",
-        "step": "",
-        "x": 370,
-        "y": 460,
+        "min": "0",
+        "max": "100",
+        "step": "5",
+        "value": "20",
+        "valueType": "num",
+        "x": 890,
+        "y": 360,
         "wires": [
             [
                 "0b85f6189fa4b0f0"
@@ -268,8 +272,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 160,
-        "y": 460,
+        "x": 680,
+        "y": 360,
         "wires": [
             [
                 "be03f40aa6f567ac"
@@ -297,7 +301,7 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 160,
+        "x": 680,
         "y": 160,
         "wires": [
             [
@@ -313,8 +317,8 @@
         "title": "Birthday",
         "buttonText": "",
         "required": "0",
-        "x": 380,
-        "y": 520,
+        "x": 900,
+        "y": 400,
         "wires": [
             [
                 "fa543b0d24daca4c"
@@ -342,8 +346,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 160,
-        "y": 520,
+        "x": 680,
+        "y": 400,
         "wires": [
             [
                 "0b85f6189fa4b0f0"
@@ -358,8 +362,8 @@
         "title": "Time",
         "buttonText": "",
         "required": "0",
-        "x": 370,
-        "y": 580,
+        "x": 890,
+        "y": 440,
         "wires": [
             [
                 "17279ef7f2ccb606"
@@ -387,8 +391,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 160,
-        "y": 580,
+        "x": 680,
+        "y": 440,
         "wires": [
             [
                 "fa543b0d24daca4c"
@@ -401,7 +405,7 @@
         "z": "4c24277b1c71d0d4",
         "name": "Welcome",
         "text": "This is a label message.\nAnd this is the second line.",
-        "x": 380,
+        "x": 900,
         "y": 160,
         "wires": [
             [
@@ -430,8 +434,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 160,
-        "y": 640,
+        "x": 680,
+        "y": 480,
         "wires": [
             [
                 "17279ef7f2ccb606"
@@ -447,8 +451,8 @@
         "buttonText": "Select location",
         "currentLocationOnly": "1",
         "required": "0",
-        "x": 400,
-        "y": 640,
+        "x": 920,
+        "y": 480,
         "wires": [
             [
                 "dde2213abb585a13"
@@ -463,8 +467,8 @@
         "title": "Title",
         "buttonText": "Select files",
         "required": "0",
-        "x": 380,
-        "y": 700,
+        "x": 900,
+        "y": 520,
         "wires": [
             [
                 "95f1bc2c6ba7845b"
@@ -492,8 +496,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 160,
-        "y": 700,
+        "x": 680,
+        "y": 520,
         "wires": [
             [
                 "dde2213abb585a13"
@@ -508,8 +512,8 @@
         "title": "Avatar",
         "buttonText": "Select photos",
         "required": "0",
-        "x": 370,
-        "y": 760,
+        "x": 890,
+        "y": 560,
         "wires": [
             [
                 "5017ea6465b610ee"
@@ -537,8 +541,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 160,
-        "y": 760,
+        "x": 680,
+        "y": 560,
         "wires": [
             [
                 "95f1bc2c6ba7845b"
@@ -553,8 +557,8 @@
         "title": "Select contacts",
         "buttonText": "Select contacts",
         "required": "0",
-        "x": 380,
-        "y": 820,
+        "x": 900,
+        "y": 600,
         "wires": [
             [
                 "bc7bf33ff23a68cb"
@@ -582,8 +586,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 160,
-        "y": 820,
+        "x": 680,
+        "y": 600,
         "wires": [
             [
                 "5017ea6465b610ee"
@@ -598,11 +602,11 @@
         "title": "Questions & Answers",
         "buttonText": "Select conversations",
         "required": "0",
-        "x": 370,
-        "y": 880,
+        "x": 890,
+        "y": 640,
         "wires": [
             [
-                "0e3ef629c89fc04f"
+                "1c4393e1a28a9361"
             ]
         ]
     },
@@ -627,8 +631,8 @@
         "topic": "",
         "payload": "",
         "payloadType": "date",
-        "x": 160,
-        "y": 880,
+        "x": 680,
+        "y": 640,
         "wires": [
             [
                 "bc7bf33ff23a68cb"
@@ -641,7 +645,7 @@
         "z": "4c24277b1c71d0d4",
         "connector": "d41b83de71e38c79",
         "x": 170,
-        "y": 1020,
+        "y": 1060,
         "wires": [
             [
                 "c2964fe9e06aa375"
@@ -656,38 +660,38 @@
         "storage": "payload",
         "storageType": "msg",
         "x": 460,
-        "y": 1020,
+        "y": 1060,
         "wires": [
             [
                 "b8394cfc5fd1143f"
             ]
         ]
     },
-    {
-        "id": "b8394cfc5fd1143f",
-        "type": "debug",
-        "z": "4c24277b1c71d0d4",
-        "name": "",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "statusVal": "",
-        "statusType": "auto",
-        "x": 710,
-        "y": 1020,
-        "wires": []
-    },
+  {
+    "id": "b8394cfc5fd1143f",
+    "type": "debug",
+    "z": "4c24277b1c71d0d4",
+    "name": "",
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "x": 710,
+    "y": 1060,
+    "wires": []
+  },
     {
         "id": "a4f098a3d70503c7",
         "type": "sme-sender",
         "z": "4c24277b1c71d0d4",
         "connector": "d41b83de71e38c79",
         "async": "1",
-        "x": 950,
-        "y": 940,
+        "x": 1130,
+        "y": 960,
         "wires": [
             []
         ]
@@ -697,8 +701,8 @@
         "type": "sme-messageoption",
         "z": "4c24277b1c71d0d4",
         "messageMode": "ReplaceByReference",
-        "x": 690,
-        "y": 940,
+        "x": 840,
+        "y": 960,
         "wires": [
             [
                 "a4f098a3d70503c7"
@@ -706,7 +710,519 @@
         ]
     },
     {
+        "id": "1c4393e1a28a9361",
+        "type": "sme-buttonlist",
+        "z": "4c24277b1c71d0d4",
+        "name": "",
+        "title": "Which one do you prefer?",
+        "button1": "button 1",
+        "button2": "button 2",
+        "button3": "button 3",
+        "button4": "",
+        "button5": "",
+        "button6": "",
+        "required": "0",
+        "x": 900,
+        "y": 680,
+        "wires": [
+            [
+                "0e3ef629c89fc04f"
+            ]
+        ]
+    },
+    {
+        "id": "5d90f8caa498694a",
+        "type": "inject",
+        "z": "4c24277b1c71d0d4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 680,
+        "y": 680,
+        "wires": [
+            [
+                "1c4393e1a28a9361"
+            ]
+        ]
+    },
+    {
+        "id": "849904352b75ce16",
+        "type": "sme-singlechoice",
+        "z": "4c24277b1c71d0d4",
+        "name": "Breakfast",
+        "title": "Which one do you prefer?",
+        "choice1": "option 1",
+        "choice2": "option 2",
+        "choice3": "option 3",
+        "choice4": "",
+        "choice5": "",
+        "choice6": "",
+        "required": "0",
+        "x": 380,
+        "y": 240,
+        "wires": [
+            [
+                "ca8f0ca651a77ebd"
+            ]
+        ]
+    },
+    {
+        "id": "ca8f0ca651a77ebd",
+        "type": "sme-multichoice",
+        "z": "4c24277b1c71d0d4",
+        "name": "Drinks",
+        "title": "Which ones do you prefer?",
+        "choice1": "option 1",
+        "choice2": "option 2",
+        "choice3": "option 3",
+        "choice4": "",
+        "choice5": "",
+        "choice6": "",
+        "required": "0",
+        "x": 370,
+        "y": 280,
+        "wires": [
+            [
+                "6e13977e0623ebd5"
+            ]
+        ]
+    },
+    {
+        "id": "3b5f386dfa329d72",
+        "type": "inject",
+        "z": "4c24277b1c71d0d4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 340,
+        "wires": [
+            [
+                "6e13977e0623ebd5"
+            ]
+        ]
+    },
+    {
+        "id": "b5e99d86e55d828b",
+        "type": "sme-toggle",
+        "z": "4c24277b1c71d0d4",
+        "name": "Sex",
+        "title": "Sex",
+        "value": "true",
+        "valueType": "bool",
+        "x": 370,
+        "y": 420,
+        "wires": [
+            [
+                "7b2d29909035c094"
+            ]
+        ]
+    },
+    {
+        "id": "96f6db22b7d3834a",
+        "type": "sme-textbox",
+        "z": "4c24277b1c71d0d4",
+        "name": "Comments",
+        "title": "This comment will be updated.",
+        "value": "",
+        "required": "0",
+        "x": 390,
+        "y": 380,
+        "wires": [
+            [
+                "b5e99d86e55d828b"
+            ]
+        ]
+    },
+    {
+        "id": "7b2d29909035c094",
+        "type": "sme-slider",
+        "z": "4c24277b1c71d0d4",
+        "name": "Age",
+        "title": "Age",
+        "min": "0",
+        "max": "100",
+        "step": "5",
+        "value": "20",
+        "valueType": "num",
+        "x": 370,
+        "y": 460,
+        "wires": [
+            [
+                "56aa6f4f255fd17b"
+            ]
+        ]
+    },
+    {
+        "id": "76663dd8fe63e318",
+        "type": "inject",
+        "z": "4c24277b1c71d0d4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 160,
+        "wires": [
+            [
+                "a12fd0205c8218d5"
+            ]
+        ]
+    },
+    {
+        "id": "1ccf6a185265d4e3",
+        "type": "sme-datepicker",
+        "z": "4c24277b1c71d0d4",
+        "name": "Birthday",
+        "title": "Birthday",
+        "buttonText": "",
+        "required": "0",
+        "x": 380,
+        "y": 560,
+        "wires": [
+            [
+                "7035bfb20237af3e"
+            ]
+        ]
+    },
+    {
+        "id": "7035bfb20237af3e",
+        "type": "sme-timepicker",
+        "z": "4c24277b1c71d0d4",
+        "name": "Time",
+        "title": "Time",
+        "buttonText": "",
+        "required": "0",
+        "x": 370,
+        "y": 600,
+        "wires": [
+            [
+                "3a2c89319d4367b9"
+            ]
+        ]
+    },
+    {
+        "id": "4a054247a6d234d9",
+        "type": "inject",
+        "z": "4c24277b1c71d0d4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 520,
+        "wires": [
+            [
+                "56aa6f4f255fd17b"
+            ]
+        ]
+    },
+    {
+        "id": "ab34cd158b468927",
+        "type": "sme-label",
+        "z": "4c24277b1c71d0d4",
+        "name": "Welcome",
+        "text": "This is a label message.\nAnd this is the second line.",
+        "x": 380,
+        "y": 200,
+        "wires": [
+            [
+                "849904352b75ce16"
+            ]
+        ]
+    },
+    {
+        "id": "3a2c89319d4367b9",
+        "type": "sme-locationpicker",
+        "z": "4c24277b1c71d0d4",
+        "name": "OfficeLocation",
+        "title": "Office Location",
+        "buttonText": "Select location",
+        "currentLocationOnly": "1",
+        "required": "0",
+        "x": 400,
+        "y": 640,
+        "wires": [
+            [
+                "34f7aaa28dbb93d8"
+            ]
+        ]
+    },
+    {
+        "id": "6b309a9efb2a7fee",
+        "type": "sme-filepicker",
+        "z": "4c24277b1c71d0d4",
+        "name": "Resume",
+        "title": "Title",
+        "buttonText": "Select files",
+        "required": "0",
+        "x": 380,
+        "y": 740,
+        "wires": [
+            [
+                "1cc889a57a1a871f"
+            ]
+        ]
+    },
+    {
+        "id": "1cc889a57a1a871f",
+        "type": "sme-photopicker",
+        "z": "4c24277b1c71d0d4",
+        "name": "Avatar",
+        "title": "Avatar",
+        "buttonText": "Select photos",
+        "required": "0",
+        "x": 370,
+        "y": 780,
+        "wires": [
+            [
+                "9aa18c22fec0690a"
+            ]
+        ]
+    },
+    {
+        "id": "9c0ab2e4483ede10",
+        "type": "inject",
+        "z": "4c24277b1c71d0d4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 700,
+        "wires": [
+            [
+                "34f7aaa28dbb93d8"
+            ]
+        ]
+    },
+    {
+        "id": "9aa18c22fec0690a",
+        "type": "sme-contactpicker",
+        "z": "4c24277b1c71d0d4",
+        "name": "Contacts",
+        "title": "Select contacts",
+        "buttonText": "Select contacts",
+        "required": "0",
+        "x": 380,
+        "y": 820,
+        "wires": [
+            [
+                "66fce1824a0cec20"
+            ]
+        ]
+    },
+    {
+        "id": "a6ec45f20d5d45e5",
+        "type": "sme-conversationpicker",
+        "z": "4c24277b1c71d0d4",
+        "name": "QAs",
+        "title": "Questions & Answers",
+        "buttonText": "Select conversations",
+        "required": "0",
+        "x": 370,
+        "y": 920,
+        "wires": [
+            [
+                "4d471ad9d7229733"
+            ]
+        ]
+    },
+    {
+        "id": "4d471ad9d7229733",
+        "type": "sme-buttonlist",
+        "z": "4c24277b1c71d0d4",
+        "name": "",
+        "title": "Which one do you prefer?",
+        "button1": "button 1",
+        "button2": "button 2",
+        "button3": "button 3",
+        "button4": "",
+        "button5": "",
+        "button6": "",
+        "required": "0",
+        "x": 380,
+        "y": 960,
+        "wires": [
+            [
+                "8b2ec883fbfd752b"
+            ]
+        ]
+    },
+    {
+        "id": "8d05c3f56f257355",
+        "type": "inject",
+        "z": "4c24277b1c71d0d4",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            },
+            {
+                "p": "topic",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "x": 160,
+        "y": 880,
+        "wires": [
+            [
+                "66fce1824a0cec20"
+            ]
+        ]
+    },
+    {
+        "id": "a12fd0205c8218d5",
+        "type": "sme-form",
+        "z": "4c24277b1c71d0d4",
+        "reference": "MyForm1",
+        "formStatus": "1",
+        "submitButtonText": "Submit",
+        "x": 360,
+        "y": 160,
+        "wires": [
+            [
+                "ab34cd158b468927"
+            ]
+        ]
+    },
+    {
+        "id": "6e13977e0623ebd5",
+        "type": "sme-form",
+        "z": "4c24277b1c71d0d4",
+        "reference": "MyForm2",
+        "formStatus": "1",
+        "submitButtonText": "Submit",
+        "x": 360,
+        "y": 340,
+        "wires": [
+            [
+                "96f6db22b7d3834a"
+            ]
+        ]
+    },
+    {
+        "id": "56aa6f4f255fd17b",
+        "type": "sme-form",
+        "z": "4c24277b1c71d0d4",
+        "reference": "MyForm3",
+        "formStatus": "1",
+        "submitButtonText": "Submit",
+        "x": 360,
+        "y": 520,
+        "wires": [
+            [
+                "1ccf6a185265d4e3"
+            ]
+        ]
+    },
+    {
+        "id": "34f7aaa28dbb93d8",
+        "type": "sme-form",
+        "z": "4c24277b1c71d0d4",
+        "reference": "MyForm4",
+        "formStatus": "1",
+        "submitButtonText": "Submit",
+        "x": 360,
+        "y": 700,
+        "wires": [
+            [
+                "6b309a9efb2a7fee"
+            ]
+        ]
+    },
+    {
+        "id": "66fce1824a0cec20",
+        "type": "sme-form",
+        "z": "4c24277b1c71d0d4",
+        "reference": "MyForm5",
+        "formStatus": "1",
+        "submitButtonText": "Submit",
+        "x": 360,
+        "y": 880,
+        "wires": [
+            [
+                "a6ec45f20d5d45e5"
+            ]
+        ]
+    },
+    {
         "id": "d41b83de71e38c79",
-        "type": "sme-connector"
+        "type": "sme-connector",
+        "name": "Localhost"
     }
 ]

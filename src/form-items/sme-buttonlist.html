@@ -1,0 +1,74 @@
+<script type="text/javascript">
+    RED.nodes.registerType('sme-buttonlist', {
+        category: 'semilimes',
+        color: '#E6E0F8',
+        defaults: {
+            name: { value: "" },
+            title: { value: "Which one do you prefer?" },
+            button1: { value: "button 1" },
+            button2: { value: "button 2" },
+            button3: { value: "button 3" },
+            button4: { value: "" },
+            button5: { value: "" },
+            button6: { value: "" },
+            required: { value: "0" }
+        },
+        inputs: 1,
+        outputs: 1,
+        align: 'left',
+        icon: "font-awesome/fa-list",
+        paletteLabel: 'buttons',
+        label: function () {
+            return this.name || 'buttons';
+        },
+        labelStyle: function () {
+            return this.name ? "node_label_italic" : "";
+        },
+    });
+</script>
+
+<script type="text/html" data-template-name="sme-buttonlist">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-title"><i class="fa fa-tag"></i> Title</label>
+        <input type="text" id="node-input-title" placeholder="This title is above the selection.">
+    </div>
+    <div class="form-row">
+        <label for="node-input-button1"><i class="fa fa-hand-o-right"></i><span> 1st button</span></label>
+        <input type="text" id="node-input-button1" placeholder="Insert the first button">
+    </div>
+    <div class="form-row">
+        <label for="node-input-button2"><i class="fa fa-hand-o-right"></i><span> 2nd button</span></label>
+        <input type="text" id="node-input-button2" placeholder="Insert the second button">
+    </div>
+    <div class="form-row">
+        <label for="node-input-button3"><i class="fa fa-hand-o-right"></i><span> 3rd button</span></label>
+        <input type="text" id="node-input-button3" placeholder="Insert the third button">
+    </div>
+    <div class="form-row">
+        <label for="node-input-button4"><i class="fa fa-hand-o-right"></i><span> 4th button</span></label>
+        <input type="text" id="node-input-button4" placeholder="Insert the fourth button">
+    </div>
+    <div class="form-row">
+        <label for="node-input-button5"><i class="fa fa-hand-o-right"></i><span> 5th button</span></label>
+        <input type="text" id="node-input-button5" placeholder="Insert the fifth button">
+    </div>
+    <div class="form-row">
+        <label for="node-input-button6"><i class="fa fa-hand-o-right"></i><span> 6th button</span></label>
+        <input type="text" id="node-input-button6" placeholder="Insert the sixth button">
+    </div>
+    <div class="form-row">
+        <label for="node-input-required"><i class="fa fa-cog"></i> <span> Required</span></label>
+        <select id="node-input-required">
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select>
+    </div>
+</script>
+
+<script type="text/html" data-help-name="sme-buttonlist">
+    <p>Create a list of buttons.</p>
+</script>

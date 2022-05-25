@@ -20,8 +20,14 @@ module.exports = function (RED) {
             var smeHelper = new core.SmeHelper();
             var smeFormMsg = smeHelper.getOrAddSendingFormMsg(msg);
 
+            //  Check if TypeID match UPPERCASE TypeID of the sign of this form message creation.
+            if (smeFormMsg.TypeID == '457D1D4F-C982-4CAF-BCC4-4B435860EFA3') {
+                smeFormMsg = {};
+                smeHelper.addSendingMsg(msg, smeFormMsg);
+            }
+
             smeFormMsg.Type = 'chat';
-            smeFormMsg.TypeID = '457d1d4f-c982-4caf-bcc4-4b435860efa3';
+            smeFormMsg.TypeID = '457D1D4F-C982-4CAF-BCC4-4B435860EFA3'; //  Use UPPERCASE TypeID as the sign of this form message creation.
 
             smeFormMsg.Reference = node.reference;
             smeFormMsg.FormStatus = node.formStatus ? 1 : 0;
