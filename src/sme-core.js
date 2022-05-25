@@ -105,6 +105,8 @@ module.exports = function (RED) {
             if (selectionType && selectionValue) {
                 switch (selectionType) {
                     case 'str': return selectionValue;
+                    case 'num': return parseInt(selectionValue);
+                    case 'bool': return isTrue(selectionValue);
                     case 'json': return JSON.parse(selectionValue);
                     case 'msg': return msg[selectionValue];
                     case 'flow': return node && node.context().flow.get(selectionValue);

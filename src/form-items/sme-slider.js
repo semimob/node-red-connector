@@ -12,6 +12,8 @@ module.exports = function (RED) {
         this.min = parseInt(config.min);
         this.max = parseInt(config.max);
         this.step = parseInt(config.step);
+        this.value = config.value;
+        this.valueType = config.valueType;
         this.required = config.required == "1";
 
         var node = this;
@@ -23,6 +25,9 @@ module.exports = function (RED) {
             var smeHelper = new core.SmeHelper();
             var smeFormMsg = smeHelper.getOrAddSendingFormMsg(msg);
 
+            var formValue = smeHelper.getNodeConfigValue(node, msg, node.valueType, node.value);
+            formValue = parseInt(formValue);
+
             smeFormMsg.FormItems.push({
                 FormTypeID: 'ac6fcee7-b165-42c1-b1e0-fdc4aba22195',
                 FormTypeConfig: {
@@ -32,6 +37,7 @@ module.exports = function (RED) {
                     DivisionStep: this.step || 5
                 },
                 FormRequired: smeFormMsg.FormItems.length == 0 || (node.required == 1),
+                FormValue: formValue,
                 Reference: node.name,
                 AutoSubmit: smeFormMsg.DisabledSubmitButton == true,
             });

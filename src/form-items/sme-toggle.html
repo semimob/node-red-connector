@@ -4,19 +4,28 @@
         color: '#E6E0F8',
         defaults: {
             name: { value: "" },
-            title: { value: "Title" }
+            title: { value: "Title" },
+            value: { value: "0" },
+            valueType: { value: "num" },
         },
         inputs: 1,
         outputs: 1,
         align: 'left',
         icon: "font-awesome/fa-toggle-on",
+        paletteLabel: 'toggle',
         label: function () {
             return this.name || 'toggle';
         },
         labelStyle: function () {
             return this.name ? "node_label_italic" : "";
         },
-        paletteLabel: 'toggle'
+        oneditprepare: function () {
+            $("#node-input-value").typedInput({
+                type: "num",
+                types: ["num", "bool", "msg", "flow", "global"],
+                typeField: "#node-input-valueType"
+            });
+        },
     });
 </script>
 
@@ -28,6 +37,11 @@
     <div class="form-row">
         <label for="node-input-title"><i class="fa fa-tag"></i> Title</label>
         <input type="text" id="node-input-title" placeholder="This title is above the toggle button.">
+    </div>
+    <div class="form-row">
+        <label for="node-input-value"><i class="fa fa-tag"></i> Value</label>
+        <input type="text" id="node-input-value">
+        <input type="hidden" id="node-input-valueType">
     </div>
 </script>
 
