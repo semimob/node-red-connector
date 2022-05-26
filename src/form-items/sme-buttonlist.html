@@ -5,6 +5,7 @@
         defaults: {
             name: { value: "" },
             title: { value: "Which one do you prefer?" },
+            vertical: { value: "" },
             button1: { value: "button 1" },
             button2: { value: "button 2" },
             button3: { value: "button 3" },
@@ -35,6 +36,13 @@
     <div class="form-row">
         <label for="node-input-title"><i class="fa fa-tag"></i> Title</label>
         <input type="text" id="node-input-title" placeholder="This title is above the selection.">
+    </div>
+    <div class="form-row">
+        <label for="node-input-vertical"><i class="fa fa-tag"></i> Vertical list</label>
+        <select id="node-input-vertical">
+            <option value="vertical">Yes</option>
+            <option value="">No</option>
+        </select>
     </div>
     <div class="form-row">
         <label for="node-input-button1"><i class="fa fa-hand-o-right"></i><span> 1st button</span></label>

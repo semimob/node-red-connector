@@ -14,6 +14,7 @@ module.exports = function (RED) {
             .map(x => {
                 return { Text: x, Value: x };
             });
+        this.vertical = config.vertical;
         this.required = config.required;
 
         var node = this;
@@ -31,7 +32,8 @@ module.exports = function (RED) {
                     FormTypeID: 'f7b0e678-4d11-4016-8f71-224e6280f3a5',
                     FormTypeConfig: {
                         Title: node.title,
-                        Buttons: node.buttons
+                        Buttons: node.buttons,
+                        Direction: node.vertical,
                     },
                     FormRequired: smeFormMsg.FormItems.length == 0 || (node.required == 1),
                     Reference: node.name,

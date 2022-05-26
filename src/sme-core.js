@@ -95,7 +95,7 @@ module.exports = function (RED) {
             }
 
             smeFormMsg.Type = smeFormMsg.Type || 'chat';
-            smeFormMsg.TypeID = smeFormMsg.TypeID || '457d1d4f-c982-4caf-bcc4-4b435860efa3';    //  Use lower TypeID as
+            smeFormMsg.TypeID = smeFormMsg.TypeID || '457d1d4f-c982-4caf-bcc4-4b435860efa3';    //  Use lower TypeID as the sign of this creation.
             smeFormMsg.FormItems = smeFormMsg.FormItems || [];
 
             return smeFormMsg;
