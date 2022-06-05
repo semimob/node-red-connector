@@ -8,6 +8,7 @@ module.exports = function (RED) {
         RED.nodes.createNode(this, config);
 
         this.messageMode = config.messageMode;
+        this.pin = config.pin;
 
         var node = this;
         
@@ -17,8 +18,10 @@ module.exports = function (RED) {
             if (node.messageMode) {
                 var core = new Core();
                 var smeHelper = new core.SmeHelper();
-                var smeSendingBox = smeHelper.getSendingBox(msg);
 
+                var messagePin = smeHelper.isTrue(node.pin) ? 1 : null;
+
+                var smeSendingBox = smeHelper.getSendingBox(msg);
                 if (smeSendingBox) {
                     smeSendingBox.forEach(smeMsg => {
                         var deliveryOption = smeMsg.DeliveryOption;
@@ -26,6 +29,9 @@ module.exports = function (RED) {
                             deliveryOption = smeMsg.DeliveryOption = {};
 
                         deliveryOption.Mode = node.messageMode;
+
+                        if (messagePin != null || deliveryOption.Pin != null)
+                            deliveryOption.Pin = messagePin;
                     });
                 }
             }

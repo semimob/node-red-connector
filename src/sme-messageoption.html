@@ -4,19 +4,19 @@
         color: '#E2D96E',
         defaults: {
             messageMode: { value: "" },
+            pin: { value: "" },
         },
         inputs: 1,
         outputs: 1,
         align: 'left',
         icon: "font-awesome/fa-cog",
+        paletteLabel: 'message option',
         label: function () {
             if (this.messageMode) {
                 switch (this.messageMode) {
                     case 'Truncate': return 'option: Truncate';
                     case 'ReplaceLastMessage': return 'option: Update last message';
                     case 'ReplaceByReference': return 'option: Update by reference';
-                    case 'PublishToMoment': return 'option: Publbish to moment';
-                    case 'PublishToProfile': return 'option: Publish to profile';
                     default: return 'option: Invvalid';
                 }
             }
@@ -26,7 +26,6 @@
         labelStyle: function () {
             return this.messageMode ? "node_label_italic" : "";
         },
-        paletteLabel: 'message option',
     });
 </script>
 
@@ -37,8 +36,13 @@
             <option value="Truncate">Truncate the bucket</option>
             <option value="ReplaceLastMessage">Update the last message</option>
             <option value="ReplaceByReference">Update message by reference</option>
-            <option value="PublishToMoment">Publish to moment</option>
-            <option value="PublishToProfile">Publish to profile</option>
+        </select>
+    </div>
+    <div class="form-row">
+        <label for="node-input-pin"><i class="fa fa-cog"></i> <span> Pin the message</span></label>
+        <select id="node-input-pin">
+            <option value=""></option>
+            <option value="1">Yes</option>
         </select>
     </div>
 </script>

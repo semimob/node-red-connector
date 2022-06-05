@@ -19,14 +19,14 @@
             objectAvatar: { value: "" },
             objectAvatarType: { value: "str" },
 
-            objectVisible: { value: "1" },
-            objectVisibleType: { value: "str" },
+            objectVisible: { value: true },
+            objectVisibleType: { value: "bool" },
 
-            objectLocked: { value: "0" },
-            objectLockedType: { value: "str" },
+            objectLocked: { value: false },
+            objectLockedType: { value: "bool" },
 
-            objectReaction: { value: "1" },
-            objectReactionType: { value: "str" },
+            objectReaction: { value: true },
+            objectReactionType: { value: "bool" },
 
             objectTagType: { value: "Standard" },
             objectStandardTag: { value: "" },
@@ -82,14 +82,14 @@
             });
 
             $("#node-input-objectLocked").typedInput({
-                type: "str",
-                types: ["str", "msg", "flow", "global"],
+                type: "bool",
+                types: ["bool", "msg", "flow", "global"],
                 typeField: "#node-input-objectLockedType"
             });
 
             $("#node-input-objectReaction").typedInput({
-                type: "str",
-                types: ["str", "msg", "flow", "global"],
+                type: "bool",
+                types: ["bool", "msg", "flow", "global"],
                 typeField: "#node-input-objectReactionType"
             });
 
