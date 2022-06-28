@@ -1,0 +1,26 @@
+<script type="text/javascript">
+    RED.nodes.registerType('sme-tunnel',{
+        category: 'Tunneling',
+        color: '#a6bbcf',
+        defaults: {
+            site: {value:"", type:"sme-tunnel-config"},
+        },
+        inputs:1,
+        outputs:1,
+        icon: "font-awesome/fa-mobile",
+        label: function() {
+            return this.name || "tunnel";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="sme-tunnel">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i>Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i>Site</label>
+        <input type="text" id="node-input-site">
+    </div>   
+</script>
