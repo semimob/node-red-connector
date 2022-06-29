@@ -1,0 +1,49 @@
+<script type="text/javascript">
+    RED.nodes.registerType('sme-tunnel-config',{
+        category: 'config',
+        defaults: {
+            name: {value:"Node-Red Site"},
+        },
+        credentials: {
+            host: {value:"localhost", required:true},
+            port: {value:1880, required:true, validate:RED.validators.number()},
+            siteId: {value: ""},
+        },
+        label: function() {
+            return `${this.name} (${this.host}:${this.port}`;
+        }
+    });
+
+    function createSite() {
+        const reqData = {
+            "name": document.getElementById('node-config-input-name').value,
+            "remote_port": document.getElementById('node-config-input-port').value
+        }
+        $.post('sme-tunnels/create-site', reqData, function(resp){
+            console.log(resp);
+            $("#node-config-input-siteId").val(resp.id);
+        });
+    }
+</script>
+
+<script type="text/html" data-template-name="sme-tunnel-config">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-config-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-host"><i class="fa fa-bookmark"></i> Host</label>
+        <input type="text" id="node-config-input-host">
+    </div>
+    <div class="form-row">
+        <label for="node-config-input-port"><i class="fa fa-bookmark"></i> Port</label>
+        <input type="text" id="node-config-input-port">
+    </div>
+
+    <input type="hidden" id="node-config-input-siteId">
+
+    <br>
+    <button id="create-site-button" type="button" class="red-ui-button" onclick="createSite()">
+        <span id="create-site-button-text">Create site</span>
+    </button>
+</script>
