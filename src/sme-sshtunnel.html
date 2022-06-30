@@ -4,11 +4,9 @@
         color: '#E2D96E',
         defaults: {
             connector: { type: 'sme-connector', required: true },
-        },
-        credentials: {
-            name: { value: "localhost", required: true },
-            host: { value: "localhost", required: true },
-            port: { value: 1880, required: true, validate: RED.validators.number() },
+            name: { type: 'text', value: 'localhost', required: true },
+            host: { type: 'text', value: 'localhost', required: true },
+            port: { type: 'text', value: '1880', required: true, validate: RED.validators.number() },
         },
         inputs: 1,
         outputs: 1,
@@ -16,8 +14,8 @@
         icon: "font-awesome/fa-mobile",
         paletteLabel: 'tunnel creator',
         label: function () {
-            if (this.credentials.host) {
-                return 'tunnel: [' + (this.credentials.name || '') + '] ' + this.credentials.host + ':' + (this.credentials.port || '');
+            if (this.host) {
+                return 'create tunnel: [' + (this.name || '') + '] ' + this.host + ':' + (this.port || '');
             }
 
             return 'tunnel creator';

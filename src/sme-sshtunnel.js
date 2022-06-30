@@ -15,11 +15,11 @@ module.exports = function (RED) {
         
         node.log("Start establishing connection using ssh");
 
-        const localHost = node.siteSettings.host;
-        const localPort = node.siteSettings.port;
+        const localHost = node.host;
+        const localPort = node.port;
 
-        var remotePort = args.RemotePort;
-        var remoteServer = args.RemoteServer || 'tunn@tunnels.semilimes.net';
+        var remotePort = args.TunnelPort;
+        var remoteServer = args.TunnelServer || 'tunn@tunnels.semilimes.net';
         var tunnelUrl = args.TunnelUrl || `https://${args.SiteId}.tunnels.semilimes.net`;
 
         const params = ['-o StrictHostKeyChecking=no', '-R', `${remotePort}:${localHost}:${localPort.toString()}`, remoteServer, '-N'];
@@ -51,7 +51,6 @@ module.exports = function (RED) {
         if (!node.serving)
             return;
 
-        const siteId = node.siteSettings.credentials.siteId;
         node.status({ fill: "red", shape: "dot", text: "stopped" });
         node.log("Aborting tunnel connection");
         sshprocess.kill();
@@ -66,11 +65,10 @@ module.exports = function (RED) {
 
         var node = this;
 
-        node.name = this.credentials.name;
-        node.siteSettings = {
-            host: this.credentials.credentials.host,
-            port: this.credentials.port && parseInt(this.credentials.port),
-        };
+        node.name = config.name;
+        node.host = config.host;
+        node.port = config.port && parseInt(config.port),
+
         node.serving = false;
         node.sshProcess = null;
 
@@ -102,7 +100,7 @@ module.exports = function (RED) {
         node.on('input', function (msg, send, done) {
             send = send || function () { node.send.apply(node, arguments) };
 
-            if (this.siteSettings.host && this.siteSettings.port) {
+            if (node.name && node.host && node.port) {
                 var smeTunnelMsg = {
                     Type: "client",
                     TypeID: SmeTunnelClientMessageTypeID,
@@ -110,7 +108,8 @@ module.exports = function (RED) {
                     TunnelName: node.name,
                 };
 
-                smeConnector.sendMessage(smeTunnelMsg, false);
+                node.log(`Create tunnel: ${node.name}`);
+                smeConnector.postMessage(smeTunnelMsg);
 
                 send(msg, false);
             }
