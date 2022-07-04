@@ -75,7 +75,7 @@ module.exports = function (RED) {
         //	Listener for message...
         smeConnector.addMessageListener(smeMsg => {
             //  Check if it is Tunnel Form Submission.
-            if (smeMsg.TypeID == SmeTunnelServerMessageTypeID) {
+            if ((smeMsg.TypeID || '').toUpperCase() == SmeTunnelServerMessageTypeID) {
                 if (smeMsg.TunnelName == node.name) {
                     var command = smeMsg.Command;
                     switch (command) {
