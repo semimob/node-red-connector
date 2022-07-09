@@ -9,6 +9,21 @@ module.exports = function (RED) {
     const SmeTunnelClientMessageTypeID = 'AE32A0C6-D7FB-4671-A598-8C4F30BFBFD1';
     const SmeTunnelServerMessageTypeID = 'F5158B75-D63D-4318-9B2F-8FD237E0BA68';
 
+    function sendTunnelInfo(node, info) {
+        if (node && info) {
+            var smeTunnelMsg = {
+                Type: "client",
+                TypeID: SmeTunnelClientMessageTypeID,
+                Command: 'info',
+                TunnelName: node.name,
+                Body: info,
+            };
+
+            node.log(info);
+            node.smeConnector.postMessage(smeTunnelMsg);
+        }
+    }
+
     function startTunnel(node, args) {
         if (node.serving)
             return;
@@ -24,16 +39,28 @@ module.exports = function (RED) {
 
         const params = ['-o StrictHostKeyChecking=no', '-R', `${remotePort}:${localHost}:${localPort.toString()}`, remoteServer, '-N'];
 
-        sshprocess = child_process.spawn("ssh", params);
-        node.status({ fill: "green", shape: "dot", text: "connected" });
-        node.sshProcess = sshprocess;
-        node.serving = true;
+        try {
+            var sshprocess = child_process.spawn("ssh", params);
+            node.sshprocess = sshprocess;
+            node.status({ fill: "green", shape: "dot", text: "connected" });
+            node.sshProcess = sshprocess;
+            node.serving = true;
 
-        sshprocess.on('close', (code, signal) => {
-            node.status({ fill: "red", shape: "dot", text: "stopped" });
-            node.log("Tunnel connection aborted");
-            node.serving = false;
-        });
+            sshprocess.on('close', (code, signal) => {
+                node.status({ fill: "red", shape: "dot", text: "stopped" });
+                sendTunnelInfo(node, 'Tunnel connection aborted');
+                node.serving = false;
+            });
+
+            sshprocess.on('error', (error) => {
+                node.status({ fill: "red", shape: "dot", text: "error" });
+                sendTunnelInfo(node, `${error}`);
+            });
+        }
+        catch (ex) {
+            node.status({ fill: "red", shape: "dot", text: "ssh failed" });
+            sendTunnelInfo(node, `Failed to create ssh tunnel: ${ex}`);
+        }
 
         node.on('close', function () {
             stopTunnel(node);
@@ -52,8 +79,12 @@ module.exports = function (RED) {
             return;
 
         node.status({ fill: "red", shape: "dot", text: "stopped" });
-        node.log("Aborting tunnel connection");
-        sshprocess.kill();
+        sendTunnelInfo(node, 'Aborting tunnel connection');
+        
+        if (node.sshprocess) {
+            node.sshprocess.kill();
+            node.sshprocess = null;
+        }
     }
 
     function SmeNode(config) {
@@ -62,6 +93,8 @@ module.exports = function (RED) {
         var smeConnector = config.connector && RED.nodes.getNode(config.connector);
         if (!smeConnector)
             return;
+
+        this.smeConnector = smeConnector;
 
         var node = this;
 
