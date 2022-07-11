@@ -56,11 +56,14 @@
       "sme-contactpicker": "src/form-items/sme-contactpicker.js",
       "sme-conversationpicker": "src/form-items/sme-conversationpicker.js",
       "sme-httprequest": "src/sme-httprequest.js",
-      "sme-httpresponse": "src/sme-httpresponse.js"
+      "sme-httpresponse": "src/sme-httpresponse.js",
+      "sme-tunnel-config": "src/sme-tunnel-config.js",
+      "sme-tunnel": "src/sme-tunnel.js"
     }
   },
   "dependencies": {
     "ws": "^8.2.3",
-    "axios": "^0.27.2"
+    "axios": "^0.27.2",
+    "ssh2": "^1.11.0"
   }
 }

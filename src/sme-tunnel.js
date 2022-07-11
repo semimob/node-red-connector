@@ -1,7 +1,51 @@
 module.exports = function(RED) {
     const axios = require('axios').default;
+    const { Client } = require('ssh2');
+    const net = require('net');
 
-    const child_process = require('child_process');
+    const username = 'tunn';
+    const tunnelHost = 'tunnels.semilimes.net';
+    const sshPort = 22;
+
+    function createConnection(node, localAddr, localPort) {
+        const conn = new Client();
+        conn
+            .on('connect', function() {
+                node.log('SSH Connection :: connect')
+            })
+            .on('tcp connection', function(info, accept) {
+                const stream = accept();
+
+                stream.on('error', function(err) {
+                    console.log(`TCP :: error : ${err}`);
+                });
+
+                stream.on('close', function(had_err) {
+                    console.log(`TCP :: closed${had_err ? ' : had error' : ''}`);
+                });
+
+                stream.pause();
+
+                const socket = net.connect(localPort, localAddr, function() {
+                    stream.pipe(socket);
+                    socket.pipe(stream);
+                    stream.resume();
+                });
+            })
+            .on('error', function(err) {
+                node.log(`SSH Connection :: error : ${err}`)
+            })
+            .on('end', function() {
+                node.log('SSH Connection :: end')
+            })
+            .on('close', function(had_err) {
+                node.status({fill:"red",shape:"dot",text:"stopped"});
+                node.log(`SSH Connection :: closed${had_err ? ' : had error' : ''}`)
+                node.serving = false;
+            })
+        return conn;
+    }
+    
 
     function startTunnel(node, msg) {
         node.log("Start establishing connection using ssh");
@@ -10,23 +54,32 @@ module.exports = function(RED) {
         const host = node.siteSettings.credentials.host;
         const localPort = node.siteSettings.credentials.port;
         const remotePort = node.siteSettings.remotePort;
-        const params = ['-o StrictHostKeyChecking=no', '-R', `${remotePort}:${host}:${localPort.toString()}`, 'tunn@tunnels.semilimes.net', '-N'];
 
-        sshprocess = child_process.spawn("ssh", params);
+        const sshConn = createConnection(node, host, localPort);
+        const connSettings = {
+            host: tunnelHost,
+            port: sshPort,
+            username
+        };
+
+        sshConn.on('ready', function() {
+            sshConn.forwardIn('0.0.0.0', remotePort, function(err) {
+                if (err) {
+                    throw err;
+                };
+                node.log('SSH Connection :: started forwarding');
+            })
+        })
+
+        sshConn.connect(connSettings);
+        node.sshConn = sshConn;
         node.status({fill:"green",shape:"dot",text:"connected"});
-        node.sshProcess = sshprocess;
         node.serving = true;
 
-        axios.post(`https://tunnels.semilimes.net/api/sites/${siteId}/connect/`);
+        axios.post(`https://${tunnelHost}/api/sites/${siteId}/connect/`);
 
-        msg.tunnelurl = `https://${siteId}.tunnels.semilimes.net`;
+        msg.tunnelurl = `https://${siteId}.${tunnelHost}`;
         node.send(msg);
-
-        sshprocess.on('close', (code, signal) => {
-            node.status({fill:"red",shape:"dot",text:"stopped"});
-            node.log("Tunnel connection aborted");
-            node.serving = false;
-        });
 
         node.on('close', function() {
             stopServing(node);
@@ -37,7 +90,7 @@ module.exports = function(RED) {
         if (!node.serving) {
             const siteId = node.siteSettings.credentials.siteId;
             node.log(`Trying to allocate remote port for site: ${siteId}`);
-            axios.post(`https://tunnels.semilimes.net/api/sites/${siteId}/request_port/`)
+            axios.post(`https://${tunnelHost}/api/sites/${siteId}/request_port/`)
             .then(response => {
                 // The port is remote for client but local for the server
                 node.siteSettings.remotePort = response.data.local_port;
@@ -53,10 +106,9 @@ module.exports = function(RED) {
     function stopServing(node) {
         if (node.serving) {
             const siteId = node.siteSettings.credentials.siteId;
-            node.status({fill:"red",shape:"dot",text:"stopped"});
             node.log("Aborting tunnel connection");
-            sshprocess.kill();
-            axios.post(`https://tunnels.semilimes.net/api/sites/${siteId}/disconnect/`)
+            node.sshConn.end();
+            axios.post(`https://${tunnelHost}/api/sites/${siteId}/disconnect/`)
         }
     }
 
