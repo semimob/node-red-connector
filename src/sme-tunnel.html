@@ -1,6 +1,6 @@
 <script type="text/javascript">
     RED.nodes.registerType('sme-tunnel',{
-        category: 'Tunneling',
+        category: 'semilimes',
         color: '#a6bbcf',
         defaults: {
             site: {value:"", type:"sme-tunnel-config"},
@@ -8,6 +8,7 @@
         inputs:1,
         outputs:1,
         icon: "font-awesome/fa-mobile",
+        paletteLabel: 'tunnel',
         label: function() {
             return this.name || "tunnel";
         }
