@@ -1,0 +1,50 @@
+<script type="text/javascript">
+    RED.nodes.registerType('sme-sshtunnel', {
+        category: 'semilimes',
+        color: '#E2D96E',
+        defaults: {
+            connector: { type: 'sme-connector', required: true },
+            name: { type: 'text', value: 'localhost', required: true },
+            host: { type: 'text', value: 'localhost', required: true },
+            port: { type: 'text', value: '1880', required: true, validate: RED.validators.number() },
+        },
+        inputs: 1,
+        outputs: 1,
+        align: 'left',
+        icon: "font-awesome/fa-mobile",
+        paletteLabel: 'tunnel creator',
+        label: function () {
+            if (this.host) {
+                return 'create tunnel: [' + (this.name || '') + '] ' + this.host + ':' + (this.port || '');
+            }
+
+            return 'tunnel creator';
+        },
+        labelStyle: function () {
+            return this.credentials.host ? "node_label_italic" : "";
+        }
+    });
+</script>
+
+<script type="text/html" data-template-name="sme-sshtunnel">
+    <div class="form-row">
+        <label for="node-input-connector"><i class="fa fa-cog"></i> Connector</label>
+        <input type="text" id="node-input-connector" placeholder="semilimes connector" />
+    </div>
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-cog"></i> Tunnel name</label>
+        <input type="text" id="node-input-name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-host"><i class="fa fa-cog"></i> Host</label>
+        <input type="text" id="node-input-host" placeholder="Host of the tunnel.">
+    </div>
+    <div class="form-row">
+        <label for="node-input-port"><i class="fa fa-cog"></i> Port</label>
+        <input type="text" id="node-input-port" placeholder="Port of the tunnel.">
+    </div>
+</script>
+
+<script type="text/html" data-help-name="sme-sshtunnel">
+    <p>Create tunnel.</p>
+</script>
