@@ -1,0 +1,49 @@
+<script type="text/javascript">
+    RED.nodes.registerType('sme-nfcreader', {
+        category: 'semilimes',
+        color: '#E6E0F8',
+        defaults: {
+            name: { value: "" },
+            title: { value: "Title" },
+            buttonText: { value: "Read NFC" },
+            required: { value: "0" }
+        },
+        inputs: 1,
+        outputs: 1,
+        align: 'left',
+        icon: "font-awesome/fa-ticket",
+        label: function () {
+            return this.name || 'NFC reader';
+        },
+        labelStyle: function () {
+            return this.name ? "node_label_italic" : "";
+        },
+        paletteLabel: 'NFC reader'
+    });
+</script>
+
+<script type="text/html" data-template-name="sme-nfcreader">
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+    <div class="form-row">
+        <label for="node-input-title"><i class="fa fa-tag"></i> Title</label>
+        <input type="text" id="node-input-title" placeholder="This title is above the time picker.">
+    </div>
+    <div class="form-row">
+        <label for="node-input-buttonText"><i class="fa fa-tag"></i> Button Title</label>
+        <input type="text" id="node-input-buttonText" placeholder="Title of the reader button.">
+    </div>
+    <div class="form-row">
+        <label for="node-input-required"><i class="fa fa-cog"></i> <span> Required</span></label>
+        <select id="node-input-required">
+            <option value="1">True</option>
+            <option value="0">False</option>
+        </select>
+    </div>
+</script>
+
+<script type="text/html" data-help-name="sme-nfcreader">
+    <p>Create NFC reader for user to read NFC cards.</p>
+</script>
