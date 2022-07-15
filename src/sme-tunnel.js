@@ -2,6 +2,7 @@ module.exports = function(RED) {
     const axios = require('axios').default;
     const { Client } = require('ssh2');
     const net = require('net');
+    const fs = require('fs');
 
     const username = 'tunn';
     const tunnelHost = 'tunnels.semilimes.net';
@@ -50,6 +51,7 @@ module.exports = function(RED) {
     function startTunnel(node, msg) {
         node.log("Start establishing connection using ssh");
 
+        const privateKey = fs.readFileSync('sme_rsa', 'utf8');
         const siteId = node.siteSettings.credentials.siteId;
         const host = node.siteSettings.credentials.host;
         const localPort = node.siteSettings.credentials.port;
@@ -59,7 +61,8 @@ module.exports = function(RED) {
         const connSettings = {
             host: tunnelHost,
             port: sshPort,
-            username
+            username,
+            privateKey
         };
 
         sshConn.on('ready', function() {
@@ -140,10 +143,7 @@ module.exports = function(RED) {
                         node.log(`Uknown command: ${command}`)
                 }
             }
-
-
         });
-        
     }
 
     RED.nodes.registerType("sme-tunnel", TunnelNode);

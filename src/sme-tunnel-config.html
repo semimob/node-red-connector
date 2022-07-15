@@ -10,19 +10,26 @@
             siteId: {value: ""},
         },
         label: function() {
-            return `${this.name} (${this.host}:${this.port}`;
+            return `${this.name} (${this.host}:${this.port})`;
         }
     });
 
     function createSite() {
-        const reqData = {
-            "name": document.getElementById('node-config-input-name').value,
-            "remote_port": document.getElementById('node-config-input-port').value
-        }
-        $.post('sme-tunnels/create-site', reqData, function(resp){
-            console.log(resp);
-            $("#node-config-input-siteId").val(resp.id);
+        $.get('sme-tunnels/get-certificate', function(resp) {
+            const { pubKey } = resp;
+            const reqData = {
+                "name": document.getElementById('node-config-input-name').value,
+                "remote_port": document.getElementById('node-config-input-port').value,
+                "ssh_public_key": pubKey
+            }
+            $.post('sme-tunnels/create-site', reqData, function(resp){
+                console.log(resp);
+                $("#node-config-input-siteId").val(resp.id);
+            });
+
         });
+
+
     }
 </script>
 
