@@ -1,0 +1,54 @@
+[
+    {
+        "id": "33243d4442855052",
+        "type": "tab",
+        "label": "Local Node-RED Tunnel",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "ed6cf12c36bda5fb",
+        "type": "inject",
+        "z": "33243d4442855052",
+        "name": "",
+        "props": [
+            {
+                "p": "Command",
+                "v": "Start",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 170,
+        "y": 180,
+        "wires": [
+            [
+                "b448379c6fdedcd3"
+            ]
+        ]
+    },
+    {
+        "id": "b448379c6fdedcd3",
+        "type": "sme-sshtunnel",
+        "z": "33243d4442855052",
+        "connector": "d41b83de71e38c79",
+        "name": "localhost",
+        "host": "localhost",
+        "port": "1880",
+        "x": 460,
+        "y": 180,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "d41b83de71e38c79",
+        "type": "sme-connector",
+        "name": "Localhost"
+    }
+]

@@ -12,29 +12,29 @@ module.exports = function (RED) {
     const SmeTunnelClientMessageTypeID = 'AE32A0C6-D7FB-4671-A598-8C4F30BFBFD1';
     const SmeTunnelServerMessageTypeID = 'F5158B75-D63D-4318-9B2F-8FD237E0BA68';
 
-    function generateCA() {
+    function generateCA(id) {
         const rsa = forge.pki.rsa;
 
         const keypair = rsa.generateKeyPair({ bits: 4096 });
         const sshPubKey = forge.ssh.publicKeyToOpenSSH(keypair.publicKey);
         const sshPrivateKey = forge.ssh.privateKeyToOpenSSH(keypair.privateKey);
 
-        fs.writeFileSync('sme_rsa', sshPrivateKey);
-        fs.writeFileSync('sme_rsa.pub', sshPubKey);
-        fs.chmodSync('sme_rsa', '400')
+        fs.writeFileSync(`sme_node_${id}_rsa`, sshPrivateKey);
+        fs.writeFileSync(`sme_node_${id}_rsa.pub`, sshPubKey);
+        fs.chmodSync(`sme_node_${id}_rsa`, '400')
     }
 
-    function getCA() {
-        if (!(fs.existsSync('sme_rsa') && fs.existsSync('sme_rsa.pub'))) {
-            generateCA();
+    function getCA(id) {
+        if (!(fs.existsSync(`sme_node_${id}_rsa`) && fs.existsSync(`sme_node_${id}_rsa.pub`))) {
+            generateCA(id);
         }
 
-        const pubKey = fs.readFileSync('sme_rsa.pub', 'utf-8');
+        const pubKey = fs.readFileSync(`sme_node_${id}_rsa.pub`, 'utf-8');
         return pubKey
     }
 
-    function getPrivateKey() {
-        const privateKey = fs.readFileSync('sme_rsa', 'utf8');
+    function getPrivateKey(id) {
+        const privateKey = fs.readFileSync(`sme_node_${id}_rsa`, 'utf8');
         return privateKey;
     }
 
@@ -169,8 +169,8 @@ module.exports = function (RED) {
         node.name = config.name;
         node.host = config.host;
         node.port = config.port && parseInt(config.port);
-        node.publicKey = getCA();
-        node.privateKey = getPrivateKey();
+        node.publicKey = getCA(node.id);
+        node.privateKey = getPrivateKey(node.id);
 
         node.serving = false;
         node.sshConn = null;
