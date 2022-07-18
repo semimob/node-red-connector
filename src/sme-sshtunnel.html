@@ -24,6 +24,22 @@
             return this.credentials.host ? "node_label_italic" : "";
         }
     });
+
+    function createTunnel() {
+        $.get('sme-tunnels/get-certificate', function (resp) {
+            const { pubKey } = resp;
+            const reqData = {
+                "name": document.getElementById('node-config-input-name').value,
+                "remote_port": document.getElementById('node-config-input-port').value,
+                "ssh_public_key": pubKey
+            }
+            $.post('sme-tunnels/create-site', reqData, function (resp) {
+                console.log(resp);
+                $("#node-config-input-siteId").val(resp.id);
+            });
+
+        });
+    }
 </script>
 
 <script type="text/html" data-template-name="sme-sshtunnel">
@@ -31,10 +47,14 @@
         <label for="node-input-connector"><i class="fa fa-cog"></i> Connector</label>
         <input type="text" id="node-input-connector" placeholder="semilimes connector" />
     </div>
+
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-cog"></i> Tunnel name</label>
         <input type="text" id="node-input-name">
     </div>
+    <div style="font-size: smaller;max-width:500px;">Name must be unique.</div>
+    <br />
+
     <div class="form-row">
         <label for="node-input-host"><i class="fa fa-cog"></i> Host</label>
         <input type="text" id="node-input-host" placeholder="Host of the tunnel.">

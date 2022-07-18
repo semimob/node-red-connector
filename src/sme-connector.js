@@ -36,6 +36,28 @@ module.exports = function (RED) {
         var apiClient = new core.SmeApiClient(serverApiURL);
         var webSocket = new core.SmeWebSocket(serverWsURL);
 
+        var pjson = require('./../package.json');
+
+        webSocket.addStatusListener(status => {
+            switch (status) {
+                case 'connected': {
+                    webSocket.send({
+                        TypeID: 'A2A9468D-92AB-4176-B883-233FF53DDAFD',
+                        Platform: 'Node-RED',
+                        Versions: {
+                            Version: pjson.version,
+                            NodeVersion: process.versions.node,
+                            NodeREDVersion: RED.version(),
+                        },
+                    });
+                    break;
+                }
+                default: {
+                    break;
+                }
+            }
+        });
+
         var node = this;
 
         node.on('close', function (removed, done) {

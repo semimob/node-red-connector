@@ -1,15 +1,82 @@
 "use strict";
 
 const { config } = require('process');
+const { debug } = require('util');
 const Core = require('./sme-core.js');
 
 module.exports = function (RED) {
-    const child_process = require('child_process');
+    const { Client } = require('ssh2');
+    const forge = require('node-forge');
+    const fs = require('fs');
 
     const SmeTunnelClientMessageTypeID = 'AE32A0C6-D7FB-4671-A598-8C4F30BFBFD1';
     const SmeTunnelServerMessageTypeID = 'F5158B75-D63D-4318-9B2F-8FD237E0BA68';
 
-    function sendTunnelInfo(node, info) {
+    function generateCA() {
+        const rsa = forge.pki.rsa;
+
+        const keypair = rsa.generateKeyPair({ bits: 4096 });
+        const sshPubKey = forge.ssh.publicKeyToOpenSSH(keypair.publicKey);
+        const sshPrivateKey = forge.ssh.privateKeyToOpenSSH(keypair.privateKey);
+
+        fs.writeFileSync('sme_rsa', sshPrivateKey);
+        fs.writeFileSync('sme_rsa.pub', sshPubKey);
+        fs.chmodSync('sme_rsa', '400')
+    }
+
+    function getCA() {
+        if (!(fs.existsSync('sme_rsa') && fs.existsSync('sme_rsa.pub'))) {
+            generateCA();
+        }
+
+        const pubKey = fs.readFileSync('sme_rsa.pub', 'utf-8');
+        return pubKey
+    }
+
+    function getPrivateKey() {
+        const privateKey = fs.readFileSync('sme_rsa', 'utf8');
+        return privateKey;
+    }
+
+    function createConnection(node, localAddr, localPort) {
+        const conn = new Client();
+        conn.on('connect', function () {
+                node.log('SSH2::connect')
+            })
+            .on('tcp connection', function (info, accept) {
+                const stream = accept();
+
+                stream.on('error', function (err) {
+                    console.log(`TCP :: error : ${err}`);
+                });
+
+                stream.on('close', function (had_err) {
+                    console.log(`TCP :: closed${had_err ? ' : had error' : ''}`);
+                });
+
+                stream.pause();
+
+                const socket = net.connect(localPort, localAddr, function () {
+                    stream.pipe(socket);
+                    socket.pipe(stream);
+                    stream.resume();
+                });
+            })
+            .on('error', function (err) {
+                node.log(`SSH2::error : ${err}`)
+            })
+            .on('end', function () {
+                node.log('SSH2::end')
+            })
+            .on('close', function (had_err) {
+                node.status({ fill: "red", shape: "dot", text: "stopped" });
+                node.log(`SSH2::closed${had_err ? ' : had error' : ''}`)
+                node.serving = false;
+            })
+        return conn;
+    }
+
+    function writeTunnelServerLog(node, info) {
         if (node && info) {
             var smeTunnelMsg = {
                 Type: "client",
@@ -32,35 +99,30 @@ module.exports = function (RED) {
 
         const localHost = node.host;
         const localPort = node.port;
+        const privateKey = node.privateKey;
 
-        var remotePort = args.TunnelPort;
-        var remoteServer = args.TunnelServer || 'tunn@tunnels.semilimes.net';
+        var sshPort = args.SshPort;
+        var sshServer = args.SshServer || 'tunn@tunnels.semilimes.net';
+        var sshUsername = args.SshUsername || 'tunn';
         var tunnelUrl = args.TunnelUrl || `https://${args.SiteId}.tunnels.semilimes.net`;
+        var remotePort = args.RemotePort;
 
-        const params = ['-o StrictHostKeyChecking=no', '-R', `${remotePort}:${localHost}:${localPort.toString()}`, remoteServer, '-N'];
+        const sshConn = createConnection(node, localHost, localPort);
 
-        try {
-            var sshprocess = child_process.spawn("ssh", params);
-            node.sshprocess = sshprocess;
-            node.status({ fill: "green", shape: "dot", text: "connected" });
-            node.sshProcess = sshprocess;
-            node.serving = true;
+        sshConn.on('ready', function () {
+            sshConn.forwardIn('0.0.0.0', remotePort, function (err) {
+                if (err) {
+                    throw err;
+                };
+                node.log('SSH2::started forwarding');
+            })
+        })
 
-            sshprocess.on('close', (code, signal) => {
-                node.status({ fill: "red", shape: "dot", text: "stopped" });
-                sendTunnelInfo(node, 'Tunnel connection aborted');
-                node.serving = false;
-            });
+        sshConn.connect({ host: sshServer, port: sshPort, username: sshUsername, privateKey: privateKey });
 
-            sshprocess.on('error', (error) => {
-                node.status({ fill: "red", shape: "dot", text: "error" });
-                sendTunnelInfo(node, `${error}`);
-            });
-        }
-        catch (ex) {
-            node.status({ fill: "red", shape: "dot", text: "ssh failed" });
-            sendTunnelInfo(node, `Failed to create ssh tunnel: ${ex}`);
-        }
+        node.sshConn = sshConn;
+        node.status({ fill: "green", shape: "dot", text: "connected" });
+        node.serving = true;
 
         node.on('close', function () {
             stopTunnel(node);
@@ -77,14 +139,20 @@ module.exports = function (RED) {
     function stopTunnel(node) {
         if (!node.serving)
             return;
+        
+        if (node.sshConn) {
+            node.sshConn.end();
+            node.sshConn = null;
+        }
 
         node.status({ fill: "red", shape: "dot", text: "stopped" });
-        sendTunnelInfo(node, 'Aborting tunnel connection');
-        
-        if (node.sshprocess) {
-            node.sshprocess.kill();
-            node.sshprocess = null;
-        }
+
+        smeConnector.postMessage({
+            Type: "client",
+            TypeID: SmeTunnelClientMessageTypeID,
+            Command: 'disconnect',
+            TunnelName: node.name,
+        });
     }
 
     function SmeNode(config) {
@@ -100,30 +168,34 @@ module.exports = function (RED) {
 
         node.name = config.name;
         node.host = config.host;
-        node.port = config.port && parseInt(config.port),
+        node.port = config.port && parseInt(config.port);
+        node.publicKey = getCA();
+        node.privateKey = getPrivateKey();
 
         node.serving = false;
-        node.sshProcess = null;
+        node.sshConn = null;
 
         //	Listener for message...
         smeConnector.addMessageListener(smeMsg => {
             //  Check if it is Tunnel Form Submission.
             if ((smeMsg.TypeID || '').toUpperCase() == SmeTunnelServerMessageTypeID) {
                 if (smeMsg.TunnelName == node.name) {
-                    var command = smeMsg.Command;
+                    var command = (smeMsg.Command || '').toUpperCase();
+                    node.log(`Received server command: ${command}`);
+
                     switch (command) {
-                        case 'start':
+                        case 'INITIALIZED':
+                            var connectionInfo = smeMsg.ConnectionInfo || {};
                             startTunnel(node, {
-                                RemotePort: smeMsg.TunnelPort,
-                                RemoteServer: smeMsg.TunnelServer,
-                                TunnelUrl: smeMsg.TunnelUrl,
+                                SshPort: connectionInfo.SshPort,
+                                SshServer: connectionInfo.SshServer,
+                                SshUsername: connectionInfo.SshUsername,
+                                RemotePort: connectionInfo.RemotePort,
+                                TunnelUrl: connectionInfo.TunnelUrl
                             });
                             break;
-                        case 'stop':
-                            stopTunnel(node);
-                            break;
                         default:
-                            node.log(`Uknown command: ${command}`)
+                            break;
                     }
                 }
             }
@@ -134,17 +206,39 @@ module.exports = function (RED) {
             send = send || function () { node.send.apply(node, arguments) };
 
             if (node.name && node.host && node.port) {
-                var smeTunnelMsg = {
-                    Type: "client",
-                    TypeID: SmeTunnelClientMessageTypeID,
-                    Command: 'create',
-                    TunnelName: node.name,
-                };
+                switch ((msg.Command || '').toUpperCase()) {
+                    case 'START':
+                        node.log(`Initialize tunnel: ${node.name}`);
+                        smeConnector.postMessage({
+                            Type: "client",
+                            TypeID: SmeTunnelClientMessageTypeID,
+                            Command: 'initialize',
+                            TunnelName: node.name,
+                            RemotePort: node.port,  // Suggestion only.
+                            PublicKey: node.publicKey,
+                        });
 
-                node.log(`Create tunnel: ${node.name}`);
-                smeConnector.postMessage(smeTunnelMsg);
+                        send(msg, false);
+                        break;
 
-                send(msg, false);
+                    case 'STOP':
+                        stopTunnel(node);
+
+                        node.log(`Disconnect tunnel: ${node.name}`);
+                        smeConnector.postMessage({
+                            Type: "client",
+                            TypeID: SmeTunnelClientMessageTypeID,
+                            Command: 'disconnect',
+                            TunnelName: node.name,
+                        });
+
+                        send(msg, false);
+                        break;
+
+                    default:
+                        node.log(`Invalid tunnel command: ${msg.Command}`);
+                        break;
+                }
             }
 
             done && done();
