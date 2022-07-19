@@ -54,6 +54,10 @@ module.exports = function (RED) {
                     console.log(`TCP :: closed${had_err ? ' : had error' : ''}`);
                 });
 
+                stream.on('data', (data) => {
+                    console.log('TCP :: DATA: ' + data);
+                });
+
                 stream.pause();
 
                 const socket = net.connect(localPort, localAddr, function () {
@@ -82,7 +86,7 @@ module.exports = function (RED) {
                 Type: "client",
                 TypeID: SmeTunnelClientMessageTypeID,
                 Command: 'info',
-                TunnelName: node.name,
+                TunnelName: node.id,
                 Body: info,
             };
 
@@ -151,7 +155,7 @@ module.exports = function (RED) {
             Type: "client",
             TypeID: SmeTunnelClientMessageTypeID,
             Command: 'disconnect',
-            TunnelName: node.name,
+            TunnelName: node.id,
         });
     }
 
@@ -166,7 +170,6 @@ module.exports = function (RED) {
 
         var node = this;
 
-        node.name = config.name;
         node.host = config.host;
         node.port = config.port && parseInt(config.port);
         node.publicKey = getCA(node.id);
@@ -179,7 +182,7 @@ module.exports = function (RED) {
         smeConnector.addMessageListener(smeMsg => {
             //  Check if it is Tunnel Form Submission.
             if ((smeMsg.TypeID || '').toUpperCase() == SmeTunnelServerMessageTypeID) {
-                if (smeMsg.TunnelName == node.name) {
+                if (smeMsg.TunnelName == node.id) {
                     var command = (smeMsg.Command || '').toUpperCase();
                     node.log(`Received server command: ${command}`);
 
@@ -205,15 +208,15 @@ module.exports = function (RED) {
         node.on('input', function (msg, send, done) {
             send = send || function () { node.send.apply(node, arguments) };
 
-            if (node.name && node.host && node.port) {
+            if (node.host && node.port) {
                 switch ((msg.Command || '').toUpperCase()) {
                     case 'START':
-                        node.log(`Initialize tunnel: ${node.name}`);
+                        node.log(`Initialize tunnel: ${node.id}`);
                         smeConnector.postMessage({
                             Type: "client",
                             TypeID: SmeTunnelClientMessageTypeID,
                             Command: 'initialize',
-                            TunnelName: node.name,
+                            TunnelName: node.id,
                             RemotePort: node.port,  // Suggestion only.
                             PublicKey: node.publicKey,
                         });
@@ -224,12 +227,12 @@ module.exports = function (RED) {
                     case 'STOP':
                         stopTunnel(node);
 
-                        node.log(`Disconnect tunnel: ${node.name}`);
+                        node.log(`Disconnect tunnel: ${node.id}`);
                         smeConnector.postMessage({
                             Type: "client",
                             TypeID: SmeTunnelClientMessageTypeID,
                             Command: 'disconnect',
-                            TunnelName: node.name,
+                            TunnelName: node.id,
                         });
 
                         send(msg, false);
