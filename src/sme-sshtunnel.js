@@ -8,6 +8,7 @@ module.exports = function (RED) {
     const { Client } = require('ssh2');
     const forge = require('node-forge');
     const fs = require('fs');
+    const net = require('net');
 
     const SmeTunnelClientMessageTypeID = 'AE32A0C6-D7FB-4671-A598-8C4F30BFBFD1';
     const SmeTunnelServerMessageTypeID = 'F5158B75-D63D-4318-9B2F-8FD237E0BA68';
@@ -40,53 +41,60 @@ module.exports = function (RED) {
 
     function createConnection(node, localAddr, localPort) {
         const conn = new Client();
+
         conn.on('connect', function () {
-                node.log('SSH2::connect')
-            })
-            .on('tcp connection', function (info, accept) {
-                const stream = accept();
+            node.log('SSH2::connect')
+            writeTunnelServerLog(node, 'SSH2 connected.');
+        })
+        .on('tcp connection', function (info, accept) {
+            const stream = accept();
 
-                stream.on('error', function (err) {
-                    console.log(`TCP :: error : ${err}`);
-                });
+            stream.on('error', function (err) {
+                console.log(`TCP error: ${err}`);
+            });
 
-                stream.on('close', function (had_err) {
-                    console.log(`TCP :: closed${had_err ? ' : had error' : ''}`);
-                });
-                
-                stream.pause();
+            stream.on('close', function (had_err) {
+                console.log(`TCP closed${had_err ? ': had error' : ''}`);
+            });
 
-                const socket = net.connect(localPort, localAddr, function () {
-                    stream.pipe(socket);
-                    socket.pipe(stream);
-                    stream.resume();
-                });
-            })
-            .on('error', function (err) {
-                node.log(`SSH2::error : ${err}`)
-            })
-            .on('end', function () {
-                node.log('SSH2::end')
-            })
-            .on('close', function (had_err) {
-                node.status({ fill: "red", shape: "dot", text: "stopped" });
-                node.log(`SSH2::closed${had_err ? ' : had error' : ''}`)
-                node.serving = false;
-            })
+            //stream.on('data', (data) => {
+            //    console.log('TCP :: DATA: ' + data);
+            //});
+
+            stream.pause();
+
+            const socket = net.connect(localPort, localAddr, function () {
+                stream.pipe(socket);
+                socket.pipe(stream);
+                stream.resume();
+            });
+        })
+        .on('error', function (err) {
+            writeTunnelServerLog(node, `SSH2 error: ${err}`);
+        })
+        .on('end', function () {
+            writeTunnelServerLog(node, 'SSH2 end.');
+        })
+        .on('close', function (had_err) {
+            node.status({ fill: "red", shape: "dot", text: "stopped" });
+            node.serving = false;
+            writeTunnelServerLog(node, `SSH2 closed${had_err ? ' : had error' : ''}`);
+        });
+
         return conn;
     }
 
-    function writeTunnelServerLog(node, info) {
-        if (node && info) {
+    function writeTunnelServerLog(node, log) {
+        if (node && log) {
             var smeTunnelMsg = {
                 Type: "client",
                 TypeID: SmeTunnelClientMessageTypeID,
                 Command: 'info',
                 TunnelName: node.id,
-                Body: info,
+                Body: log,
             };
 
-            node.log(info);
+            node.log(log);
             node.smeConnector.postMessage(smeTunnelMsg);
         }
     }
@@ -114,7 +122,8 @@ module.exports = function (RED) {
                 if (err) {
                     throw err;
                 };
-                node.log('SSH2::started forwarding');
+                
+                writeTunnelServerLog(node, `SSH2 started forwarding from remote port: ${remotePort}`);                
             })
         })
 
