@@ -8,6 +8,7 @@ module.exports = function (RED) {
     const { Client } = require('ssh2');
     const forge = require('node-forge');
     const fs = require('fs');
+    const net = require('net');
 
     const SmeTunnelClientMessageTypeID = 'AE32A0C6-D7FB-4671-A598-8C4F30BFBFD1';
     const SmeTunnelServerMessageTypeID = 'F5158B75-D63D-4318-9B2F-8FD237E0BA68';
@@ -107,6 +108,10 @@ module.exports = function (RED) {
         var tunnelUrl = args.TunnelUrl;
         var remotePort = args.RemotePort;
 
+        node.log("Start tunnel")
+        node.log("Remote port: " + remotePort)
+        node.log("Local port: " + localPort)
+
         const sshConn = createConnection(node, localHost, localPort);
 
         sshConn.on('ready', function () {
@@ -197,6 +202,8 @@ module.exports = function (RED) {
         //  Send message to semilimes to create tunnel.
         node.on('input', function (msg, send, done) {
             send = send || function () { node.send.apply(node, arguments) };
+
+            node.log("Command: " + msg.Command);
 
             if (node.host && node.port) {
                 switch ((msg.Command || '').toUpperCase()) {
