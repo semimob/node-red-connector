@@ -43,7 +43,6 @@ module.exports = function (RED) {
         const conn = new Client();
 
         conn.on('connect', function () {
-            node.log('SSH2::connect')
             writeTunnelServerLog(node, 'SSH2 connected.');
         })
         .on('tcp connection', function (info, accept) {
@@ -54,7 +53,8 @@ module.exports = function (RED) {
             });
 
             stream.on('close', function (had_err) {
-                console.log(`TCP closed${had_err ? ': had error' : ''}`);
+                if (has_err)
+                    console.log(`TCP closed with error: ${has_err}`);
             });
 
             //stream.on('data', (data) => {
@@ -126,9 +126,16 @@ module.exports = function (RED) {
                 if (err) {
                     throw err;
                 };
-                
-                writeTunnelServerLog(node, `SSH2 started forwarding from remote port: ${remotePort}`);                
-            })
+
+                writeTunnelServerLog(node, `SSH2 started forwarding from remote port: ${remotePort}`);
+
+                node.smeConnector.postMessage({
+                    Type: "client",
+                    TypeID: SmeTunnelClientMessageTypeID,
+                    Command: 'connect',
+                    TunnelName: node.id,
+                });
+            });
         })
 
         sshConn.connect({ host: sshServer, port: sshPort, username: sshUsername, privateKey: privateKey });
