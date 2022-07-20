@@ -20,7 +20,7 @@ Or run the following command in the root directory of your Node-RED installation
 - Android semilimes Messenger : [![Platform](https://img.shields.io/badge/Google--Play-semilimes%20Messenger-darkgreen.svg)](https://play.google.com/store/apps/details?id=net.semilimes.messenger&hl=en&gl=US)  
 
 ## Dependencies
-The nodes are tested with `Node.js v16.13.1` and `Node-RED v1.3.7`.
+The nodes are tested with `Node.js v12.0.0` and `Node-RED v1.3.7`.
 
 ## Connect to semilimes
 Setup connection to semilimes server in Node-RED flow.

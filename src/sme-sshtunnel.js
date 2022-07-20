@@ -53,11 +53,7 @@ module.exports = function (RED) {
                 stream.on('close', function (had_err) {
                     console.log(`TCP :: closed${had_err ? ' : had error' : ''}`);
                 });
-
-                stream.on('data', (data) => {
-                    console.log('TCP :: DATA: ' + data);
-                });
-
+                
                 stream.pause();
 
                 const socket = net.connect(localPort, localAddr, function () {
@@ -106,9 +102,9 @@ module.exports = function (RED) {
         const privateKey = node.privateKey;
 
         var sshPort = args.SshPort;
-        var sshServer = args.SshServer || 'tunn@tunnels.semilimes.net';
-        var sshUsername = args.SshUsername || 'tunn';
-        var tunnelUrl = args.TunnelUrl || `https://${args.SiteId}.tunnels.semilimes.net`;
+        var sshServer = args.SshServer;
+        var sshUsername = args.SshUsername;
+        var tunnelUrl = args.TunnelUrl;
         var remotePort = args.RemotePort;
 
         const sshConn = createConnection(node, localHost, localPort);
@@ -130,13 +126,6 @@ module.exports = function (RED) {
 
         node.on('close', function () {
             stopTunnel(node);
-        });
-
-        //  Continue the flow.
-        node.send({
-            payload: {
-                TunnelUrl: tunnelUrl,
-            }
         });
     }
     
@@ -170,6 +159,7 @@ module.exports = function (RED) {
 
         var node = this;
 
+        node.name = config.name;
         node.host = config.host;
         node.port = config.port && parseInt(config.port);
         node.publicKey = getCA(node.id);
@@ -217,8 +207,9 @@ module.exports = function (RED) {
                             TypeID: SmeTunnelClientMessageTypeID,
                             Command: 'initialize',
                             TunnelName: node.id,
-                            RemotePort: node.port,  // Suggestion only.
+                            RemotePort: node.port,
                             PublicKey: node.publicKey,
+                            Description: node.name,
                         });
 
                         send(msg, false);
