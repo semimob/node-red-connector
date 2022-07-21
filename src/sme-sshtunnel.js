@@ -79,6 +79,11 @@ module.exports = function (RED) {
             node.status({ fill: "red", shape: "dot", text: "stopped" });
             node.serving = false;
             writeTunnelServerLog(node, `SSH2 closed${had_err ? ' : had error' : ''}`);
+
+            node.send({
+                TunnelStatus: 'stopped',
+                TunnelName: node.name,
+            }, false);
         });
 
         return conn;
@@ -147,6 +152,15 @@ module.exports = function (RED) {
         node.on('close', function () {
             stopTunnel(node);
         });
+
+        node.send({
+            TunnelStatus: 'started',
+            TunnelName: node.name,
+            TunnelUrl: tunnelUrl,
+            LocalHost: localHost,
+            LocalPort: localPort,
+            RemotePort: remotePort,
+        }, false);
     }
     
     function stopTunnel(node) {
@@ -234,7 +248,6 @@ module.exports = function (RED) {
                             Description: node.name,
                         });
 
-                        send(msg, false);
                         break;
 
                     case 'STOP':
@@ -248,7 +261,6 @@ module.exports = function (RED) {
                             TunnelName: node.id,
                         });
 
-                        send(msg, false);
                         break;
 
                     default:
