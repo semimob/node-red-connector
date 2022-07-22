@@ -21,8 +21,8 @@
         ],
         "repeat": "",
         "crontab": "",
-        "once": false,
-        "onceDelay": 0.1,
+        "once": true,
+        "onceDelay": "3",
         "topic": "",
         "x": 170,
         "y": 180,
@@ -36,7 +36,7 @@
         "id": "9be9150a72b09964",
         "type": "sme-sshtunnel",
         "z": "33243d4442855052",
-        "connector": "019e60ac9d193351",
+        "connector": "d41b83de71e38c79",
         "name": "Local Node-RED Tunnel",
         "host": "localhost",
         "port": "1880",
@@ -49,25 +49,25 @@
         ]
     },
     {
-      "id": "263a5eb5b92f2233",
-      "type": "debug",
-      "z": "33243d4442855052",
-      "name": "",
-      "active": true,
-      "tosidebar": true,
-      "console": false,
-      "tostatus": false,
-      "complete": "true",
-      "targetType": "full",
-      "statusVal": "",
-      "statusType": "auto",
-      "x": 840,
-      "y": 180,
-      "wires": []
+        "id": "263a5eb5b92f2233",
+        "type": "debug",
+        "z": "33243d4442855052",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 840,
+        "y": 180,
+        "wires": []
     },
-    {
-        "id": "019e60ac9d193351",
-        "type": "sme-connector",
-        "name": "Production"
-    }
+  {
+    "id": "d41b83de71e38c79",
+    "type": "sme-connector",
+    "name": "Localhost"
+  }
 ]
