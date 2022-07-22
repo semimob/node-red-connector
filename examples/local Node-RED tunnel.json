@@ -11,7 +11,7 @@
         "id": "ed6cf12c36bda5fb",
         "type": "inject",
         "z": "33243d4442855052",
-        "name": "",
+        "name": "Auto start",
         "props": [
             {
                 "p": "Command",
@@ -24,8 +24,8 @@
         "once": true,
         "onceDelay": "3",
         "topic": "",
-        "x": 170,
-        "y": 180,
+        "x": 160,
+        "y": 140,
         "wires": [
             [
                 "9be9150a72b09964"
@@ -36,7 +36,7 @@
         "id": "9be9150a72b09964",
         "type": "sme-sshtunnel",
         "z": "33243d4442855052",
-        "connector": "d41b83de71e38c79",
+        "connector": "019e60ac9d193351",
         "name": "Local Node-RED Tunnel",
         "host": "localhost",
         "port": "1880",
@@ -65,9 +65,34 @@
         "y": 180,
         "wires": []
     },
-  {
-    "id": "d41b83de71e38c79",
-    "type": "sme-connector",
-    "name": "Localhost"
-  }
+    {
+        "id": "137710112dd1daea",
+        "type": "inject",
+        "z": "33243d4442855052",
+        "name": "Click to stop",
+        "props": [
+            {
+                "p": "Command",
+                "v": "Stop",
+                "vt": "str"
+            }
+        ],
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": "3",
+        "topic": "",
+        "x": 170,
+        "y": 240,
+        "wires": [
+            [
+                "9be9150a72b09964"
+            ]
+        ]
+    },
+    {
+      "id": "019e60ac9d193351",
+      "type": "sme-connector",
+      "name": "Production"
+    }
 ]
