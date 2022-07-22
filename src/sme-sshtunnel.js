@@ -43,7 +43,7 @@ module.exports = function (RED) {
         const conn = new Client();
 
         conn.on('connect', function () {
-            writeTunnelServerLog(node, 'SSH2 connected.');
+            node.status({ fill: "green", shape: "dot", text: "connected" });
         })
         .on('tcp connection', function (info, accept) {
             const stream = accept();
@@ -52,9 +52,8 @@ module.exports = function (RED) {
                 console.log(`TCP error: ${err}`);
             });
 
-            stream.on('close', function (had_err) {
-                if (has_err)
-                    console.log(`TCP closed with error: ${has_err}`);
+            stream.on('close', function () {
+                console.log('TCP closed.');
             });
 
             //stream.on('data', (data) => {
@@ -69,21 +68,11 @@ module.exports = function (RED) {
                 stream.resume();
             });
         })
-        .on('error', function (err) {
-            writeTunnelServerLog(node, `SSH2 error: ${err}`);
-        })
         .on('end', function () {
-            writeTunnelServerLog(node, 'SSH2 end.');
+            node.log('SSH2 end.');
         })
-        .on('close', function (had_err) {
+        .on('close', function () {
             node.status({ fill: "red", shape: "dot", text: "stopped" });
-            node.serving = false;
-            writeTunnelServerLog(node, `SSH2 closed${had_err ? ' : had error' : ''}`);
-
-            node.send({
-                TunnelStatus: 'stopped',
-                TunnelName: node.name,
-            }, false);
         });
 
         return conn;
@@ -105,9 +94,9 @@ module.exports = function (RED) {
     }
 
     function startTunnel(node, args) {
-        if (node.serving)
+        if (node.sshConn)
             return;
-        
+
         node.log("Start establishing connection using ssh");
 
         const localHost = node.host;
@@ -126,13 +115,25 @@ module.exports = function (RED) {
 
         const sshConn = createConnection(node, localHost, localPort);
 
-        sshConn.on('ready', function () {
+        sshConn.on('connect', function () {
+            writeTunnelServerLog(node, 'SSH2 connected.');
+
+            node.send({
+                TunnelStatus: 'started',
+                TunnelName: node.name,
+                TunnelUrl: tunnelUrl,
+                LocalHost: localHost,
+                LocalPort: localPort,
+                RemotePort: remotePort,
+            }, false);
+        })
+        .on('ready', function () {
             sshConn.forwardIn('0.0.0.0', remotePort, function (err) {
                 if (err) {
                     throw err;
                 };
 
-                writeTunnelServerLog(node, `SSH2 started forwarding from remote port: ${remotePort}`);
+                writeTunnelServerLog(node, `SSH2 started with remote port: ${remotePort}`);
 
                 node.smeConnector.postMessage({
                     Type: "client",
@@ -142,37 +143,51 @@ module.exports = function (RED) {
                 });
             });
         })
+        .on('error', function (err) {
+            writeTunnelServerLog(node, `SSH2 error: ${err}`);
+        })
+        .on('close', function () {
+            //  Remove current broken connection.
+            node.sshConn = null;
 
-        sshConn.connect({ host: sshServer, port: sshPort, username: sshUsername, privateKey: privateKey });
+            if (node.serving) {
+                writeTunnelServerLog(node, 'SSH reconnecting...');
+
+                node.send({
+                    TunnelStatus: 'connecting',
+                    TunnelName: node.name,
+                }, false);
+
+                startTunnel(node, args);
+                return;
+            }
+
+            writeTunnelServerLog(node, 'SSH closed.');
+        });
 
         node.sshConn = sshConn;
-        node.status({ fill: "green", shape: "dot", text: "connected" });
-        node.serving = true;
+
+        sshConn.connect({ host: sshServer, port: sshPort, username: sshUsername, privateKey: privateKey });
 
         node.on('close', function () {
             stopTunnel(node);
         });
-
-        node.send({
-            TunnelStatus: 'started',
-            TunnelName: node.name,
-            TunnelUrl: tunnelUrl,
-            LocalHost: localHost,
-            LocalPort: localPort,
-            RemotePort: remotePort,
-        }, false);
     }
     
     function stopTunnel(node) {
-        if (!node.serving)
-            return;
-        
-        if (node.sshConn) {
-            node.sshConn.end();
-            node.sshConn = null;
+        var sshConn = node.sshConn;
+        node.sshConn = null;
+
+        if (sshConn) {
+            sshConn.end();
         }
 
         node.status({ fill: "red", shape: "dot", text: "stopped" });
+
+        node.send({
+            TunnelStatus: 'stopped',
+            TunnelName: node.name,
+        }, false);
 
         smeConnector.postMessage({
             Type: "client",
@@ -199,7 +214,6 @@ module.exports = function (RED) {
         node.publicKey = getCA(node.id);
         node.privateKey = getPrivateKey(node.id);
 
-        node.serving = false;
         node.sshConn = null;
 
         //	Listener for message...
@@ -237,6 +251,8 @@ module.exports = function (RED) {
             if (node.host && node.port) {
                 switch ((msg.Command || '').toUpperCase()) {
                     case 'START':
+                        node.serving = true;
+
                         node.log(`Initialize tunnel: ${node.id}`);
                         smeConnector.postMessage({
                             Type: "client",
@@ -251,9 +267,11 @@ module.exports = function (RED) {
                         break;
 
                     case 'STOP':
+                        node.serving = false;
+
                         stopTunnel(node);
 
-                        node.log(`Disconnect tunnel: ${node.id}`);
+                        node.log(`Stop tunnel: ${node.id}`);
                         smeConnector.postMessage({
                             Type: "client",
                             TypeID: SmeTunnelClientMessageTypeID,
