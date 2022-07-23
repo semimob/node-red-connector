@@ -39,7 +39,7 @@ module.exports = function (RED) {
         return privateKey;
     }
 
-    function createConnection(node, localAddr, localPort) {
+    function createConnection(node, clientAddr, clientPort) {
         const conn = new Client();
 
         conn.on('connect', function () {
@@ -62,7 +62,7 @@ module.exports = function (RED) {
 
             stream.pause();
 
-            const socket = net.connect(localPort, localAddr, function () {
+            const socket = net.connect(clientPort, clientAddr, function () {
                 stream.pipe(socket);
                 socket.pipe(stream);
                 stream.resume();
@@ -99,21 +99,21 @@ module.exports = function (RED) {
 
         node.log("Start establishing connection using ssh");
 
-        const localHost = node.host;
-        const localPort = node.port;
+        const clientAddr = node.host;
+        const clientPort = node.port;
         const privateKey = node.privateKey;
 
         var sshPort = args.SshPort;
         var sshServer = args.SshServer;
         var sshUsername = args.SshUsername;
         var tunnelUrl = args.TunnelUrl;
-        var remotePort = args.RemotePort;
+        var serverPort = args.ServerPort;
 
         node.log("Start tunnel")
-        node.log("Remote port: " + remotePort)
-        node.log("Local port: " + localPort)
+        node.log("Remote port: " + serverPort)
+        node.log("Local port: " + clientPort)
 
-        const sshConn = createConnection(node, localHost, localPort);
+        const sshConn = createConnection(node, clientAddr, clientPort);
 
         sshConn.on('connect', function () {
             writeTunnelServerLog(node, 'SSH2 connected.');
@@ -122,18 +122,18 @@ module.exports = function (RED) {
                 TunnelStatus: 'started',
                 TunnelName: node.name,
                 TunnelUrl: tunnelUrl,
-                LocalHost: localHost,
-                LocalPort: localPort,
-                RemotePort: remotePort,
+                ClientHost: clientAddr,
+                ClientPort: clientPort,
+                ServerPort: serverPort,
             }, false);
         })
         .on('ready', function () {
-            sshConn.forwardIn('0.0.0.0', remotePort, function (err) {
+            sshConn.forwardIn('0.0.0.0', serverPort, function (err) {
                 if (err) {
                     throw err;
                 };
 
-                writeTunnelServerLog(node, `SSH2 started with remote port: ${remotePort}`);
+                writeTunnelServerLog(node, `SSH2 started with server port: ${serverPort}`);
 
                 node.smeConnector.postMessage({
                     Type: "client",
@@ -231,7 +231,7 @@ module.exports = function (RED) {
                                 SshPort: connectionInfo.SshPort,
                                 SshServer: connectionInfo.SshServer,
                                 SshUsername: connectionInfo.SshUsername,
-                                RemotePort: connectionInfo.RemotePort,
+                                ServerPort: connectionInfo.ServerPort,
                                 TunnelUrl: connectionInfo.TunnelUrl
                             });
                             break;
@@ -259,7 +259,7 @@ module.exports = function (RED) {
                             TypeID: SmeTunnelClientMessageTypeID,
                             Command: 'initialize',
                             TunnelName: node.id,
-                            RemotePort: node.port,
+                            ClientPort: node.port,
                             PublicKey: node.publicKey,
                             Description: node.name,
                         });

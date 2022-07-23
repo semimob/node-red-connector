@@ -43,9 +43,10 @@ module.exports = function (RED) {
                 case 'connected': {
                     webSocket.send({
                         TypeID: 'A2A9468D-92AB-4176-B883-233FF53DDAFD',
+                        Application: 'semilimes Messenger',
                         Platform: 'Node-RED',
+                        Version: pjson.version,
                         Versions: {
-                            Version: pjson.version,
                             NodeVersion: process.versions.node,
                             NodeREDVersion: RED.version(),
                         },
