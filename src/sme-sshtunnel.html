@@ -11,14 +11,14 @@
         inputs: 1,
         outputs: 1,
         align: 'left',
-        icon: "font-awesome/fa-mobile",
-        paletteLabel: 'tunnel creator',
+        icon: "font-awesome/fa-comment-o",
+        paletteLabel: 'ssh tunnel',
         label: function () {
             if (this.host) {
-                return 'create tunnel: [' + (this.name || '') + '] ' + this.host + ':' + (this.port || '');
+                return 'tunnel: [' + (this.name || '') + '] ' + this.host + ':' + (this.port || '');
             }
 
-            return 'tunnel creator';
+            return 'ssh tunnel';
         },
         labelStyle: function () {
             return this.credentials.host ? "node_label_italic" : "";
@@ -43,6 +43,10 @@
 </script>
 
 <script type="text/html" data-template-name="sme-sshtunnel">
+    <div style="max-width:500px;">semilimes support SSH tunnel which can be used to expose your local webs onto semilimes.</div>
+    <div style="max-width:500px;">Send "Start" and "Stop" in <code>msg.Command</code> to control the SSH tunnel.</div>
+    <br />
+
     <div class="form-row">
         <label for="node-input-connector"><i class="fa fa-cog"></i> Connector</label>
         <input type="text" id="node-input-connector" placeholder="semilimes connector" />
@@ -52,19 +56,19 @@
         <label for="node-input-name"><i class="fa fa-cog"></i> Tunnel name</label>
         <input type="text" id="node-input-name">
     </div>
-    <div style="font-size: smaller;max-width:500px;">Tunnel name must be unique.</div>
+    <div style="font-size: smaller;max-width:500px;">A channel with the same name will be created in your Node-RED account. There you can found your tunnel information.</div>
     <br />
 
     <div class="form-row">
         <label for="node-input-host"><i class="fa fa-cog"></i> Host</label>
-        <input type="text" id="node-input-host" placeholder="Host of the tunnel.">
+        <input type="text" id="node-input-host" placeholder="Your local host.">
     </div>
     <div class="form-row">
         <label for="node-input-port"><i class="fa fa-cog"></i> Port</label>
-        <input type="text" id="node-input-port" placeholder="Port of the tunnel.">
+        <input type="text" id="node-input-port" placeholder="Your local port.">
     </div>
 </script>
 
 <script type="text/html" data-help-name="sme-sshtunnel">
-    <p>Create tunnel.</p>
+    <p>Create a SSH tunnel to semilimes.</p>
 </script>
