@@ -2,7 +2,7 @@
   "name": "node-red-contrib-semilimes",
   "version": "1.0.36",
   "description": "Node-RED semilimes",
-  "author": "Phuc Nguyen",
+  "author": "Phuc Nguyen <nkhhphuc@gmail.com>",
   "license": "Apache 2.0",
   "repository": {
     "type": "git",

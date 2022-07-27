@@ -15,7 +15,7 @@
         paletteLabel: 'ssh tunnel',
         label: function () {
             if (this.host) {
-                return 'tunnel: [' + (this.name || '') + '] ' + this.host + ':' + (this.port || '');
+                return `tunnel [${this.id}:${this.host}:${this.port}] ${this.name}`;
             }
 
             return 'ssh tunnel';
@@ -43,8 +43,8 @@
 </script>
 
 <script type="text/html" data-template-name="sme-sshtunnel">
-    <div style="max-width:500px;">semilimes support SSH tunnel which can be used to expose your local webs onto semilimes.</div>
-    <div style="max-width:500px;">Send "Start" and "Stop" in <code>msg.Command</code> to control the SSH tunnel.</div>
+    <div style="max-width:500px;">SSH tunneling can be used to expose local web services within semilimes.</div>
+    <div style="max-width:500px;">Send "Start" and "Stop" in <code>msg.Command</code> to control SSH tunnel.</div>
     <br />
 
     <div class="form-row">

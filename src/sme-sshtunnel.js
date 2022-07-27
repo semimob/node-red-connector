@@ -151,14 +151,16 @@ module.exports = function (RED) {
             node.sshConn = null;
 
             if (node.serving) {
-                writeTunnelServerLog(node, 'SSH reconnecting...');
+                setTimeout(() => {
+                    writeTunnelServerLog(node, 'SSH reconnecting...');
 
-                node.send({
-                    TunnelStatus: 'connecting',
-                    TunnelName: node.name,
-                }, false);
+                    node.send({
+                        TunnelStatus: 'connecting',
+                        TunnelName: node.name,
+                    }, false);
 
-                startTunnel(node, args);
+                    startTunnel(node, args);
+                }, 5000);
                 return;
             }
 
