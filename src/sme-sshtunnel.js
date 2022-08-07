@@ -116,6 +116,7 @@ module.exports = function (RED) {
         const sshConn = createConnection(node, clientAddr, clientPort);
 
         sshConn.on('connect', function () {
+            node.retry = null;
             writeTunnelServerLog(node, 'SSH2 connected.');
 
             node.send({
@@ -151,8 +152,18 @@ module.exports = function (RED) {
             node.sshConn = null;
 
             if (node.serving) {
+                if (node.retry > 10) {
+                    node.retry = null;
+                    node.serving = false;
+                    writeTunnelServerLog(node, 'SSH failed to connect!');
+                    return;
+                }
+
+                //  Re-connect.
+                node.retry = (node.retry || 0) + 1;
+
                 setTimeout(() => {
-                    writeTunnelServerLog(node, 'SSH reconnecting...');
+                    writeTunnelServerLog(node, `SSH reconnecting (${node.retry})...`);
 
                     node.send({
                         TunnelStatus: 'connecting',
@@ -160,7 +171,7 @@ module.exports = function (RED) {
                     }, false);
 
                     startTunnel(node, args);
-                }, 5000);
+                }, 10000);
                 return;
             }
 
