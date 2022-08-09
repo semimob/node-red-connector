@@ -270,7 +270,7 @@ module.exports = function (RED) {
                         node.serving = true;
 
                         node.log(`Initialize tunnel: ${node.id}`);
-                        smeConnector.postMessage({
+                        this.smeConnector.postMessage({
                             Type: "client",
                             TypeID: SmeTunnelClientMessageTypeID,
                             Command: 'initialize',
@@ -288,7 +288,7 @@ module.exports = function (RED) {
                         stopTunnel(node);
 
                         node.log(`Stop tunnel: ${node.id}`);
-                        smeConnector.postMessage({
+                        this.smeConnector.postMessage({
                             Type: "client",
                             TypeID: SmeTunnelClientMessageTypeID,
                             Command: 'disconnect',
