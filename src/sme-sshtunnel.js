@@ -152,15 +152,16 @@ module.exports = function (RED) {
             node.sshConn = null;
 
             if (node.serving) {
-                if (node.retry > 10) {
+                if (node.retryTimeout > 0 && node.retry > node.retryTimeout) {
                     node.retry = null;
                     node.serving = false;
-                    writeTunnelServerLog(node, 'SSH failed to connect!');
+                    writeTunnelServerLog(node, 'SSH reconnecting timeout!');
                     return;
                 }
 
                 //  Re-connect.
                 node.retry = (node.retry || 0) + 1;
+                var delay = node.retryInterval * 1000;
 
                 setTimeout(() => {
                     writeTunnelServerLog(node, `SSH reconnecting (${node.retry})...`);
@@ -171,7 +172,7 @@ module.exports = function (RED) {
                     }, false);
 
                     startTunnel(node, args);
-                }, 10000);
+                }, delay);
                 return;
             }
 
@@ -224,6 +225,8 @@ module.exports = function (RED) {
         node.name = config.name;
         node.host = config.host;
         node.port = config.port && parseInt(config.port);
+        node.retryInterval = (config.retryInterval && parseInt(config.retryInterval)) || 10;
+        node.retryTimeout = (config.retryTimeout && parseInt(config.retryTimeout)) || 0;
         node.publicKey = getCA(node.id);
         node.privateKey = getPrivateKey(node.id);
 

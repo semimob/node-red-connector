@@ -4,9 +4,11 @@
         color: '#E2D96E',
         defaults: {
             connector: { type: 'sme-connector', required: true },
-            name: { type: 'text', value: 'localhost', required: true },
-            host: { type: 'text', value: 'localhost', required: true },
-            port: { type: 'text', value: '1880', required: true, validate: RED.validators.number() },
+            name: { value: 'localhost', required: true },
+            host: { value: 'localhost', required: true },
+            port: { value: '1880', required: true, validate: RED.validators.number() },
+            retryInterval: { value: 10, required: false },
+            retryTimeout: { value: 0, required: false },
         },
         inputs: 1,
         outputs: 1,
@@ -67,6 +69,20 @@
         <label for="node-input-port"><i class="fa fa-cog"></i> Port</label>
         <input type="text" id="node-input-port" placeholder="Your local port.">
     </div>
+
+    <div class="form-row">
+        <label for="node-input-retryInterval"><i class="fa fa-cog"></i> Reconnect Interval (in second)</label>
+        <input type="text" id="node-input-retryInterval">
+    </div>
+    <div style="font-size: smaller;max-width:500px;">Reconnect if tunnel connection is broken. Default to 10 seconds.</div>
+    <br />
+
+    <div class="form-row">
+        <label for="node-input-retryTimeout"><i class="fa fa-cog"></i> Reconnect Timeout (in minute)</label>
+        <input type="text" id="node-input-retryTimeout">
+    </div>
+    <div style="font-size: smaller;max-width:500px;">Timeout to stop reconnecting when tunnel connection is broken. Set to 0 to disable timeout.</div>
+    <br />
 </script>
 
 <script type="text/html" data-help-name="sme-sshtunnel">
