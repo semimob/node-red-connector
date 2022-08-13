@@ -1,6 +1,6 @@
 {
   "name": "node-red-contrib-semilimes",
-  "version": "1.0.39",
+  "version": "1.0.40",
   "description": "Node-RED semilimes",
   "author": "Phuc Nguyen <nkhhphuc@gmail.com>",
   "license": "Apache 2.0",

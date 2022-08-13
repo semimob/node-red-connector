@@ -184,6 +184,7 @@ module.exports = function (RED) {
         sshConn.connect({ host: sshServer, port: sshPort, username: sshUsername, privateKey: privateKey });
 
         node.on('close', function () {
+            node.serving = false;
             stopTunnel(node);
         });
     }
