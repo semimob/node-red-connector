@@ -7,6 +7,7 @@
             name: { value: 'localhost', required: true },
             host: { value: 'localhost', required: true },
             port: { value: '1880', required: true, validate: RED.validators.number() },
+            path: { value: '', required: false },
             retryInterval: { value: 10, required: false },
             retryTimeout: { value: 0, required: false },
         },
@@ -55,30 +56,34 @@
     </div>
 
     <div class="form-row">
-        <label for="node-input-name"><i class="fa fa-cog"></i> Tunnel name</label>
+        <label for="node-input-name"><i class="fa fa-tag"></i> Tunnel name</label>
         <input type="text" id="node-input-name">
     </div>
     <div style="font-size: smaller;max-width:500px;">A channel with the same name and your tunnel information will be created in your Node-RED account.</div>
     <br />
 
     <div class="form-row">
-        <label for="node-input-host"><i class="fa fa-cog"></i> Host</label>
+        <label for="node-input-host"><i class="fa fa-tag"></i> Host</label>
         <input type="text" id="node-input-host" placeholder="Your local host.">
     </div>
     <div class="form-row">
-        <label for="node-input-port"><i class="fa fa-cog"></i> Port</label>
+        <label for="node-input-port"><i class="fa fa-tag"></i> Port</label>
         <input type="text" id="node-input-port" placeholder="Your local port.">
+    </div>
+    <div class="form-row">
+        <label for="node-input-port"><i class="fa fa-tag"></i> Path</label>
+        <input type="text" id="node-input-path">
     </div>
 
     <div class="form-row">
-        <label for="node-input-retryInterval"><i class="fa fa-cog"></i> Reconnect Interval (in second)</label>
+        <label for="node-input-retryInterval"><i class="fa fa-tag"></i> Reconnect Interval (in seconds)</label>
         <input type="text" id="node-input-retryInterval">
     </div>
     <div style="font-size: smaller;max-width:500px;">Reconnect if tunnel connection is broken. Default to 10 seconds.</div>
     <br />
 
     <div class="form-row">
-        <label for="node-input-retryTimeout"><i class="fa fa-cog"></i> Reconnect Timeout (in minute)</label>
+        <label for="node-input-retryTimeout"><i class="fa fa-tag"></i> Reconnect Timeout (in minutes)</label>
         <input type="text" id="node-input-retryTimeout">
     </div>
     <div style="font-size: smaller;max-width:500px;">Timeout to stop reconnecting when tunnel connection is broken. Set to 0 to disable timeout.</div>

@@ -226,6 +226,7 @@ module.exports = function (RED) {
         node.name = config.name;
         node.host = config.host;
         node.port = config.port && parseInt(config.port);
+        node.path = config.path;
         node.retryInterval = (config.retryInterval && parseInt(config.retryInterval)) || 10;
         node.retryTimeout = (config.retryTimeout && parseInt(config.retryTimeout)) || 0;
         node.publicKey = getCA(node.id);
@@ -277,6 +278,7 @@ module.exports = function (RED) {
                             Command: 'initialize',
                             TunnelName: node.id,
                             ClientPort: node.port,
+                            ClientPath: node.path,
                             PublicKey: node.publicKey,
                             Description: node.name,
                         });
