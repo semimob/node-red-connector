@@ -204,7 +204,7 @@ module.exports = function (RED) {
             TunnelName: node.name,
         }, false);
 
-        smeConnector.postMessage({
+        node.smeConnector.postMessage({
             Type: "client",
             TypeID: SmeTunnelClientMessageTypeID,
             Command: 'disconnect',
@@ -253,6 +253,36 @@ module.exports = function (RED) {
                                 TunnelUrl: connectionInfo.TunnelUrl
                             });
                             break;
+                        case 'START':
+                            node.serving = true;
+
+                            node.log(`Initialize tunnel: ${node.id}`);
+                            node.smeConnector.postMessage({
+                                Type: "client",
+                                TypeID: SmeTunnelClientMessageTypeID,
+                                Command: 'initialize',
+                                TunnelName: node.id,
+                                ClientPort: node.port,
+                                ClientPath: node.path,
+                                PublicKey: node.publicKey,
+                                Description: node.name,
+                            });
+                            break;
+
+                        case 'STOP':
+                            node.serving = false;
+
+                            stopTunnel(node);
+
+                            node.log(`Stop tunnel: ${node.id}`);
+                            node.smeConnector.postMessage({
+                                Type: "client",
+                                TypeID: SmeTunnelClientMessageTypeID,
+                                Command: 'disconnect',
+                                TunnelName: node.id,
+                            });
+                            break;
+
                         default:
                             break;
                     }
@@ -272,7 +302,7 @@ module.exports = function (RED) {
                         node.serving = true;
 
                         node.log(`Initialize tunnel: ${node.id}`);
-                        this.smeConnector.postMessage({
+                        node.smeConnector.postMessage({
                             Type: "client",
                             TypeID: SmeTunnelClientMessageTypeID,
                             Command: 'initialize',
@@ -282,7 +312,6 @@ module.exports = function (RED) {
                             PublicKey: node.publicKey,
                             Description: node.name,
                         });
-
                         break;
 
                     case 'STOP':
@@ -291,13 +320,12 @@ module.exports = function (RED) {
                         stopTunnel(node);
 
                         node.log(`Stop tunnel: ${node.id}`);
-                        this.smeConnector.postMessage({
+                        node.smeConnector.postMessage({
                             Type: "client",
                             TypeID: SmeTunnelClientMessageTypeID,
                             Command: 'disconnect',
                             TunnelName: node.id,
                         });
-
                         break;
 
                     default:
