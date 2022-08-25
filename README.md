@@ -41,6 +41,9 @@ Sample flow to connect to semilimes, send and receive messages.
 # Examples
 - [Sample flows](https://github.com/semimob/node-red-connector/blob/main/examples)
 
+## Handy setup connection to semilimes
+Communication with semilimes is token based. 
+
 # License
 Apache License
 Version 2.0, January 2004
