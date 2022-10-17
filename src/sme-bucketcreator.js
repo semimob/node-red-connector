@@ -84,7 +84,7 @@ module.exports = function (RED) {
                     ObjectInfo: {
                         ObjectType: objectType,
                         Reference: objectReference,
-                        AvatarID: objectAvatar,
+                        AvatarFileID: objectAvatar,
                         Name: objectName,
                         Description: objectDesc,
                         Visisble: objectVisible,
