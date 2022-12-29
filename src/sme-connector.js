@@ -70,17 +70,11 @@ module.exports = function (RED) {
             msg = validateMessage(msg);
             msg.AuthToken = applicationID;
 
-            if (!(msg.ConversationID || msg.ReceiverID || (msg.DeliveryOption && msg.DeliveryOption.ToObject)))
-                msg.ConversationID = applicationID;
-
             webSocket.send(msg);
         }
 
         function sendApiMessage(msg, async) {
             msg = validateMessage(msg);
-
-            if (!(msg.ConversationID || msg.ReceiverID || (msg.DeliveryOption && msg.DeliveryOption.ToObject)))
-                msg.ConversationID = applicationID;
 
             var methodID = async ? '3A01CE9E-F850-4049-AD45-DA372E44B89B' : '4E9DDB53-00A3-4006-AFBC-2C4102EC69C1';
             return apiClient.callApi(methodID, { Token: applicationID, Message: msg });
