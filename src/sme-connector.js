@@ -41,7 +41,7 @@ module.exports = function (RED) {
         webSocket.addStatusListener(status => {
             switch (status) {
                 case 'connected': {
-                    webSocket.send({
+                    sendWebSocketMessage({
                         TypeID: 'A2A9468D-92AB-4176-B883-233FF53DDAFD',
                         Application: 'semilimes Messenger',
                         Platform: 'Node-RED',
