@@ -30,6 +30,7 @@ module.exports = function (RED) {
                 FormTypeConfig: {
                     Title: node.title,
                     ButtonText: node.buttonText,
+                    Value: node.value,
                 },
                 FormValue: node.value,
                 FormRequired: smeFormMsg.FormItems.length == 0 || (node.required == 1),

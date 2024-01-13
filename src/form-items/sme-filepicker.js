@@ -25,7 +25,8 @@ module.exports = function (RED) {
                 FormTypeID: 'ff3d28fa-fed1-435e-b890-8a78dd068859',
                 FormTypeConfig: {
                     Title: node.title,
-                    ButtonText: node.buttonText
+                    ButtonText: node.buttonText,
+                    Value: node.value,
                 },
                 FormValue: node.value,
                 FormRequired: smeFormMsg.FormItems.length == 0 || (node.required == 1),

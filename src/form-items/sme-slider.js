@@ -34,7 +34,8 @@ module.exports = function (RED) {
                     Title: node.title,
                     Min: this.min || 0,
                     Max: this.max || 100,
-                    DivisionStep: this.step || 5
+                    DivisionStep: this.step || 5,
+                    Value: formValue,
                 },
                 FormRequired: smeFormMsg.FormItems.length == 0 || (node.required == 1),
                 FormValue: formValue,

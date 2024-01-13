@@ -28,6 +28,7 @@ module.exports = function (RED) {
                 FormTypeID: 'c23b3dc6-fa62-45fb-850b-3b2196fb0337',
                 FormTypeConfig: {
                     Title: node.title,
+                    Value: formValue,
                 },
                 FormRequired: false,
                 FormValue: formValue,

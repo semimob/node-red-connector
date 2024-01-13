@@ -9,12 +9,13 @@ module.exports = function (RED) {
 
         this.name = config.name;
         this.title = config.title;
+        this.required = config.required;
         this.options = [config.choice1, config.choice2, config.choice3, config.choice4, config.choice5, config.choice6]
             .filter(x => x != null && x != '')
             .map(x => {
                 return { Text: x, Value: x };
             });
-        this.required = config.required;
+        this.value = config.value;
 
         var node = this;
 
@@ -30,8 +31,10 @@ module.exports = function (RED) {
                     FormTypeID: '7be4d759-fdfd-422b-bc18-582f5bee902d',
                     FormTypeConfig: {
                         Title: node.title,
-                        Options: node.options
+                        Options: node.options,
+                        Value: node.value,
                     },
+                    FormValue: node.value,
                     FormRequired: smeFormMsg.FormItems.length == 0 || (node.required == 1),
                     Reference: node.name,
                     AutoSubmit: smeFormMsg.DisabledSubmitButton == true,
