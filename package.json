@@ -1,6 +1,6 @@
 {
   "name": "@nkhhphuc/node-red-contrib-semilimes",
-  "version": "1.0",
+  "version": "1.0.45",
   "description": "Node-RED semilimes",
   "author": "Phuc Nguyen <nkhhphuc@gmail.com>",
   "license": "Apache-2.0",
